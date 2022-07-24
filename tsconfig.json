@@ -21,6 +21,20 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-  ]
+    "src/app"
+  ],
+  "paths": {
+    "@app/*": [
+        "src/app/*"
+    ],
+    "@assets/*": [
+        "src/assets/*"
+    ],
+    "@core/*": [
+        "src/app/core/*"
+    ],
+    "@shared/*": [
+        "src/app/shared/*"
+    ]
+}
 }
