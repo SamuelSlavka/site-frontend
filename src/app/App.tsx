@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          Edit save to reload.
+          Homepage 2.
         </p>
       </header>
     </div>

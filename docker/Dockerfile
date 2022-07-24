@@ -6,7 +6,9 @@ WORKDIR /usr/src
 # Install app dependencies
 COPY package*.json ./
 
-RUN yarn install --production=false
+RUN yarn add react-scripts
+
+RUN yarn install
 
 # add app
 WORKDIR /app
@@ -14,4 +16,4 @@ COPY . /app
 
 EXPOSE 3000
 
-CMD ["yarn", "start", "dev"]
+CMD ["yarn", "start"]
