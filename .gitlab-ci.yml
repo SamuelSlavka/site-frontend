@@ -26,6 +26,7 @@ build:       # This job runs in the build stage, which runs first.
   image: node
   script: 
     - echo "Start building App"
+    - yarn add react-scripts
     - yarn install
     - yarn run build
     - echo "Build successfully!"
