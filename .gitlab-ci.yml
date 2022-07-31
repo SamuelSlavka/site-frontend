@@ -29,11 +29,6 @@ build:       # This job runs in the build stage, which runs first.
     - yarn install
     - yarn run build
     - echo "Build successfully!"
-    artifacts:
-      expire_in: 1 hour
-      paths:
-        - build
-        - node_modules/
 
 test:   # This job runs in the test stage.
   stage: test
