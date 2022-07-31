@@ -32,6 +32,7 @@ build:       # This job runs in the build stage, which runs first.
 
 test:   # This job runs in the test stage.
   stage: test
+  image: node
   script:
     - echo "Running tests"
     - CI=true yarn run test
@@ -39,6 +40,7 @@ test:   # This job runs in the test stage.
 
 lint:   # This job also runs in the test stage.
   stage: test
+  image: node
   script:
     - echo "Linting code todo finsih"
     - sleep 1
