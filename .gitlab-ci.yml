@@ -20,6 +20,7 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
   - docker-build
+  - deploy
 
 build:       # This job runs in the build stage, which runs first.
   stage: build
@@ -59,8 +60,15 @@ docker-build:
     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE"
 
-# deploy:      # This job runs in the deploy stage.
-#   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-#   script:
-#     - echo "Deploying application..."
-#     - echo "Application successfully deployed."
+
+deploy:
+  stage: deploy
+  image: kroniak/ssh-client
+  before_script:
+    - echo "deploying app"
+  script:
+    - chmod 400 $SSH_PRIVATE_KEY
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY root@$PROD_SERVER_IP "docker pull registry.gitlab.com/SamuelSlavka/site-frontend"
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY root@$PROD_SERVER_IP "docker stop frontend || true && docker rm frontend || true"
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY root@$PROD_SERVER_IP "docker run -p 3001:80 -d --name frontend registry.gitlab.com/SamuelSlavka/frontend"
+
