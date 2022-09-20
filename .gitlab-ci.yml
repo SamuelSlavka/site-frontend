@@ -63,11 +63,11 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy:
   stage: deploy
-  image: cloudflare/cloudflared:latest
+  image: docker:latest
   before_script:
     - echo "deploying app"
   script:
-    - tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
+    - docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - chmod 400 key.pem
