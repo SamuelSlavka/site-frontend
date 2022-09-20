@@ -51,9 +51,9 @@ stages:          # List of stages for jobs, and their order of execution
 
 # docker-build:
 #   stage: docker-build
-#   image: docker:latest
-#   services: 
-#     - name: docker:19.03.8-dind
+  # image: docker:latest
+  # services: 
+  #   - name: docker:19.03.8-dind
 #   before_script:
 #     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 #   script:
@@ -63,12 +63,12 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy:
   stage: deploy
-  image: gitlab/dind
-  services:
-    - docker:dind
+  image: docker:latest
+  services: 
+    - name: docker:19.03.8-dind
   before_script:
     - echo "deploying app"
-    - docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
+    - docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$CLOUDFLARE_TOKEN"
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
