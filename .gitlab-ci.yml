@@ -63,7 +63,6 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy:
   stage: deploy
-  image: docker:latest
   before_script:
     - echo "deploying app"
   script:
