@@ -17,57 +17,57 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
 stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
-  - docker-build
+  # - build
+  # - test
+  # - docker-build
   - deploy
 
-build:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: node
-  script: 
-    - echo "Start building App"
-    - yarn install
-    - yarn run build
-    - echo "Build successfully!"
+# build:       # This job runs in the build stage, which runs first.
+#   stage: build
+#   image: node
+#   script: 
+#     - echo "Start building App"
+#     - yarn install
+#     - yarn run build
+#     - echo "Build successfully!"
 
-test:   # This job runs in the test stage.
-  stage: test
-  image: node
-  script:
-    - echo "Running tests"
-    - yarn add react-scripts
-    - CI=true yarn run test
-    - echo "Test successfully"
+# test:   # This job runs in the test stage.
+#   stage: test
+#   image: node
+#   script:
+#     - echo "Running tests"
+#     - yarn add react-scripts
+#     - CI=true yarn run test
+#     - echo "Test successfully"
 
-lint:   # This job also runs in the test stage.
-  stage: test
-  image: node
-  script:
-    - echo "Linting code todo finsih"
-    - sleep 1
-    - echo "Done"
+# lint:   # This job also runs in the test stage.
+#   stage: test
+#   image: node
+#   script:
+#     - echo "Linting code todo finsih"
+#     - sleep 1
+#     - echo "Done"
 
 
-docker-build:
-  stage: docker-build
-  image: docker:latest
-  services: 
-    - name: docker:19.03.8-dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+# docker-build:
+#   stage: docker-build
+#   image: docker:latest
+#   services: 
+#     - name: docker:19.03.8-dind
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#   script:
+#     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+#     - docker push "$CI_REGISTRY_IMAGE"
 
 
 deploy:
   stage: deploy
-  image: kroniak/ssh-client
+  image: cloudflare/cloudflared:latest
   before_script:
     - echo "deploying app"
   script:
-    - docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
+    - tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - chmod 400 key.pem
