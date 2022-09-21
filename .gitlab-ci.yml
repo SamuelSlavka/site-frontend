@@ -63,13 +63,9 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy:
   stage: deploy
-  image: alpine:latest
+  image: kroniak/ssh-client
   before_script:
     - echo "deploying app"
-    - apk update && apk add --no-cache docker docker-cli openssh
-    - docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker --privileged cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$CLOUDFLARE_TOKEN"
-    - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
-    - sleep 4
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - chmod 400 key.pem
