@@ -60,15 +60,14 @@ stages:          # List of stages for jobs, and their order of execution
 #     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
 #     - docker push "$CI_REGISTRY_IMAGE"
 
-image: alpine:latest
 
 deploy:
   stage: deploy
+  image: cloudflare/cloudflared:latest
   before_script:
     - echo "deploying app"
-    - apk update
-    - apk add docker openssh
-    - docker run -d cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$CLOUDFLARE_TOKEN"
+    - apk update && apk add --no-cache docker docker-cli openssh
+    - docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" -d cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$CLOUDFLARE_TOKEN"
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
     - sleep 4
   script:
