@@ -66,7 +66,8 @@ deploy:
   stage: deploy
   before_script:
     - echo "deploying app"
-    - apk add docker ssh
+    - apk update
+    - apk add docker openssh
     - docker run -d cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$CLOUDFLARE_TOKEN"
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
     - sleep 4
