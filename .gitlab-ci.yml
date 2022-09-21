@@ -69,6 +69,7 @@ deploy:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - pwd
+    - cat /etc/ssh/ssh_config
     - chmod 400 key.pem
     - ssh -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker pull registry.gitlab.com/samuelslavka/site-frontend"
     - ssh -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker stop frontend || true && docker rm frontend || true"
