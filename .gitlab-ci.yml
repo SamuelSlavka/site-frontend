@@ -62,18 +62,18 @@ stages:          # List of stages for jobs, and their order of execution
 
 
 deploy:
+  image: docker:latest
   stage: deploy
   before_script:
     - echo "deploying app"
-    # - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-    # - mkdir -p ~/.ssh
-    # - chmod 700 ~/.ssh
-    # - cat /etc/ssh/ssh_config
-    # - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
-    # - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config
-    # - chmod 644 ~/.ssh/known_hosts
-    # - chmod 644 /etc/ssh/ssh_config
+    - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config.d/config.conf
+    - chmod 644 ~/.ssh/known_hosts
+    - chmod 644 /etc/ssh/ssh_config.d/config.conf
   script:
     - pwd
     - chmod 400 key.pem
