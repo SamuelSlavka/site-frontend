@@ -66,7 +66,7 @@ deploy:
   stage: deploy
   before_script:
     - echo "deploying app"
-    - apt-get update && apt-get install openssh-client git cloudflared
+    - apt-get update && apt-get install ssh git cloudflared
     - cloudflared --version
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
