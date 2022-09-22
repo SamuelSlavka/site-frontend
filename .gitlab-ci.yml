@@ -69,6 +69,8 @@ deploy:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
+    - ls /etc/ssh
+    - ls /etc/ssh/ssh_config.d
     - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config.d/config.conf
