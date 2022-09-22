@@ -62,11 +62,11 @@ stages:          # List of stages for jobs, and their order of execution
 
 
 deploy:
-  image: docker:latest
+  image: ubuntu:latest
   stage: deploy
   before_script:
     - echo "deploying app"
-    - apk add openssh-client git cloudflared
+    - apt install openssh-client git cloudflared
     - cloudflared --version
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
