@@ -66,13 +66,13 @@ deploy:
   stage: deploy
   before_script:
     - echo "preparing tunnel"
-    - apt-get -qq update &> /dev/null 
+    - apt-get -qq -o=Dpkg::Use-Pty=0 update 
     - apt-get -y -qq install curl
     - mkdir -p --mode=0755 /usr/share/keyrings
     - curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
     - echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared focal main' | tee /etc/apt/sources.list.d/cloudflared.list
 
-    - apt-get -qq update &> /dev/null
+    - apt-get -qq -o=Dpkg::Use-Pty=0 update
     - apt-get -y -qq install ssh git cloudflared
     - cloudflared --version
 
