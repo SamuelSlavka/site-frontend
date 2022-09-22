@@ -65,20 +65,12 @@ deploy:
   stage: deploy
   before_script:
     - echo "deploying app"
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-
     - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-
-  script:
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
-    - pwd
     - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config
-    - cat /etc/ssh/ssh_config
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
+  script:
+    - pwd
     - chmod 400 key.pem
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker pull registry.gitlab.com/samuelslavka/site-frontend"
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker stop frontend || true && docker rm frontend || true"
