@@ -77,12 +77,9 @@ deploy:
     - echo "preparing ssh"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - mkdir /etc/ssh/ssh_config.d
     - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > key.pem
     - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config.d/config.conf
-    - chmod 644 ~/.ssh/known_hosts
-    - chmod 644 /etc/ssh/ssh_config.d/config.conf
     - echo "deploying"
   script:
     - pwd
