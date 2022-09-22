@@ -65,9 +65,15 @@ deploy:
   image: ubuntu:latest
   stage: deploy
   before_script:
-    - echo "deploying app"
+    - echo "preparing tunnel"
+    - mkdir -p --mode=0755 /usr/share/keyrings
+    - curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+    - echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared focal main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
     - apt-get update && apt-get install ssh git cloudflared
     - cloudflared --version
+
+    - echo "preparing ssh"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - mkdir /etc/ssh/ssh_config.d
@@ -76,6 +82,7 @@ deploy:
     - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config.d/config.conf
     - chmod 644 ~/.ssh/known_hosts
     - chmod 644 /etc/ssh/ssh_config.d/config.conf
+    - echo "deploying"
   script:
     - pwd
     - chmod 400 key.pem
