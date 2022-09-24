@@ -1,48 +1,48 @@
 stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
-  - docker-build
+  # - build
+  # - test
+  # - docker-build
   - deploy
 
-build:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: node
-  script: 
-    - echo "Start building App"
-    - yarn install
-    - yarn run build
-    - echo "Build successfully!"
+# build:       # This job runs in the build stage, which runs first.
+#   stage: build
+#   image: node
+#   script: 
+#     - echo "Start building App"
+#     - yarn install
+#     - yarn run build
+#     - echo "Build successfully!"
 
-test:   # This job runs in the test stage.
-  stage: test
-  image: node
-  script:
-    - echo "Running tests"
-    - yarn add react-scripts
-    - CI=true yarn run test
-    - echo "Test successfully"
+# test:   # This job runs in the test stage.
+#   stage: test
+#   image: node
+#   script:
+#     - echo "Running tests"
+#     - yarn add react-scripts
+#     - CI=true yarn run test
+#     - echo "Test successfully"
 
-lint:   # This job also runs in the test stage.
-  stage: test
-  image: node
-  script:
-    - echo "Linting code"
-    - yarn add react-scripts
-    - CI=true yarn run lint
-    - sleep 1
-    - echo "Done"
+# lint:   # This job also runs in the test stage.
+#   stage: test
+#   image: node
+#   script:
+#     - echo "Linting code"
+#     - yarn add react-scripts
+#     - CI=true yarn run lint
+#     - sleep 1
+#     - echo "Done"
 
 
-docker-build:
-  stage: docker-build
-  image: docker:latest
-  services: 
-    - name: docker:19.03.8-dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+# docker-build:
+#   stage: docker-build
+#   image: docker:latest
+#   services: 
+#     - name: docker:19.03.8-dind
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#   script:
+#     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+#     - docker push "$CI_REGISTRY_IMAGE"
 
 
 deploy:
@@ -65,6 +65,8 @@ deploy:
     - chmod 400 key.pem
     - echo "$SSH_CONFIG" | tr -d '\r' > /etc/ssh/ssh_config.d/config.conf
 
+
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - echo "deploying"
   script:
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker pull registry.gitlab.com/samuelslavka/site-frontend"
