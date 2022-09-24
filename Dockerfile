@@ -1,12 +1,14 @@
 # #  Stage 1 - build
 # base image
-FROM node:16-alpine3.14 as build
+FROM alpine:latest as build
 
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY . /app/
+
+RUN apk add yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 RUN yarn install
 RUN yarn add react-scripts -g
