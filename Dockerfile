@@ -1,14 +1,15 @@
 # #  Stage 1 - build
 # base image
-FROM arm64v8/alpine:latest as build
+FROM arm64v8/ubuntu:latest as build
 
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY . /app/
-
-RUN apk add yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apt update
+RUN apt install nodejs npm
+RUN npm install yarn
 
 RUN yarn install --network-timeout=40000
 RUN yarn add react-scripts -g
