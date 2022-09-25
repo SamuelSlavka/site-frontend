@@ -32,18 +32,23 @@ stages:          # List of stages for jobs, and their order of execution
 #     - sleep 1
 #     - echo "Done"
 
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+
+services: 
+  - docker:dind
 
 docker-build:
   stage: docker-build
-  image: docker:latest
-  services: 
-    - docker:dind
+  #image: docker:latest
+  image: jdrouet/docker-with-buildx:stable
   before_script:
+    - docker buildx create --use
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
-    - docker build --platform linux/amd64 --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker buildx build --platform linux/arm64/v8 --pull -t "$CI_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE"
-
 
 deploy:
   image: ubuntu:latest
