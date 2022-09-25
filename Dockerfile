@@ -8,11 +8,9 @@ WORKDIR /app
 # Install app dependencies
 COPY . /app/
 RUN apk add --update npm
-RUN npm install --global yarn
-RUN rm yarn.lock
-RUN yarn install --network-timeout=400000
-RUN yarn add react-scripts -g
-RUN yarn run build
+RUN npm install
+RUN npm install react-scripts -g
+RUN npm run build
 
 # # stage 2 - deploy
 FROM nginx:latest
