@@ -36,5 +36,6 @@
     "@shared/*": [
         "src/app/shared/*"
     ]
-}
+  },
+  "files": ["./types.d.ts"]
 }

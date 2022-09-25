@@ -4,6 +4,8 @@ import App from './App';
 
 test('App works', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Hayoou/i);
+
+  const linkElement = screen.getByTestId('AppContainer');
+
   expect(linkElement).toBeInTheDocument();
 });

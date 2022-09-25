@@ -1,0 +1,8 @@
+.TimeContainer {
+  @apply flex justify-center text-2xl text-center;
+}
+
+
+.Time {
+  @apply hover:text-middle transition-all ease-in duration-200;
+}
