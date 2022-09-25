@@ -35,9 +35,9 @@ stages:          # List of stages for jobs, and their order of execution
 
 docker-build:
   stage: docker-build
-  image: arm64v8/docker:latest
+  image: docker:latest
   services: 
-    - arm64v8/docker:dind
+    - docker:dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
@@ -51,7 +51,7 @@ deploy:
   before_script:
     - echo "preparing tunnel"
     - apt-get -qq -o=Dpkg::Use-Pty=0 update 
-    - DEBIAN_FRONTEND=noninteractive  apt-get -yqq install curl 2> /dev/null
+    - DEBIAN_FRONTEND=noninteractive apt-get -yqq install curl 2> /dev/null
     - mkdir -p --mode=0755 /usr/share/keyrings
     - curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
     - echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared focal main' | tee /etc/apt/sources.list.d/cloudflared.list
