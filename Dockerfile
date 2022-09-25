@@ -7,10 +7,10 @@ WORKDIR /app
 
 # Install app dependencies
 COPY . /app/
+RUN apk add --update npm
+RUN npm install --global yarn
 
-RUN apk add yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-
-RUN yarn install
+RUN yarn install --network-timeout=40000
 RUN yarn add react-scripts -g
 RUN yarn run build
 
