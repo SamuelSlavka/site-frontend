@@ -1,21 +1,18 @@
-FROM node:12.2.0-alpine as build
+# #  Stage 1 - build
+# base image
+FROM alpine:latest as build
+
 # Create app directory
-WORKDIR /usr/src
+WORKDIR /app
+
 # Install app dependencies
-COPY package*.json ./
+COPY . /app/
+RUN apk add --update npm
+RUN npm install --global yarn
 
-RUN apk add --no-cache --virtual .gyp \
-        python \
-        make \
-        g++ \
-    && npm install \
-    && apk del .gyp
-
-# Copy app source code
-COPY . .
-
-#Build frontend
-RUN npm run build
+RUN yarn install --network-timeout=40000
+RUN yarn add react-scripts -g
+RUN yarn run build
 
 # # stage 2 - deploy
 FROM nginx:latest
