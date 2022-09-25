@@ -8,7 +8,7 @@ WORKDIR /app
 # Install app dependencies
 COPY . /app/
 RUN apt update
-RUN apt install nodejs npm
+RUN apt -y install nodejs npm
 RUN npm install yarn
 
 RUN yarn install --network-timeout=40000
