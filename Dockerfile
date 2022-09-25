@@ -1,17 +1,16 @@
 # #  Stage 1 - build
 # base image
-FROM ubuntu:latest as build
+FROM alpine:latest as build
 
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY . /app/
-RUN apt -yqq -o=Dpkg::Use-Pty=0 update
-RUN apt -yqq install nodejs npm
-RUN npm install yarn
 
-RUN yarn install --network-timeout=40000
+RUN apk add yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+
+RUN yarn install
 RUN yarn add react-scripts -g
 RUN yarn run build
 
