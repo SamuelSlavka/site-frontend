@@ -14,11 +14,11 @@ const NavItem: FC<NavItemProps> = (props) => {
   const redirect = (link: {sub?: string, path?: string}) => {
     if(link.sub) {
       const [prefix, domain] = window.location.href.split('//');
-      const subdomains = domain.split('.')
-      const newHref = `${prefix}//${link.sub}.${subdomains[subdomains.length-1]}`;
+      const subdomains = domain.split('.');
+      const newHref = `${prefix}//${link.sub}.${subdomains[subdomains.length-2]}.${subdomains[subdomains.length-1]}`;
       window.location.href = newHref;
     } else if(link.path) {
-
+      window.location.href = window.location.href + link.path;
     }
   }
 
