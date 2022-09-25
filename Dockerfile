@@ -1,6 +1,6 @@
 # #  Stage 1 - build
 # base image
-FROM arm64v8/alpine:latest as build
+FROM alpine:latest as build
 
 # Create app directory
 WORKDIR /app
@@ -15,7 +15,7 @@ RUN yarn add react-scripts -g
 RUN yarn run build
 
 # # stage 2 - deploy
-FROM arm64v8/nginx:latest
+FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
