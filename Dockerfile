@@ -1,15 +1,20 @@
-# #  Stage 1 - build
-# base image
-FROM alpine:latest as build
-
+FROM node:12.2.0-alpine as build
 # Create app directory
-WORKDIR /app
-
+WORKDIR /usr/src
 # Install app dependencies
-COPY . /app/
-RUN apk add --update npm
-RUN npm install
-RUN npm install react-scripts -g
+COPY package*.json ./
+
+RUN apk add --no-cache --virtual .gyp \
+        python \
+        make \
+        g++ \
+    && npm install \
+    && apk del .gyp
+
+# Copy app source code
+COPY . .
+
+#Build frontend
 RUN npm run build
 
 # # stage 2 - deploy
