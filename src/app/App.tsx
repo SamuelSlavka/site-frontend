@@ -1,6 +1,6 @@
 import "./App.scss";
 import NavItem from "./components/NavItem/NavItem";
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Time from "./components/Time/Time";
 
