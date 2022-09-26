@@ -1,8 +1,5 @@
-import { FC } from "react";
 
-interface LunchRouterProps {}
-
-const LunchRouter: FC<LunchRouterProps> = () => {
+const LunchRouter = () => {
   return (
     <section>
       <h2>Lunch</h2>
