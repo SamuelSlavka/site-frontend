@@ -9,11 +9,11 @@ WORKDIR /app
 COPY . /app/
 RUN apk add --update npm
 RUN npm install --global yarn
-RUN set -ex; \
-  yarn install --network-timeout=400000 --frozen-lockfile --production; \
-  yarn run build; \
-  yarn cache clean; \
-  yarn run build
+RUN rm package-lock.json
+RUN rm yarn.lock
+RUN yarn install --network-timeout=400000
+RUN yarn add react-scripts -g
+RUN yarn run build
 
 # # stage 2 - deploy
 FROM nginx:latest
