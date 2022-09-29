@@ -6,6 +6,12 @@
       "dom.iterable",
       "esnext"
     ],
+    "noImplicitReturns": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,24 +24,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src/app"
-  ],
-  "paths": {
-    "@app/*": [
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": [
         "src/app/*"
-    ],
-    "@assets/*": [
-        "src/assets/*"
-    ],
-    "@core/*": [
-        "src/app/core/*"
-    ],
-    "@shared/*": [
-        "src/app/shared/*"
-    ]
+      ],
+    },
   },
-  "files": ["./types.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "files": [
+    "./types.d.ts",
+  ],
 }

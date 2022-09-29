@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     browser: true,
+    node: true,
     es6: true,
   },
   extends: ["plugin:react/recommended", "airbnb"],
@@ -16,6 +17,14 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  plugins: ["react", "@typescript-eslint", "html"],
+  rules: {
+    indent: [
+      "error",
+      4,
+      {
+        SwitchCase: 1,
+      },
+    ],
+  },
 };

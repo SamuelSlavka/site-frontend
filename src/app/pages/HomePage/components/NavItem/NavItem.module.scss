@@ -1,8 +1,12 @@
 
 .item-element {
-  min-width: 10rem;
+  min-width: 14rem;
 }
 
 .NavItem {
   @apply text-2xl item-element p-2 m-2 bg-dark hover:text-black hover:shadow-sm hover:bg-light hover:shadow-dark rounded transition-all ease-in duration-200;
+}
+
+.ItemText {
+  @apply px-4
 }

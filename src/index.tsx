@@ -1,28 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import "./index.scss";
+import { Provider } from "react-redux";
 
-import App from "./app/App";
-import LunchRouter from "./app/routes/LunchRouter";
-import MissingPageRouter from "./app/routes/MissingPageRouter";
+import "./index.scss";
+import Router from "./app/router";
+import store from "./app/store";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <BrowserRouter>
     <React.StrictMode>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="lunch" element={<LunchRouter />} />
-        </Route>
-        <Route path="*" element={<MissingPageRouter />} />
-      </Routes>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Router />
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>
-  </BrowserRouter>
 );
 
 reportWebVitals();

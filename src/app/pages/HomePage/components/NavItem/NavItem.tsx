@@ -22,10 +22,12 @@ const NavItem: FC<NavItemProps> = (props) => {
 
   return (
     <button onClick={() => redirect(props.link)} className={styles.NavItem} data-testid="NavItem">
-      <FontAwesomeIcon icon={props.icon} />
-      <span className="ml-4">
-        {props.name}
-      </span>
+      <section className='py-3'>
+        <FontAwesomeIcon icon={props.icon} />
+        <span className={styles.ItemText}>
+          {props.name}
+        </span>
+      </section>
     </button>
   );
 };

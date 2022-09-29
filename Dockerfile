@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app/
 RUN apk add --update npm
 RUN npm install --global yarn
-RUN yarn install --network-timeout=400000
+RUN yarn install --prefer-offline --frozen-lockfile --network-timeout=400000
 RUN yarn add react-scripts -g
 RUN yarn run build
 
