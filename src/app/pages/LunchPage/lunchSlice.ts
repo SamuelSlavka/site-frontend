@@ -1,6 +1,6 @@
 import { RootState } from '@app/store';
 import { LunchState, LunchValue } from './lunchModel';
-// import { client } from '@app/api/client';
+import { client } from 'src/app/api/client';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: LunchState = {
@@ -44,7 +44,7 @@ export default lunchSlice.reducer;
 
 export const fetchLunch = (restaurantId: string) => async (dispatch: any) => {
     dispatch(lunchLoading());
-    const response = restaurantId; //await client.get(restaurantId);
+    const response = await client.get('stuff');
     dispatch(lunchLoaded({ value: { value: response, restaurantId } }));
 };
 

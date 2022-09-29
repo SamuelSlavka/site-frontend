@@ -17,7 +17,7 @@ export async function client(endpoint: string, options?: ApiRequestOptions) {
       },
     }
   
-    if (options?.customConfig.body) {
+    if (options?.customConfig?.body) {
         config.body = JSON.stringify(options?.customConfig.body)
     }
   
