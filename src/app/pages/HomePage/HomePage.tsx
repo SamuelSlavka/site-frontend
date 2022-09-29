@@ -7,7 +7,6 @@ function HomePage() {
     return (
         <section className="py-16 bg-black h-full" data-testid="HomePage">
             <div className="text-white">
-                <i className="fa-solid fa-jar" />
                 <h1 className="text-center text-5xl font-bold mb-16">
                     Hello there
                 </h1>

@@ -1,0 +1,15 @@
+.SelectorContainer{
+    width: 50%;
+    max-width: 50rem;
+    @apply text-black  m-auto
+}
+
+.SearchField {
+    min-height: 1.25rem;
+    @apply block truncate
+}
+
+.InnerText {
+    min-height: 1.5rem;
+    @apply block truncate
+}

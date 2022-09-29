@@ -44,7 +44,7 @@ const LunchPage: FC<LunchPageProps> = () => {
             <section>
                 <h1 className="text-center text-5xl font-bold mt-16">Lunch</h1>
             </section>
-            <section className="text-center my-2 mb-8">
+            <section className="text-center mt-4 mb-8">
                 <Link to="/">
                     <span>{"< home"}</span>
                 </Link>
