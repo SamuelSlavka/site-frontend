@@ -19,7 +19,7 @@ const LunchPage: FC<LunchPageProps> = () => {
 
     const lunchList = lunches?.map((lunch: LunchValue, lunchIndex: number) => (
         <section key={lunchIndex} className="my-8">
-            {lunch.value.map((valueItem: string, valueIndex: number) => 
+            {(lunch.value ?? []).map((valueItem: string, valueIndex: number) => 
                 <section key={valueIndex} className="text-center my-2">
                     {valueItem}
                 </section>
