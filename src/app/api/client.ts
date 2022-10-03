@@ -2,9 +2,7 @@ type ApiRequestOptions = {
     [key: string]: any;
 };
 
-// const baseUrl = 'http://localhost:5000/api/'
-// TODO: move to config or .env 
-const baseUrl = 'https://sam-sla.net/api/'
+const baseUrl = process.env.REACT_APP_API_URL
 
 export async function client(endpoint: string, options?: ApiRequestOptions) {
   const headers = { 'Content-Type': 'application/json' }
