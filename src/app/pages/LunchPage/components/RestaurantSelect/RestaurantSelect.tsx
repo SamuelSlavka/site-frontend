@@ -14,7 +14,7 @@ const RestaurantSelect = () => {
   const toggleRestaurant = (id: string) => {
     dispatch(restaurantSlice.actions.toggleRestaurant({ id }));
   }
-  
+
   return (
     <div className={styles.SelectorContainer} data-testid="RestaurantSelect">
       <Listbox value={selectedRestaurants} multiple>
@@ -33,7 +33,7 @@ const RestaurantSelect = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="z-[10] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className={styles.OptionList}>
               {restaurants.map((restaurant) => (
                 <Listbox.Option
                   key={restaurant.id}
@@ -44,11 +44,21 @@ const RestaurantSelect = () => {
                   onClick={() => { toggleRestaurant(restaurant.id) }}
                 >
                   {({ selected }) => (
-                    <div className={`py-2 pl-10 pr-4 rounded-md ${selected ? 'hover:bg-middle font-bold shadow-md text-black': 'text-dark'}`}>
-                      <span className={styles.InnerText}>
-                        {restaurant.restaurant_name}
-                      </span>
-                    </div>
+                    <section>
+                      {
+                        selected ?
+                          <span className={`${styles.SearchIcon} absolute inset-y-0 left-2 flex items-center pl-3 text-amber-600`}>
+                            <FontAwesomeIcon icon={solid("check")} />
+                          </span> :
+                          <></>
+                      }
+
+                      <div className={`py-2 pl-10 pr-4 rounded-md ${selected ? 'hover:bg-middle font-bold shadow-md text-black' : 'text-dark'}`}>
+                        <span className={styles.InnerText}>
+                          {restaurant.restaurant_name}
+                        </span>
+                      </div>
+                    </section>
                   )}
                 </Listbox.Option>
               ))}
