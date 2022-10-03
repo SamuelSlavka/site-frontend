@@ -10,7 +10,7 @@ COPY . /app/
 # RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
     
 RUN apk --no-cache --virtual build-dependencies add \
-      python \
+      python3 \
       make \
       g++ \
   && yarn install --production \
