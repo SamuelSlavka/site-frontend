@@ -1,24 +1,24 @@
 .SelectorContainer{
     width: 50%;
     max-width: 50rem;
-    @apply text-black m-auto rounded-lg hover:ring-4 ring-light transition-all ease-in-out duration-200
+    @apply text-black m-auto rounded-lg hover:ring-4 ring-light transition-all ease-in-out duration-200;
 }
 
 .SearchField {
     min-height: 1.5rem;
-    @apply block truncate 
+    @apply block truncate ;
 }
 
 .InnerText {
     min-height: 1.5rem;
-    @apply block truncate
+    @apply block truncate;
 }
 
 .OptionList {
     z-index: 10;
-    @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm
+    @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
 }
 
 .ActiveItem {
-    @apply hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-200
+    @apply hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-200;
 }

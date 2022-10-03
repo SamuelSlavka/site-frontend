@@ -37,7 +37,7 @@ const LunchPage = () => {
     return (
         <div data-testid="LunchPage">
             <section>
-                <h1 className="text-center">
+                <h1 className="text-center mt-16">
                     <span className={styles.HeaderText}>
                         Lunch
                     </span>
