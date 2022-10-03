@@ -1,6 +1,5 @@
 import { RootState } from '../../store';
 import { LunchState, LunchValue } from './lunchModel';
-// import { client } from 'src/app/api/client';
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { client } from '../../api/client';
 import { selectRestaurantEntities } from './restaurantSlice';
@@ -31,8 +30,7 @@ export const lunchSlice = createSlice({
     }
 });
 
-export const { lunchLoaded, lunchLoading } =
-    lunchSlice.actions;
+export const { lunchLoaded, lunchLoading } = lunchSlice.actions;
 export default lunchSlice.reducer;
 
 export const fetchLunches = createAsyncThunk(

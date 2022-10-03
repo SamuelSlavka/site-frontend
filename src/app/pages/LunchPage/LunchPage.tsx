@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -13,22 +13,32 @@ import RestaurantSelect from "./components/RestaurantSelect/RestaurantSelect";
 interface LunchPageProps { }
 
 const LunchPage: FC<LunchPageProps> = () => {
-    const lunches = useSelector(selectFilteredLunches);
     const restaurants = useSelector(selectRestaurants);
-    const lunchList = lunches?.map((lunch: LunchValue, index: number) => (
-        <section key={index} className="text-center my-2">
-            {lunch.restaurant_id}
+    const lunches = useSelector(selectFilteredLunches);
+    const lunchesLoaded = useRef<boolean>(false);
+
+    const lunchList = lunches?.map((lunch: LunchValue, lunchIndex: number) => (
+        <section key={lunchIndex} className="my-8">
+            {lunch.value.map((valueItem: string, valueIndex: number) => 
+                <section key={valueIndex} className="text-center my-2">
+                    {valueItem}
+                </section>
+            )}
         </section>
     ));
 
     useEffect(() => {
-        return () => {
-            const allIds = restaurants.map((restaurant) => restaurant.id);
-            store.dispatch(fetchRestaurants());
-            store.dispatch(fetchLunches(allIds));
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        store.dispatch(fetchRestaurants());
     }, []);
+
+    // run only on first restarants load 
+    useEffect(() => {
+        if(!lunchesLoaded.current){
+            const allIds = restaurants.map((restaurant) => restaurant.id);
+            store.dispatch(fetchLunches(allIds));
+            lunchesLoaded.current = true;
+        }
+    }, [restaurants]);
 
     return (
         <div data-testid="LunchPage">

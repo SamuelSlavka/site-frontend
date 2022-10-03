@@ -7,5 +7,5 @@ export interface LunchState {
 export interface LunchValue {
     id: string;
     restaurant_id: string;
-    value: {[id: string]: string}
+    value: string[]
 }
