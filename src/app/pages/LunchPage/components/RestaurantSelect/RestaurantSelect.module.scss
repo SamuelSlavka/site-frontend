@@ -1,5 +1,5 @@
 .SelectorContainer{
-    width: 50%;
+    width: 90%;
     max-width: 50rem;
     @apply text-black m-auto rounded-lg hover:ring-4 ring-light transition-all ease-in-out duration-200;
 }
@@ -20,5 +20,5 @@
 }
 
 .ActiveItem {
-    @apply hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-200;
+    @apply hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-100;
 }
