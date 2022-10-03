@@ -1,12 +1,12 @@
 .SelectorContainer{
     width: 50%;
     max-width: 50rem;
-    @apply text-black  m-auto
+    @apply text-black m-auto rounded-lg hover:ring-2 ring-light transition-all ease-in-out duration-300
 }
 
 .SearchField {
     min-height: 1.5rem;
-    @apply block truncate
+    @apply block truncate 
 }
 
 .InnerText {

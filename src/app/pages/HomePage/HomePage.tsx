@@ -7,7 +7,7 @@ function HomePage() {
     return (
         <section className="py-16 bg-black h-full" data-testid="HomePage">
             <div className="text-white">
-                <h1 className="text-center text-5xl font-bold mb-16">
+                <h1 className="text-center text-5xl font-bold mb-16 hover:text-light ease-in-out duration-200">
                     Hello there
                 </h1>
                 <Time />

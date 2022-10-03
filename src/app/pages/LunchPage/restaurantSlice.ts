@@ -54,6 +54,10 @@ export const restaurantSlice = createSlice({
     }
 });
 
+export const {
+    selectById: selectRestaurantById,
+  } = restaurantAdapter.getSelectors((state: RootState) => state.restaurant)
+
 export const { toggleRestaurant, restaurantsLoading, restaurantsLoaded } = restaurantSlice.actions;
 export default restaurantSlice.reducer;
 
@@ -69,12 +73,6 @@ export const fetchRestaurants = createAsyncThunk(
 export const selectRestaurantEntities = (state: RootState) =>
     state.restaurant.entities;
 
-export const selectRestaurantById = (
-    state: RootState,
-    restaurant_id: string
-) => {
-    return selectRestaurantEntities(state)[restaurant_id];
-};
 
 export const selectRestaurants = createSelector(
     selectRestaurantEntities,

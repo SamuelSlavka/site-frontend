@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -9,22 +9,15 @@ import { fetchRestaurants, selectRestaurants } from "./restaurantSlice";
 import store from '../../store';
 import { LunchValue } from "./lunchModel";
 import RestaurantSelect from "./components/RestaurantSelect/RestaurantSelect";
+import LunchCard from "./components/LunchCard/LunchCard";
 
-interface LunchPageProps { }
-
-const LunchPage: FC<LunchPageProps> = () => {
+const LunchPage = () => {
     const restaurants = useSelector(selectRestaurants);
     const lunches = useSelector(selectFilteredLunches);
     const lunchesLoaded = useRef<boolean>(false);
 
     const lunchList = lunches?.map((lunch: LunchValue, lunchIndex: number) => (
-        <section key={lunchIndex} className="my-8">
-            {(lunch.value ?? []).map((valueItem: string, valueIndex: number) => 
-                <section key={valueIndex} className="text-center my-2">
-                    {valueItem}
-                </section>
-            )}
-        </section>
+        <LunchCard key={lunchIndex} lunch={lunch} />
     ));
 
     useEffect(() => {
@@ -43,15 +36,19 @@ const LunchPage: FC<LunchPageProps> = () => {
     return (
         <div data-testid="LunchPage">
             <section>
-                <h1 className="text-center text-5xl font-bold mt-16">Lunch</h1>
+                <h1 className="text-center text-5xl font-bold mt-16 transition-all ease-in-out duration-200 hover:text-light">Lunch</h1>
             </section>
-            <section className="text-center mt-4 mb-8">
+            <section className="text-right p-4 absolute top-0 right-0 h-16 w-32">
                 <Link to="/">
-                    <span>{"< home"}</span>
+                    <span className="transition-all hover:text-light ease-in-out duration-200">{"< home"}</span>
                 </Link>
             </section>
-            <RestaurantSelect />
-            {lunchList}
+            <section className="m-4 ">
+                <RestaurantSelect />
+            </section>
+            <section className="m-4 flex w-100 flex-wrap justify-center">
+                {lunchList}
+            </section>
         </div>
     );
 };
