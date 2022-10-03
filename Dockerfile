@@ -1,6 +1,6 @@
 # #  Stage 1 - build
 # base image
-FROM node:12-alpine as build
+FROM node:12.2.0-alpine as build
 
 # Create app directory
 WORKDIR /app
@@ -9,14 +9,16 @@ WORKDIR /app
 COPY . /app/
 # RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
-RUN apk add --no-cache python2 g++ make
 
-RUN apk --no-cache --virtual build-dependencies add \
-      python2 \
-      make \
-      g++ 
+RUN apk add --no-cache --virtual .gyp \
+        python \
+        make \
+        g++ \
+    && yarn install \
+    && apk del .gyp
 
-RUN yarn install --production 
+
+
 RUN yarn run build 
 
 # # stage 2 - deploy
