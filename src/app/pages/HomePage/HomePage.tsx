@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Time from "./components/Time/Time";
 
+import styles from './HomePage.module.scss';
+
 function HomePage() {
     return (
         <section className="py-16 bg-black h-full" data-testid="HomePage">
             <div className="text-white">
-                <h1 className="text-center text-5xl font-bold mb-16 hover:text-light ease-in-out duration-200">
+                <h1 className={styles.HeaderText}>
                     Hello there
                 </h1>
                 <Time />

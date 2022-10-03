@@ -37,9 +37,7 @@ const RestaurantSelect = () => {
               {restaurants.map((restaurant) => (
                 <Listbox.Option
                   key={restaurant.id}
-                  className={({ active }) =>
-                    `hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow`
-                  }
+                  className={({ active }) => styles.ActiveItem }
                   value={restaurant}
                   onClick={() => { toggleRestaurant(restaurant.id) }}
                 >
@@ -53,7 +51,7 @@ const RestaurantSelect = () => {
                           <></>
                       }
 
-                      <div className={`py-2 pl-10 pr-4 rounded-md ${selected ? 'hover:bg-middle font-bold shadow-md text-black' : 'text-dark'}`}>
+                      <div className="py-2 pl-10 pr-4 rounded-md">
                         <span className={styles.InnerText}>
                           {restaurant.restaurant_name}
                         </span>

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './LunchCard.module.scss';
 import { restaurantSlice, selectRestaurantById } from '../../restaurantSlice';
@@ -12,10 +12,6 @@ interface LunchCardProps {
 const LunchCard: FC<LunchCardProps>  = (props) => {
   const restaurant_id = props.lunch.restaurant_id;
   const restaurant = useSelector((state: RootState) => selectRestaurantById(state, restaurant_id));
-
-  useEffect(() => {
-    console.log(restaurant)
-  });
 
   const dispatch = useDispatch();
   const lunchItems = props.lunch.value.map((item, index) => (
@@ -35,9 +31,9 @@ const LunchCard: FC<LunchCardProps>  = (props) => {
   };
 
   return (
-    <div className={`${styles.LunchCard} relative grow flex flex-col m-4 bg-white text-black max-w-sm rounded overflow-hidden shadow-lg hover:ring-2 ring-light transition-all ease-in-out duration-300`} data-testid="LunchCard">
+    <div className={styles.LunchCard} data-testid="LunchCard">
       <div className="text-right p-2 absolute top-0 right-0 h-16 w-32 text-xs">
-        <button onClick={() => toggleRestaurant(restaurant?.id)} className="rounded text-dark font-bold p-2 bg-light hover:bg-middle hover:text-light transition-all ease-in-out duration-200">
+        <button onClick={() => toggleRestaurant(restaurant?.id)} className={styles.HideButton}>
             {`hide ${restaurant?.restaurant_name}`}
         </button>
       </div>
@@ -46,7 +42,7 @@ const LunchCard: FC<LunchCardProps>  = (props) => {
         {lunchItems}
       </div>
       <div className="p-4 place-self-end mt-auto">
-        <button onClick={() => openRestaurant(restaurant?.restaurant_endpoint)} className="text-sm inline-block bg-blue-500 text-dark bg-light hover:bg-dark hover:text-light transition-all ease-in-out duration-200 font-bold py-2 px-4 rounded">
+        <button onClick={() => openRestaurant(restaurant?.restaurant_endpoint)} className={styles.LinkButton}>
           {`link to ${restaurant?.restaurant_name}`}
         </button>
       </div>
