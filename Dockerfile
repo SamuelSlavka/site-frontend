@@ -8,14 +8,16 @@ WORKDIR /app
 # Install app dependencies
 COPY . /app/
 # RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-    
+
+RUN apk add --no-cache python2 g++ make
+
 RUN apk --no-cache --virtual build-dependencies add \
-      python3 \
+      python2 \
       make \
-      g++ \
-  && yarn install --production \
-  && yarn run build \
-  && apk del build-dependencies
+      g++ 
+
+RUN yarn install --production 
+RUN yarn run build 
 
 # # stage 2 - deploy
 FROM nginx:latest
