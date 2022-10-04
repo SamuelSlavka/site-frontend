@@ -15,9 +15,14 @@ const LunchCard: FC<LunchCardProps>  = (props) => {
 
   const dispatch = useDispatch();
   const lunchItems = props.lunch.value.map((item, index) => (
-    <p className="text-gray-700 text-base" key={index}>
-          {item}
-    </p>
+    <div className={styles.CardText} key={index}>
+      <div className="text-gray-700 text-base col-span-7" key={index+1}>
+            {item['text']}
+      </div>
+      <div className="text-gray-700 text-base col-span-1 text-end" key={index}>
+            {item['price']}
+      </div>
+    </div>
   ))
 
   const toggleRestaurant = (id: string | undefined) => {
@@ -32,16 +37,16 @@ const LunchCard: FC<LunchCardProps>  = (props) => {
 
   return (
     <div className={styles.LunchCard} data-testid="LunchCard">
-      <div className="text-right p-2 absolute top-0 right-0 h-16 w-32 text-xs">
-        <button onClick={() => toggleRestaurant(restaurant?.id)} className={styles.HideButton}>
+      <div className={styles.HideContent}>
+        <button className={styles.HideButton} onClick={() => toggleRestaurant(restaurant?.id)}>
             {`hide ${restaurant?.restaurant_name}`}
         </button>
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{restaurant?.restaurant_name}</div>
+        <div className="font-bold text-xl mb-6">{restaurant?.restaurant_name}</div>
         {lunchItems}
       </div>
-      <div className="p-4 place-self-end mt-auto">
+      <div className="pb-4 pr-4 place-self-end mt-auto">
         <button onClick={() => openRestaurant(restaurant?.restaurant_endpoint)} className={styles.LinkButton}>
           {`link to ${restaurant?.restaurant_name}`}
         </button>

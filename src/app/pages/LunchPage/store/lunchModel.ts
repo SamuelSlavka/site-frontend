@@ -7,5 +7,10 @@ export interface LunchState {
 export interface LunchValue {
     id: string;
     restaurant_id: string;
-    value: string[]
+    value: LunchItemValue[]
+}
+
+export interface LunchItemValue {
+    text: string;
+    price: string;
 }
