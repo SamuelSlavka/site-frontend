@@ -1,5 +1,6 @@
-import { RootState } from '../../store';
-import { client } from '../../api/client';
+import { RootState } from '@app/store';
+import { client } from '../../../api/client';
+
 import {
     createEntityAdapter, createAsyncThunk, createSelector, createSlice, PayloadAction
 } from '@reduxjs/toolkit';
@@ -33,7 +34,7 @@ export const restaurantSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchRestaurants.fulfilled,
+        builder.addCase(fetchAllRestaurants.fulfilled,
             (state: RestaurantState, action: PayloadAction<RestaurantModel[]>) => {
                 const selectedPayload: RestaurantModel[] = [];
                 action.payload.map(restaurant => {
@@ -62,10 +63,10 @@ export const { toggleRestaurant, restaurantsLoading, restaurantsLoaded } = resta
 export default restaurantSlice.reducer;
 
 
-export const fetchRestaurants = createAsyncThunk(
-    'restaurants/fetch',
+export const fetchAllRestaurants = createAsyncThunk(
+    'all_restaurants/fetch',
     async (thunkAPI) => {
-        const response = await client.get('restaurants');
+        const response = await client.get('all_restaurants');
         return response.data
     }
 )

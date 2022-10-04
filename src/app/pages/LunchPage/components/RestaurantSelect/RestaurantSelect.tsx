@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './RestaurantSelect.module.scss';
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { restaurantSlice, selectFilteredRestaurants, selectRestaurants } from '../../restaurantSlice';
+import { restaurantSlice, selectFilteredRestaurants, selectRestaurants } from '../../store/restaurantSlice';
 
 const RestaurantSelect = () => {
   const restaurants = useSelector(selectRestaurants);

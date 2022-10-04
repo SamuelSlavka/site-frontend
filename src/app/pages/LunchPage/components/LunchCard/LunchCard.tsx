@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './LunchCard.module.scss';
-import { restaurantSlice, selectRestaurantById } from '../../restaurantSlice';
-import { LunchValue } from '../../lunchModel';
-import { RootState } from '../../../../store';
+import { restaurantSlice, selectRestaurantById } from '../../store/restaurantSlice';
+import { LunchValue } from '../../store/lunchModel';
+import { RootState } from '@app/store';
 
 interface LunchCardProps {
   lunch: LunchValue

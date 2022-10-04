@@ -1,7 +1,7 @@
-import { RootState } from '../../store';
+import { RootState } from '@app/store';
 import { LunchState, LunchValue } from './lunchModel';
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { client } from '../../api/client';
+import { client } from '../../../api/client';
 import { selectRestaurantEntities } from './restaurantSlice';
 
 const initialState: LunchState = {
@@ -27,6 +27,10 @@ export const lunchSlice = createSlice({
             state.lunches = action.payload;
             state.loading = true;
         })
+        builder.addCase(fetchAllLunches.fulfilled, (state, action) => {
+            state.lunches = action.payload;
+            state.loading = true;
+        })
     }
 });
 
@@ -37,6 +41,15 @@ export const fetchLunches = createAsyncThunk(
     'lunches/fetch',
     async (restaurantList: string[],thunkAPI) => {
         const response = await client.post('lunches', {restaurantIds: restaurantList});
+        return response.data
+    }
+)
+
+
+export const fetchAllLunches = createAsyncThunk(
+    'all_lunches/fetch',
+    async (thunkAPI) => {
+        const response = await client.get('all_lunches');
         return response.data
     }
 )

@@ -1,38 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-    fetchLunches,
-    selectFilteredLunches,
-} from "./lunchSlice";
-import { fetchRestaurants, selectRestaurants } from "./restaurantSlice";
+import { fetchAllLunches, selectFilteredLunches } from "./store/lunchSlice";
+import { fetchAllRestaurants } from "./store/restaurantSlice";
 import store from '../../store';
-import { LunchValue } from "./lunchModel";
+import { LunchValue } from "./store/lunchModel";
 import RestaurantSelect from "./components/RestaurantSelect/RestaurantSelect";
 import LunchCard from "./components/LunchCard/LunchCard";
 import styles from './LunchPage.module.scss';
 
 const LunchPage = () => {
-    const restaurants = useSelector(selectRestaurants);
     const lunches = useSelector(selectFilteredLunches);
-    const lunchesLoaded = useRef<boolean>(false);
 
     const lunchList = lunches?.map((lunch: LunchValue, lunchIndex: number) => (
         <LunchCard key={lunchIndex} lunch={lunch} />
     ));
 
     useEffect(() => {
-        store.dispatch(fetchRestaurants());
+        store.dispatch(fetchAllRestaurants());
+        store.dispatch(fetchAllLunches());
     }, []);
-
-    // run only on first restarants load 
-    useEffect(() => {
-        if(!lunchesLoaded.current){
-            const allIds = restaurants.map((restaurant) => restaurant.id);
-            store.dispatch(fetchLunches(allIds));
-            lunchesLoaded.current = true;
-        }
-    }, [restaurants]);
 
     return (
         <div data-testid="LunchPage">

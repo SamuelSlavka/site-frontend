@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import lunchReducer from './pages/LunchPage/lunchSlice';
-import restaurantReducer from './pages/LunchPage/restaurantSlice';
+import lunchReducer from './pages/LunchPage/store/lunchSlice';
+import restaurantReducer from './pages/LunchPage/store/restaurantSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistReducer,
