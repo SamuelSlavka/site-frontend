@@ -38,7 +38,7 @@ const LunchPage = () => {
             <section className="m-4 ">
                 <RestaurantSelect />
             </section>
-            <section className="m-4 flex w-100 flex-wrap justify-center">
+            <section className="m-4 flex w-100 flex-wrap justify-center transition-all ease-in-out duration-300">
                 {lunchList}
             </section>
         </div>
