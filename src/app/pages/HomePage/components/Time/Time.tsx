@@ -29,4 +29,5 @@ const Time: FC<TimeProps> = () => {
     </div>
   );
 };
+
 export default Time;

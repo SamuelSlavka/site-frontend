@@ -2,11 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
 
+import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-
 
 import "./index.scss";
 import Router from "./app/router";
@@ -17,7 +16,7 @@ const root = ReactDOM.createRoot(
 );
 
 let persistor = persistStore(store);
-
+  
 root.render(
     <React.StrictMode>
         <Provider store={store}>

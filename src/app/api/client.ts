@@ -24,7 +24,6 @@ export async function client(endpoint: string, options?: ApiRequestOptions) {
     const response = await window.fetch(`${baseUrl}${endpoint}`, config)
     data = await response.json()
     if (response.ok) {
-      // Return a result object similar to Axios
       return {
         status: response.status,
         data,
