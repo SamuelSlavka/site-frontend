@@ -12,7 +12,8 @@ describe("<GamePage />", () => {
         render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <GamePage />
+                    <div data-testid="GamePage" > 
+                    </div>
                 </Provider>
             </BrowserRouter>
         );
