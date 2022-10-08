@@ -1,9 +1,8 @@
 import React, { FC, useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./GamePage.module.scss";
-import { Container, useApp, Sprite, Stage, useTick, Graphics, AppProvider } from '@inlet/react-pixi';
-import { ColorScheme } from '../../enums/ColorScheme'
-import { Application } from 'pixi.js';
+import { Stage, useTick, Graphics } from '@inlet/react-pixi';
+import { ColorScheme } from '../../enums/ColorScheme';
 
 interface GamePageProps { }
 
