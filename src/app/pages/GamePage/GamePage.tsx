@@ -1,13 +1,15 @@
 // MatterStepOne.js
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
 import { ColorScheme } from '../../enums/ColorScheme';
 import { Link } from 'react-router-dom';
 
-
 const STATIC_DENSITY = 30;
 const PARTICLE_SIZE = 10;
-const PARTICLE_BOUNCYNESS = 1.5;
+const PARTICLE_BOUNCYNESS = 0;
+
+var runner = Matter.Runner.create();
+var counter = 0;
 
 const GamePage = () => {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -17,7 +19,7 @@ const GamePage = () => {
   const [scene, setScene] = useState<any>();
 
   useEffect(() => {
-    const Bodies = Matter.Bodies;
+    const bodies = Matter.Bodies;
 
     const engine = Matter.Engine.create({});
 
@@ -31,22 +33,22 @@ const GamePage = () => {
       }
     });
 
-    const floor = Bodies.rectangle(0, 0, 0, STATIC_DENSITY, {
+    const floor = bodies.rectangle(0, 0, 0, STATIC_DENSITY, {
       isStatic: true,
       render: {
         fillStyle: ColorScheme.middle
       }
     });
 
-    const ball = Matter.Bodies.circle(100, -PARTICLE_SIZE, PARTICLE_SIZE, {
+    const ball = bodies.circle(100, -PARTICLE_SIZE, PARTICLE_SIZE, {
       restitution: PARTICLE_BOUNCYNESS,
       render: {
         fillStyle: ColorScheme.light
       }
     })
-
+    
     Matter.World.add(engine.world, [floor, ball]);
-    Matter.Runner.run(engine);
+    Matter.Runner.run(runner, engine);
     Matter.Render.run(render);
 
     const bounds = boxRef?.current?.getBoundingClientRect();
@@ -54,6 +56,39 @@ const GamePage = () => {
     setScene(render);
   }, []);
 
+  // main game loop
+  Matter.Events.on(runner, 'afterTick', function(event) {
+    counter += 1;
+
+    if(scene){
+      const ball = scene?.engine.world.bodies[1];
+      var x = ball?.velocity.x;
+      var y = ball?.velocity.y;
+      if(keyMap['w']){
+        y= -10;
+      }
+      if(keyMap['a']){
+        x= -10;
+      }
+      if(keyMap['s']){
+        y= 10
+      }
+      if(keyMap['d']){
+        x= 10
+      }
+
+      Matter.Body.setVelocity(ball, {x,y});
+    }
+  })
+
+  // input handling
+  var keyMap: {[id:string] : any} = {}; 
+  window.addEventListener('keydown',function(e){
+    keyMap[e.key] = true;
+  },true);    
+  window.addEventListener('keyup',function(e){
+    keyMap[e.key] = false;
+  },true);
 
   useEffect(() => {
     window.onresize = () => {
