@@ -1,8 +1,8 @@
 export enum ColorScheme {
-  light = 0xa8dadc,
-  dark = 0x1d3557,
-  black = 0x353535,
-  middle = 0x457b9d,
-  white = 0xf1faee,
-  red = 0xe63946,
+  light = 'rgba(168, 218, 220, 1)',
+  dark = 'rgba(29, 53, 87, 1)',
+  black = 'rgba(53, 53, 53, 1)',
+  middle = 'rgba(69, 123, 157, 1)',
+  white = 'rgba(241, 250, 238, 1)',
+  red = 'rgba(230, 57, 70, 1)',
 }

@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-// import GamePage from "./GamePage";
 import React from "react";
 import store from "src/app/store";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import GamePage from "./GamePage";
 
 //TODO: move pixie stuff into separate components and add tests
 describe("<GamePage />", () => {
@@ -12,8 +12,7 @@ describe("<GamePage />", () => {
         render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <div data-testid="GamePage">
-                    </div>
+                    <GamePage />
                 </Provider>
             </BrowserRouter>
         );

@@ -1,102 +1,133 @@
-import React, { FC, useCallback, useEffect, useReducer, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "./GamePage.module.scss";
-import { Stage, useTick, Graphics } from '@inlet/react-pixi';
+// MatterStepOne.js
+import React, { useEffect, useRef, useState } from 'react';
+import Matter from 'matter-js';
 import { ColorScheme } from '../../enums/ColorScheme';
+import { Link } from 'react-router-dom';
 
-interface GamePageProps { }
 
-const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-    return { width, height };
-}
+const STATIC_DENSITY = 30;
+const PARTICLE_SIZE = 10;
+const PARTICLE_BOUNCYNESS = 1.5;
 
-interface RectangleState {
-    x: number
-    y: number
-    width: number
-    height: number
-    color: number
-  }
+const GamePage = () => {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  interface RectangleAction {
-    payload: RectangleState;
-  }
+  const [constraints, setContraints] = useState<DOMRect>();
+  const [scene, setScene] = useState<any>();
 
-  interface RectangleProps {
-    offset: number;
-  }
+  useEffect(() => {
+    const Bodies = Matter.Bodies;
 
-  const InitialState: RectangleState = {
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    color: 0
-  }
+    const engine = Matter.Engine.create({});
 
-  const Rectangle = (props: RectangleProps) => { 
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-    
-    useEffect(() => {
-        window.onresize = function (event){
-            setWindowDimensions(getWindowDimensions());
-        }
-    },[]);
+    const render = Matter.Render.create({
+      element: boxRef.current ?? undefined,
+      engine: engine,
+      canvas: canvasRef.current ?? undefined,
+      options: {
+        background: ColorScheme.black,
+        wireframes: false
+      }
+    });
 
-    const reducer = (state: RectangleState, action: RectangleAction) => action.payload;
+    const floor = Bodies.rectangle(0, 0, 0, STATIC_DENSITY, {
+      isStatic: true,
+      render: {
+        fillStyle: ColorScheme.middle
+      }
+    });
 
-    const [motion, update] = useReducer(reducer, InitialState);
-    const iter = useRef(0)
-    useTick(delta => {
-        const newY = ((iter.current - 2 ) - props.offset * 100 + 1000) % windowDimensions.height
-        const newX = (iter.current += 2 ) % windowDimensions.width
-        update({
-            payload: {
-                x: newX,
-                y: newY,
-                width: 50,
-                height: 50,
-                color: ColorScheme.middle
-            }
-        })
+    const ball = Matter.Bodies.circle(100, -PARTICLE_SIZE, PARTICLE_SIZE, {
+      restitution: PARTICLE_BOUNCYNESS,
+      render: {
+        fillStyle: ColorScheme.light
+      }
     })
 
-    const draw = useCallback((g: any) => {
-        g.clear();
-        g.beginFill(motion.color);
-        g.drawRect(motion.x, motion.y, motion.width, motion.height);
-        g.endFill();
-    }, [motion]);
+    Matter.World.add(engine.world, [floor, ball]);
+    Matter.Runner.run(engine);
+    Matter.Render.run(render);
 
-    return (
-        <Graphics draw={draw} />
-    )
-}
+    const bounds = boxRef?.current?.getBoundingClientRect();
+    setContraints(bounds);
+    setScene(render);
+  }, []);
 
-const GamePage: FC<GamePageProps> = () => {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-    
-    useEffect(() => {
-        window.onresize = function (event){
-            setWindowDimensions(getWindowDimensions());
-        }
-    },[]);
 
-    return (
-    <div data-testid="GamePage">
-        <section className="text-right p-4 absolute top-0 right-0 h-16 w-32">
-            <Link to="/">
-                <span className={styles.LinkHome}>{"< home"}</span>
-            </Link>
+  useEffect(() => {
+    window.onresize = () => {
+      const bounds = boxRef?.current?.getBoundingClientRect();
+      setContraints(bounds);
+    }
+  }, []);
+
+  const addBall =() => {
+    if (constraints && scene) {
+      let { width } = constraints;
+      let randomX = Math.floor(Math.random() * -width) + width;
+      Matter.World.add(
+        scene.engine.world,
+        Matter.Bodies.circle(randomX, -PARTICLE_SIZE, PARTICLE_SIZE, {
+          restitution: PARTICLE_BOUNCYNESS,
+          render: {
+            fillStyle: ColorScheme.light
+          }
+        })
+      );
+    }
+  }
+
+  useEffect(() => {
+    if (constraints && scene) {
+      const { width, height } = constraints;
+
+      // Update canvas and bounds
+      scene.bounds.max.x = width;
+      scene.bounds.max.y = height;
+      scene.options.width = width;
+      scene.options.height = height;
+      scene.canvas.width = width;
+      scene.canvas.height = height;
+
+      // Update floor
+      const floor = scene.engine.world.bodies[0];
+      Matter.Body.setPosition(floor, {
+        x: width / 2,
+        y: height + STATIC_DENSITY / 2
+      });
+
+      Matter.Body.setVertices(floor, [
+        { x: 0, y: height },
+        { x: width, y: height },
+        { x: width, y: height + STATIC_DENSITY },
+        { x: 0, y: height + STATIC_DENSITY }
+      ]);
+    }
+  }, [scene, constraints]);
+
+  return (
+      <div
+        data-testid="GamePage"
+        ref={boxRef}
+        style={{
+          width: '100%',
+          height: '100%'
+        }}
+      >
+        <section className="LinkTopContainer">
+          <Link to="/" className='LinkTop'>
+              <span>{"< home"}</span>
+          </Link>
         </section>
-        <section className="border-sky-500 min-h-screen overflow-hidden border-2 border-sky-500">
-            <Stage width={windowDimensions.width-4} height={windowDimensions.height-4} options={{ backgroundAlpha: 0, antialias: true, autoDensity: true }}>
-                <Rectangle key={1} offset={1} />
-            </Stage>
+        <section className='LinkTopContainer AlignLeft' >
+          <button onClick={() => addBall()} className='LinkTop'>
+              <span>{"add a ball"}</span>
+          </button>
         </section>
-    </div>
-    )
+        <canvas ref={canvasRef} />
+      </div>
+  );
 };
 
 export default GamePage;

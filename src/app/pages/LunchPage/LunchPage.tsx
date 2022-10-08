@@ -24,15 +24,15 @@ const LunchPage = () => {
     return (
         <div data-testid="LunchPage">
             <section>
-                <h1 className="text-center mt-16">
+                <h1 className="text-center pt-16">
                     <span className={styles.HeaderText}>
                         Lunch
                     </span>
                 </h1>
             </section>
-            <section className="text-right p-4 absolute top-0 right-0 h-16 w-32">
+            <section className="LinkTopContainer">
                 <Link to="/">
-                    <span className={styles.LinkHome}>{"< home"}</span>
+                    <span className='LinkTop'>{"< home"}</span>
                 </Link>
             </section>
             <section className="m-4 ">

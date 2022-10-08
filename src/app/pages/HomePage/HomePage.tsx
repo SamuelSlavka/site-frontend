@@ -9,9 +9,9 @@ function HomePage() {
     return (
         <section className="pt-16 bg-black h-full" data-testid="HomePage">
             <div className="text-white">
-                <section className="text-right p-4 absolute top-0 right-0 h-16 w-32">
+                <section className="LinkTopContainer">
                     <a href="https://gitlab.com/SamuelSlavka/site">
-                        <span className={styles.LinkGit}>{"git repo"}</span>
+                        <span className='LinkTop'>{"git repo"}</span>
                     </a>
                 </section>
                 <h1 className={styles.HeaderText}>
