@@ -4,7 +4,6 @@ import React from "react";
 import store from "src/app/store";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import GamePage from "./GamePage";
 
 //TODO: move pixie stuff into separate components and add tests
 describe("<GamePage />", () => {
