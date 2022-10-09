@@ -108,13 +108,15 @@ const GamePage = () => {
       if (player) {
         const controlRes = handleControl(world.composites)
         const { x, y } = handleKeypress(keyMap, player);
+
+        const bounds = boxRef?.current?.getBoundingClientRect();
         if (bounds) {
           if (player.position.x > bounds.width || player.position.x < 0 ||
             player.position.y > bounds.height || player.position.y < 0) {
-            Matter.Body.setPosition(player, { x: 20, y: 20 })
+            Matter.Body.setPosition(player, { x: 100, y: 100 })
           }
         }
-        Matter.Body.setVelocity(player, { x: (x + controlRes.x) % 80, y: (y + controlRes.y) % 80 });
+        Matter.Body.setVelocity(player, { x: Math.min((x + controlRes.x), 60), y: Math.min((y + controlRes.y), 60) });
       }
     })
 
@@ -132,6 +134,7 @@ const GamePage = () => {
 
     setScene(render);
   }, []);
+    
 
   const addBall = () => {
     if (constraints && scene) {
