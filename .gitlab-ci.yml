@@ -13,6 +13,9 @@ build:       # This job runs in the build stage, which runs first.
     - echo "$ENV_FILE" | tr -d '\r' > .env
     - yarn run build
     - echo "Build successfully!"
+  only:
+    refs:
+      - main
 
 test:   # This job runs in the test stage.
   stage: test
@@ -22,6 +25,9 @@ test:   # This job runs in the test stage.
     - yarn add react-scripts
     - CI=true yarn run test
     - echo "Test successfully"
+  only:
+    refs:
+      - main
 
 lint:   # This job also runs in the test stage.
   stage: test
@@ -32,6 +38,9 @@ lint:   # This job also runs in the test stage.
     - CI=true yarn run lint
     - sleep 1
     - echo "Done"
+  only:
+    refs:
+      - main
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -51,7 +60,9 @@ docker-build:
     - docker buildx create --driver docker-container --use
     - docker buildx inspect --bootstrap
     - docker buildx build --push --platform linux/arm64/v8 --pull -t "$CI_REGISTRY_IMAGE" .
-
+  only:
+    refs:
+      - main
 deploy:
   image: ubuntu:latest
   stage: deploy
@@ -77,4 +88,6 @@ deploy:
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker pull registry.gitlab.com/samuelslavka/site-frontend"
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker stop frontend || true && docker rm frontend || true"
     - ssh -4 -o StrictHostKeyChecking=no -i key.pem rpi@$PROD_SERVER_IP "docker run --platform linux/arm64 -d -p 3000:3000 --name frontend registry.gitlab.com/samuelslavka/site-frontend"
-
+  only:
+    refs:
+      - main

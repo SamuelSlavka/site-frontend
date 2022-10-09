@@ -15,15 +15,38 @@ export const body_config = (label: string) => {
 }
 
 export const player_config = (label: string) => {
-  return{
+  return {
     restitution: Constants.PARTICLE_BOUNCYNESS,
     label: label,
+    frictionAir: 0.07,
     collisionFilter: {
       // colides only with walls and static elems
       category: Categories.STATIC
     },
     render: {
-      fillStyle: ColorScheme.light
+      fillStyle: ColorScheme.middle
     }
+  }
+}
+
+export const meteor_config = {
+  label: 'meteor',
+  restitution: Constants.PARTICLE_BOUNCYNESS,
+  frictionAir: 0.005,
+  collisionFilter: {
+    category: Categories.STATIC
+  },
+  render: {
+    fillStyle: ColorScheme.light
+  }
+}
+
+export const bullet_config = {
+  label: 'bullet',
+  collisionFilter: {
+    category: Categories.STATIC
+  },
+  render: {
+    fillStyle: ColorScheme.red
   }
 }
