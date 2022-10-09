@@ -7,7 +7,7 @@ import { addListeners, handleControl, handleKeypress } from './utils/input_handl
 import { handleResize } from './utils/resize_handling';
 import { Categories, Constants } from './enums/gameConstants';
 import { getBody } from './utils/matterjs_utils';
-import { body_config, player_config } from './utils/body_utils';
+import { body_config, bullet_config, meteor_config, player_config } from './utils/body_utils';
 
 var keyMap: { [id: string]: any } = {};
 
@@ -17,21 +17,16 @@ const GamePage = () => {
 
   const [constraints, setConstraints] = useState<DOMRect>();
   const [scene, setScene] = useState<any>();
+  const [runner, setRunner] = useState<any>();
+  const [points, setPoints] = useState<number>(0);
 
   // Matter setup
   useEffect(() => {
     const bounds = boxRef?.current?.getBoundingClientRect();
     setConstraints(bounds);
     addListeners(keyMap);
-    const Bodies = Matter.Bodies;
-    const Constraint = Matter.Constraint;
-    const MouseConstraint = Matter.MouseConstraint;
-    const Runner = Matter.Runner;
-    const Render = Matter.Render;
-    const Mouse = Matter.Mouse;
-    const Composite = Matter.Composite;
 
-    const engine = Matter.Engine.create({});
+    const engine = Matter.Engine.create({ gravity: { x: 0, y: 0 } });
     const world = engine.world;
 
     const render = Matter.Render.create({
@@ -44,20 +39,19 @@ const GamePage = () => {
       }
     });
 
-    Render.run(render);
-
+    Matter.Render.run(render);
     // create runner
-    var runner = Runner.create();
-    Runner.run(runner, engine);
+    var runner = Matter.Runner.create();
+    Matter.Runner.run(runner, engine);
 
-    const floor = Bodies.rectangle(0, 0, 0, 200, body_config('floor'));
-    const ceiling = Bodies.rectangle(0, 0, 0, 200, body_config('ceiling'));
-    const leftWall = Bodies.rectangle(0, 0, 0, 200, body_config('leftWall'));
-    const rightWall = Bodies.rectangle(0, 0, 0, 200, body_config('rightWall'));
+    const floor = Matter.Bodies.rectangle(0, 0, 0, 200, body_config('floor'));
+    const ceiling = Matter.Bodies.rectangle(0, 0, 0, 200, body_config('ceiling'));
+    const leftWall = Matter.Bodies.rectangle(0, 0, 0, 200, body_config('leftWall'));
+    const rightWall = Matter.Bodies.rectangle(0, 0, 0, 200, body_config('rightWall'));
 
     const boundX = ((bounds?.width ?? 200) / 2);
     const boundY = ((bounds?.height ?? 200) / 1.2);
-    var control = Bodies.polygon(boundX, boundY, 8, 20, {
+    var control = Matter.Bodies.polygon(boundX, boundY, 8, 20, {
       density: 0.004,
       label: 'control',
       collisionFilter: {
@@ -65,7 +59,7 @@ const GamePage = () => {
       },
     });
     const anchor = { x: boundX, y: boundY };
-    const elastic = Constraint.create({
+    const elastic = Matter.Constraint.create({
       label: 'control',
       pointA: anchor,
       bodyB: control,
@@ -74,12 +68,9 @@ const GamePage = () => {
         lineWidth: 0
       }
     });
-
-    const ball = Bodies.circle(100, -Constants.PARTICLE_SIZE, Constants.PARTICLE_SIZE, player_config('player'));
-
     // add mouse control
-    const mouse = Mouse.create(render.canvas);
-    const mouseConstraint = MouseConstraint.create(engine, {
+    const mouse = Matter.Mouse.create(render.canvas);
+    const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse: mouse,
       collisionFilter: {
         mask: Categories.DRAGGABLE
@@ -92,11 +83,14 @@ const GamePage = () => {
       }
     });
 
-    const controlComposite = Composite.create({ label: 'controls' });
-    Composite.add(controlComposite, [control, elastic, mouseConstraint])
-    const elementsComposite = Composite.create({ label: 'elements' });
-    Composite.add(elementsComposite, [floor, ceiling, leftWall, rightWall, ball])
-    Composite.add(world, [elementsComposite, controlComposite]);
+    const controlComposite = Matter.Composite.create({ label: 'controls' });
+    Matter.Composite.add(controlComposite, [control, elastic, mouseConstraint])
+
+    const player = Matter.Bodies.circle(boundX, (boundY - 150), Constants.PARTICLE_SIZE, player_config('player'));
+    const elementsComposite = Matter.Composite.create({ label: 'elements' });
+
+    Matter.Composite.add(elementsComposite, [floor, ceiling, leftWall, rightWall, player])
+    Matter.Composite.add(world, [elementsComposite, controlComposite]);
     Matter.Render.run(render);
 
     // keep the mouse in sync with rendering
@@ -121,38 +115,91 @@ const GamePage = () => {
       }
     })
 
-    // collision handling
-    // Matter.Events.on(engine, 'collisionStart', function (event) {
-    //   var pairs = event.pairs;
-
-    //   for (var i = 0, j = pairs.length; i != j; ++i) {
-    //       var pair = pairs[i];
-    //       if(pair.bodyA.label === 'player' || pair.bodyB.label === 'player')  {
-
-    //       }
-    //   }
-    // });
-
+    setRunner(runner);
     setScene(render);
   }, []);
 
 
-  const addBall = () => {
+  // main game loop
+  var clock = 0;
+  useEffect(() => {
+    if (runner) {
+      Matter?.Events?.on(runner, 'afterTick', function (event) {
+        clock += 1;
+        if (!(clock % 30)) {
+          addMeteor();
+        }
+        if (!(clock % 15)) {
+          fireBall();
+        }
+      })
+    }
+  }, [runner]);
+
+  useEffect(() => {
+    // collision handling
+    if (scene) {
+      Matter.Events.on(scene.engine, 'collisionStart', function (event) {
+        var pairs = event.pairs;
+
+        for (var i = 0, j = pairs.length; i !== j; ++i) {
+          var pair = pairs[i];
+
+          const bullet = pair.bodyB.label === 'bullet' || pair.bodyA.label === 'bullet';
+          const meteor = pair.bodyB.label === 'meteor' || pair.bodyA.label === 'meteor';
+          const player = pair.bodyB.label === 'player' || pair.bodyA.label === 'player';
+          const floor = pair.bodyB.label === 'floor' || pair.bodyA.label === 'floor';
+          if (bullet) {
+            const bulletBody = pair.bodyA.label === 'bullet' ? pair.bodyA : pair.bodyB;
+            Matter.Composite.remove(scene.engine.world, bulletBody)
+          }
+          if (meteor) {
+            const meteorBody = pair.bodyA.label === 'meteor' ? pair.bodyA : pair.bodyB;
+            Matter.Composite.remove(scene.engine.world, meteorBody)
+          }
+          if (meteor && bullet) {
+            setPoints(points + 2)
+          }
+          if (meteor && floor) {
+            setPoints(points - 1)
+          }
+          if (meteor && player) {
+            console.log('game over')
+          }
+        }
+      });
+    }
+  });
+
+  const fireBall = () => {
+    const player = getBody(scene.engine.world.composites, 'elements', 'player');
+    if (constraints && scene && player) {
+      const { x, y } = player.position;
+      const bullet = Matter.Bodies.circle(x, y, Constants.BULLET_SIZE, bullet_config);
+
+      Matter.World.add(
+        scene.engine.world,
+        bullet
+      );
+
+      Matter.Body.setVelocity(bullet, { x: 0, y: -20 });
+    }
+  }
+
+  const addMeteor = () => {
     if (constraints && scene) {
       let { width } = constraints;
       let randomX = Math.floor(Math.random() * -width) + width;
+      let size = Math.floor(Math.random() * 10) + 10;
+
+      const meteor = Matter.Bodies.circle(randomX, 30, size, meteor_config);
+
       Matter.World.add(
         scene.engine.world,
-        Matter.Bodies.circle(randomX, -Constants.PARTICLE_SIZE, Constants.PARTICLE_SIZE, {
-          restitution: Constants.PARTICLE_BOUNCYNESS,
-          collisionFilter: {
-            category: Categories.STATIC
-          },
-          render: {
-            fillStyle: ColorScheme.light
-          }
-        })
+        meteor
       );
+
+      Matter.Body.setVelocity(meteor, { x: 0, y: 10 });
     }
   }
 
@@ -186,11 +233,11 @@ const GamePage = () => {
           <span>{"< home"}</span>
         </Link>
       </section>
+
       <section className='LinkTopContainer AlignLeft' >
-        <button onClick={() => addBall()} className='LinkTop'>
-          <span>{"add a ball"}</span>
-        </button>
+        {`points: ${points}`}
       </section>
+
       <canvas ref={canvasRef} />
     </div>
   );
