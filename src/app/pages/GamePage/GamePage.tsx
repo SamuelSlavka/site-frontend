@@ -121,9 +121,9 @@ const GamePage = () => {
 
 
   // main game loop
-  var clock = 0;
   useEffect(() => {
     if (runner) {
+      var clock = 0;
       Matter?.Events?.on(runner, 'afterTick', function (event) {
         clock += 1;
         if (!(clock % 30)) {
@@ -134,6 +134,7 @@ const GamePage = () => {
         }
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runner]);
 
   useEffect(() => {
