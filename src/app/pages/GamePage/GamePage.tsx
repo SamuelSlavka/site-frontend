@@ -106,17 +106,18 @@ const GamePage = () => {
     Matter.Events.on(runner, 'afterTick', function (event) {
       const player = getBody(world.composites, 'elements', 'player');
       if (player) {
-        const controlRes = handleControl(world.composites)
+        const controlRes = handleControl(world.composites);
         const { x, y } = handleKeypress(keyMap, player);
+        Matter.Body.setVelocity(player, { x: Math.min((x + controlRes.x), 50), y: Math.min((y + controlRes.y), 50) });
 
         const bounds = boxRef?.current?.getBoundingClientRect();
         if (bounds) {
           if (player.position.x > bounds.width || player.position.x < 0 ||
             player.position.y > bounds.height || player.position.y < 0) {
-            Matter.Body.setPosition(player, { x: 100, y: 100 })
+            Matter.Body.setPosition(player, { x: 100, y: 100 });
+            Matter.Body.setVelocity(player, { x: 0, y: 0 });
           }
         }
-        Matter.Body.setVelocity(player, { x: Math.min((x + controlRes.x), 60), y: Math.min((y + controlRes.y), 60) });
       }
     })
 
@@ -134,7 +135,7 @@ const GamePage = () => {
 
     setScene(render);
   }, []);
-    
+
 
   const addBall = () => {
     if (constraints && scene) {

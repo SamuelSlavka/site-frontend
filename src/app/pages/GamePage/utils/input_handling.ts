@@ -11,16 +11,16 @@ export const handleKeypress = (keyMap: KeyMap, player: Matter.Body): LocationCha
   const right = keyMap['d'] || keyMap['ArrowRight'];
 
   if (up) {
-    y -= 2;
+    y -= 1;
   }
   if (left) {
-    x = x > 0 ? x - 4 : x - 2;
+    x = x > 0 ? x - 4 : x - 1;
   }
   if (down) {
-    y += 2
+    y += 1
   }
   if (right) {
-    x = x < 0 ? x + 4 : x + 2;
+    x = x < 0 ? x + 4 : x + 1;
   }
 
   return { x, y }
@@ -39,8 +39,8 @@ export const handleControl = (composites: any): LocationChange => {
   const control = getBody(composites, 'controls', 'control');
   const contrloConstraint = getConstraint(composites, 'controls', 'control');
   if (control && contrloConstraint) {
-    const x = -(contrloConstraint.pointA.x - control.position.x) / 40;
-    const y = -(contrloConstraint.pointA.y - control.position.y) / 40;
+    const x = (control.position.x - contrloConstraint.pointA.x) / 70;
+    const y = (control.position.y - contrloConstraint.pointA.y) / 70;
     return { x, y }
   }
 
