@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
@@ -16,14 +15,12 @@ const root = ReactDOM.createRoot(
 );
 
 let persistor = persistStore(store);
-  
+
 root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                    <Router />
-                </BrowserRouter>
+                <Router />
             </PersistGate>
         </Provider>
     </React.StrictMode>

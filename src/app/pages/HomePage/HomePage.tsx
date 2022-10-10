@@ -7,7 +7,7 @@ import styles from './HomePage.module.scss';
 import { useEffect, useState } from "react";
 
 function HomePage() {
-    const [imgSrc, setImgSrc] = useState('');
+    const [img, setImg] = useState<HTMLImageElement | undefined>(undefined);
 
 
     useEffect(() => {
@@ -18,15 +18,15 @@ function HomePage() {
         loadImg.src = imageUrl;
 
         loadImg.onload = () => {
-            setImgSrc(imageUrl)
+            setImg(loadImg);
         }
     }, [])
 
     return (
         <>
-            {imgSrc ?
+            {img ?
                 (<div className="inline-block relative min-w-full min-h-full object-cover">
-                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover" src={imgSrc} alt="idk" />
+                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover bg-black" src={img.src} alt="idk" />
                     <section className="pt-16 h-fit" data-testid="HomePage" >
                         <div className="text-white h-fit">
                             <section className="LinkTopContainer">
