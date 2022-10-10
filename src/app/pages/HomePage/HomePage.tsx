@@ -18,9 +18,7 @@ function HomePage() {
         loadImg.src = imageUrl;
 
         loadImg.onload = () => {
-            setTimeout(() => {
-                setImgSrc(imageUrl)
-            }, 2000)
+            setImgSrc(imageUrl)
         }
     }, [])
 
