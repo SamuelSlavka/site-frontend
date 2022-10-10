@@ -42,7 +42,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint '**/*.tsx' --ignore-pattern node_modules/ --fix"
@@ -65,7 +64,6 @@
   "author": "samuelslavka <slavka.samuel@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^5.0.0",
     "eslint-config-react-app": "^7.0.1",
     "jest-webgl-canvas-mock": "^0.2.3"
   }
