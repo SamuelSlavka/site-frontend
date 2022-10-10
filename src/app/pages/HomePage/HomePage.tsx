@@ -46,7 +46,7 @@ function HomePage() {
                                 Hello there
                             </h1>
                             <Time />
-                            <div className="my-8 md:mt-36 text-center flex w-100 flex-wrap justify-center">
+                            <div className="my-8 md:mt-16 lg:mt-32 text-center flex w-100 flex-wrap justify-center">
                                 <NavItem name="Jelly" link="jelly" icon={solid("jar")} />
                                 <NavItem name="Shelf" link="shelf" icon={solid("book")} />
                                 <NavItem name="Nextcloud" link="next" icon={solid("cloud")} />
@@ -63,7 +63,7 @@ function HomePage() {
                 </div>)
                 :
                 (<section className="bg-black text-white min-h-full" data-testid="HomePage" >
-                    <img className="text-center pt-32 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />     
+                    <img className="text-center pt-28 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />     
                 </section>)
             }
         </>

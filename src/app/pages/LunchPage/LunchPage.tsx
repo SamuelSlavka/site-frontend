@@ -22,7 +22,7 @@ const LunchPage = () => {
     }, []);
 
     return (
-        <div data-testid="LunchPage" className="bg-black min-h-full h-fit">
+        <div data-testid="LunchPage" className="bg-black overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
             <section>
                 <h1 className="text-center pt-16">
                     <span className={styles.HeaderText}>
