@@ -4,7 +4,7 @@
 }
 
 .NavItem {
-  @apply text-2xl item-element p-2 m-2 bg-dark hover:text-black hover:shadow-sm hover:bg-light hover:shadow-dark rounded transition-all ease-in duration-200;
+  @apply text-2xl item-element p-2 m-2 md:p-4 md:m-4 lg:m-6 bg-dark hover:text-black hover:shadow-sm hover:bg-light hover:shadow-dark rounded transition-all ease-in duration-200;
 }
 
 .ItemText {

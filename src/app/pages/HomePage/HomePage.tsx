@@ -6,16 +6,16 @@ import Time from "./components/Time/Time";
 import styles from './HomePage.module.scss';
 
 function HomePage() {
-    const randomNumber = Math.floor(Math.random() * 7);
+    const randomNumber = Math.floor(Math.random() * 6);
     return (
-        <section className="pt-16 h-full" data-testid="HomePage"
+        <section className="pt-16 h-fit" data-testid="HomePage"
             style={{
+                minHeight: 'inherit',
                 backgroundImage: `url( /images/${randomNumber}.gif )`,
                 backgroundSize: "cover",
-                height: "100vh",
             }}
         >
-            <div className="text-white">
+            <div className="text-white h-fit">
                 <section className="LinkTopContainer">
                     <a href="https://gitlab.com/SamuelSlavka/site">
                         <span className='LinkTop'>{"git repo"}</span>
@@ -25,7 +25,7 @@ function HomePage() {
                     Hello there
                 </h1>
                 <Time />
-                <div className="mt-8 text-center flex w-100 flex-wrap justify-center">
+                <div className="mt-8 md:mt-36 text-center flex w-100 flex-wrap justify-center">
                     <NavItem name="Jelly" link="jelly" icon={solid("jar")} />
                     <NavItem name="Shelf" link="shelf" icon={solid("book")} />
                     <NavItem name="Nextcloud" link="next" icon={solid("cloud")} />
