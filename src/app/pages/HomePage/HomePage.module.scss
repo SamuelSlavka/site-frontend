@@ -10,18 +10,9 @@
 }
 
 .ImgDiv {
-  display: inline-block;
-  position: relative;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
+  @apply inline-block relative min-w-full min-h-full object-cover;
 }
 
-.BgImg{
-  pointer-events: none;
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  object-fit: cover;
+.BgImg {
+  @apply pointer-events-none absolute min-w-full min-h-full -z-50 object-cover;
 }
