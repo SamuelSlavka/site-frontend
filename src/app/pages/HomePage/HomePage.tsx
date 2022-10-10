@@ -30,9 +30,9 @@ function HomePage() {
     return (
         <>
             {img || loadFail ?
-                (<div className="inline-block relative min-w-full min-h-full object-cover">
+                (<div className="inline-block relative min-w-full min-h-fit h-full object-cover">
                     { loadFail ? <></> :
-                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> }
+                    <img className="pointer-events-none absolute min-w-full min-h-fit h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> }
                     <section className="pt-16 h-fit" data-testid="HomePage" >
                         <div className="text-white h-fit">
                             <section className="LinkTopContainer">
