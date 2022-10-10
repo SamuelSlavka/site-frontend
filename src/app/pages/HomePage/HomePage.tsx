@@ -29,12 +29,14 @@ function HomePage() {
 
     return (
         <>
-            {img || loadFail ?
-                (<div className="inline-block relative min-w-full min-h-fit h-full object-cover">
-                    { loadFail ? <></> :
-                    <img className="pointer-events-none absolute min-w-full min-h-fit h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> }
+            { loadFail ? <></> :
+                <img className="pointer-events-none absolute min-w-full min-h-fit h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> 
+            }
+            {img ?
+                (<div className="overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
+
                     <section className="pt-16 h-fit" data-testid="HomePage" >
-                        <div className="text-white h-fit">
+                        <div className="text-white h-fit HideScrollbars">
                             <section className="LinkTopContainer">
                                 <a href="https://gitlab.com/SamuelSlavka/site">
                                     <span className='LinkTop'>{"git repo"}</span>
@@ -44,7 +46,7 @@ function HomePage() {
                                 Hello there
                             </h1>
                             <Time />
-                            <div className="mt-8 md:mt-36 text-center flex w-100 flex-wrap justify-center">
+                            <div className="my-8 md:mt-36 text-center flex w-100 flex-wrap justify-center">
                                 <NavItem name="Jelly" link="jelly" icon={solid("jar")} />
                                 <NavItem name="Shelf" link="shelf" icon={solid("book")} />
                                 <NavItem name="Nextcloud" link="next" icon={solid("cloud")} />

@@ -16,6 +16,7 @@ $red: green;
 html,
 body,
 #root {
+  overflow: hidden;
   height: 100%;
   min-height: fit-content;
   @apply text-white;
@@ -36,3 +37,14 @@ code {
 .LinkTopContainer.AlignLeft {
   @apply right-auto text-left w-fit;
 }
+
+.HideScrollbars {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.HideScrollbars::-webkit-scrollbar {  /* Chrome */
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
