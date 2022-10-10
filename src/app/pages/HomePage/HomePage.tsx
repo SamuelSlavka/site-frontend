@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 function HomePage() {
     const [img, setImg] = useState<HTMLImageElement | undefined>(undefined);
+    const [loadFail, setLoadFail] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -16,17 +17,22 @@ function HomePage() {
 
         const loadImg = new Image()
         loadImg.src = imageUrl;
-
+        // eager loading bg immage
         loadImg.onload = () => {
             setImg(loadImg);
+            setLoadFail(false);
+        }
+        loadImg.onerror = () => {
+            setLoadFail(true);
         }
     }, [])
 
     return (
         <>
-            {img ?
+            {img || loadFail ?
                 (<div className="inline-block relative min-w-full min-h-full object-cover">
-                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover bg-black" src={img.src} alt="idk" />
+                    { loadFail ? <></> :
+                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> }
                     <section className="pt-16 h-fit" data-testid="HomePage" >
                         <div className="text-white h-fit">
                             <section className="LinkTopContainer">
@@ -55,7 +61,7 @@ function HomePage() {
                 </div>)
                 :
                 (<section className="bg-black text-white min-h-full" data-testid="HomePage" >
-                    <h3 className="text-center text-md font-bold py-16">Loading ...</h3>
+                    <img className="text-center pt-32 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />     
                 </section>)
             }
         </>
