@@ -54,7 +54,7 @@ function HomePage() {
                     </section>
                 </div>)
                 :
-                (<section className="bg-black text-white min-h-full">
+                (<section className="bg-black text-white min-h-full" data-testid="HomePage" >
                     <h3 className="text-center text-md font-bold py-16">Loading ...</h3>
                 </section>)
             }
