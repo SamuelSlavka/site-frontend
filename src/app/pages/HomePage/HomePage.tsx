@@ -25,8 +25,8 @@ function HomePage() {
     return (
         <>
             {imgSrc ?
-                (<div className={styles.ImgDiv}>
-                    <img className={styles.BgImg} src={imgSrc} alt="idk" />
+                (<div className="inline-block relative min-w-full min-h-full object-cover">
+                    <img className="pointer-events-none absolute min-w-full min-h-full -z-50 object-cover" src={imgSrc} alt="idk" />
                     <section className="pt-16 h-fit" data-testid="HomePage" >
                         <div className="text-white h-fit">
                             <section className="LinkTopContainer">

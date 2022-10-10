@@ -8,11 +8,3 @@
   @apply transition-all hover:text-light ease-in-out duration-200;
   text-shadow: 0 0 4px black;
 }
-
-.ImgDiv {
-  @apply inline-block relative min-w-full min-h-full object-cover;
-}
-
-.BgImg {
-  @apply pointer-events-none absolute min-w-full min-h-full -z-50 object-cover;
-}
