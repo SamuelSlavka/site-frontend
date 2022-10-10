@@ -6,8 +6,15 @@ import Time from "./components/Time/Time";
 import styles from './HomePage.module.scss';
 
 function HomePage() {
+    const randomNumber = Math.floor(Math.random() * 7);
     return (
-        <section className="pt-16 bg-black h-full" data-testid="HomePage">
+        <section className="pt-16 h-full" data-testid="HomePage"
+            style={{
+                backgroundImage: `url( /images/${randomNumber}.gif )`,
+                backgroundSize: "cover",
+                height: "100vh",
+            }}
+        >
             <div className="text-white">
                 <section className="LinkTopContainer">
                     <a href="https://gitlab.com/SamuelSlavka/site">
