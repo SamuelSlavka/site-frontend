@@ -228,6 +228,7 @@ const GamePage = () => {
         width: '100%',
         height: '100%'
       }}
+      className="bg-black"
     >
       <section className="LinkTopContainer">
         <Link to="/" className='LinkTop'>
