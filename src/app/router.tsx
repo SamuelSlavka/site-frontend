@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import GamePage from "./pages/GamePage/GamePage";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LunchPage from "./pages/LunchPage/LunchPage";
@@ -10,8 +9,7 @@ const Router = () => {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="lunch" element={<LunchPage />} />        
-            <Route path="game" element={<GamePage />} />
+            <Route path="lunch" element={<LunchPage />} />
             <Route path="*" element={<MissingPage />} />
         </Routes>
     </BrowserRouter>
