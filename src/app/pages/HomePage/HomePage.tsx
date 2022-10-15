@@ -54,9 +54,6 @@ function HomePage() {
                                 <Link to="/lunch">
                                     <NavItem name="Lunch" icon={solid("bowl-food")} />
                                 </Link>
-                                <Link to="/game">
-                                    <NavItem name="Game" icon={solid("gamepad")} />
-                                </Link>
                             </div>
                         </div>
                     </section>
