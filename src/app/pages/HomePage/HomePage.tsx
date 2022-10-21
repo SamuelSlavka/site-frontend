@@ -49,7 +49,7 @@ function HomePage() {
                             <div className="mt-8 mb-6 md:mt-16 lg:mt-32 text-center flex w-100 flex-wrap justify-center">
                                 <NavItem name="Jelly" link="jelly" icon={solid("jar")} />
                                 <NavItem name="Shelf" link="shelf" icon={solid("book")} />
-                                <NavItem name="Nextcloud" link="next" icon={solid("cloud")} />
+                                <NavItem name="Next" link="next" icon={solid("cloud")} />
 
                                 <Link to="/lunch">
                                     <NavItem name="Lunch" icon={solid("bowl-food")} />

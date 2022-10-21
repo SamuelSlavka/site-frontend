@@ -21,10 +21,10 @@ const NavItem: FC<NavItemProps> = (props) => {
   }
 
   return (
-    <button onClick={() => redirect(props.link)} className={styles.NavItem} data-testid="NavItem">
-      <section className='py-3'>
+    <button onClick={() => redirect(props.link)} className={`${styles.card} text-2xl p-2 m-2 md:p-4 md:m-4 lg:m-6 rounded relative hover:text-dark`} data-testid="NavItem">
+      <section className={`${styles.cardContent} p-2 md:p-4 lg:px-6 lg:py-4 relative z-20`}>
         <FontAwesomeIcon icon={props.icon} />
-        <span className={styles.ItemText}>
+        <span className="px-4">
           {props.name}
         </span>
       </section>

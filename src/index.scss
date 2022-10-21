@@ -8,10 +8,12 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
+  font-weight: 400;
+  height: 100vh;
+  place-items: center;
+  margin: 0px;
+  padding: 0px;
 }
-
-$red: green;
 
 html,
 body,
@@ -20,10 +22,6 @@ body,
   height: 100%;
   min-height: fit-content;
   @apply text-white;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .LinkTopContainer {
