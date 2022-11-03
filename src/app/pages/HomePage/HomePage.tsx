@@ -47,6 +47,7 @@ function HomePage() {
                             </h1>
                             <Time />
                             <div className="mt-8 mb-6 md:mt-16 lg:mt-32 text-center flex w-100 flex-wrap justify-center">
+                                <NavItem name="Game" link="game" icon={solid("gamepad")} />
                                 <NavItem name="Jelly" link="jelly" icon={solid("jar")} />
                                 <NavItem name="Shelf" link="shelf" icon={solid("book")} />
                                 <NavItem name="Next" link="next" icon={solid("cloud")} />
