@@ -7,9 +7,15 @@ stages:          # List of stages for jobs, and their order of execution
 build:       # This job runs in the build stage, which runs first.
   stage: build
   image: node
+  cache:
+    - key:
+        files:
+          - yarn.lock
+      paths:
+        - .yarn-cache/
   script: 
     - echo "Start building App"
-    - yarn install --network-timeout=30000
+    - yarn install --network-timeout=30000 --cache-folder .yarn-cache
     - echo "$ENV_FILE" | tr -d '\r' > .env
     - yarn run build
     - echo "Build successfully!"

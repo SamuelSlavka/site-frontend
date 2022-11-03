@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Install app dependencies
 COPY . /app/
-RUN yarn install --prefer-offline --frozen-lockfile --network-timeout=400000
+RUN yarn install --prefer-offline --frozen-lockfile --network-timeout=400000 --cache-folder .yarn-cache
 RUN yarn add react-scripts -g
 RUN yarn run build
 
