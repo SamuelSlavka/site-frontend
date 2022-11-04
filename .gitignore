@@ -23,4 +23,3 @@ yarn-debug.log*
 .yarn-cache
 yarn-error.log*
 .env
-__snapshots__
