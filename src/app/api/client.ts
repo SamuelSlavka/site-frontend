@@ -5,7 +5,10 @@ type ApiRequestOptions = {
 const baseUrl = process.env.REACT_APP_API_URL
 
 export async function client(endpoint: string, options?: ApiRequestOptions) {
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  }
 
   const config = {
     method: options?.body ? 'POST' : 'GET',

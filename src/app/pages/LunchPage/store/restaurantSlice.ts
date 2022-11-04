@@ -1,5 +1,6 @@
 import { RootState } from '@app/store';
 import { client } from '../../../api/client';
+import { toast } from 'react-toastify';
 
 import {
     createEntityAdapter, createAsyncThunk, createSelector, createSlice, PayloadAction
@@ -19,13 +20,6 @@ export const restaurantSlice = createSlice({
     name: 'restaurant',
     initialState: initialState,
     reducers: {
-        restaurantsLoaded: (state: RestaurantState, action: PayloadAction<{ restaurants: RestaurantModel[] }>) => {
-            state = restaurantAdapter.upsertMany(state, action.payload.restaurants);
-            state.loading = false;
-        },
-        restaurantsLoading(state: RestaurantState) {
-            state.loading = true;
-        },
         toggleRestaurant: (state: RestaurantState, action: PayloadAction<{ id: string }>) => {
             const restaurant = state.entities[action.payload.id];
             if (restaurant && action.payload.id) {
@@ -51,21 +45,32 @@ export const restaurantSlice = createSlice({
                 state = restaurantAdapter.setMany(state, selectedPayload);
                 state.loading = false;
             },
+        );
+        builder.addCase(fetchAllRestaurants.pending,
+            (state: RestaurantState) => {
+                state.loading = true;
+            },
+        )
+        builder.addCase(fetchAllRestaurants.rejected,
+            (state: RestaurantState) => {
+                toast.error("Load failed", { theme: "dark", autoClose: 2000, pauseOnFocusLoss: false });
+                state.loading = false;
+            },
         )
     }
 });
 
 export const {
     selectById: selectRestaurantById,
-  } = restaurantAdapter.getSelectors((state: RootState) => state.restaurant)
+} = restaurantAdapter.getSelectors((state: RootState) => state.restaurant)
 
-export const { toggleRestaurant, restaurantsLoading, restaurantsLoaded } = restaurantSlice.actions;
+export const { toggleRestaurant } = restaurantSlice.actions;
 export default restaurantSlice.reducer;
 
 
 export const fetchAllRestaurants = createAsyncThunk(
     'all_restaurants/fetch',
-    async (thunkAPI) => {
+    async () => {
         const response = await client.get('all_restaurants');
         return response.data
     }

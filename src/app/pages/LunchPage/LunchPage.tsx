@@ -22,7 +22,7 @@ const LunchPage = () => {
     }, []);
 
     return (
-        <div data-testid="LunchPage" className="bg-black overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
+        <div data-testid="LunchPage" className="overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
             <section>
                 <h1 className="text-center pt-16">
                     <span className={styles.HeaderText}>
@@ -38,7 +38,7 @@ const LunchPage = () => {
             <section className="m-4 ">
                 <RestaurantSelect />
             </section>
-            <section className="p-4 flex w-100 flex-wrap justify-center transition-all ease-in-out duration-300">
+            <section className="py-4 flex w-100 flex-wrap justify-center transition-all ease-in-out duration-300">
                 {lunchList}
             </section>
         </div>

@@ -37,20 +37,17 @@ const RestaurantSelect = () => {
               {restaurants.map((restaurant) => (
                 <Listbox.Option
                   key={restaurant.id}
-                  className={({ active }) => styles.ActiveItem }
+                  className={styles.ActiveItem}
                   value={restaurant}
                   onClick={() => { toggleRestaurant(restaurant.id) }}
                 >
                   {({ selected }) => (
                     <section>
-                      {
-                        selected ?
-                          <span className={`${styles.SearchIcon} absolute inset-y-0 left-2 flex items-center pl-3 text-amber-600`}>
-                            <FontAwesomeIcon icon={solid("check")} />
-                          </span> :
-                          <></>
-                      }
-
+                      {selected ?
+                        <span className={`${styles.SearchIcon} absolute inset-y-0 left-2 flex items-center pl-3 text-amber-600`}>
+                          <FontAwesomeIcon icon={solid("check")} />
+                        </span> :
+                        <></>}
                       <div className="py-2 pl-10 pr-4 rounded-md">
                         <span className={styles.InnerText}>
                           {restaurant.restaurant_name}

@@ -20,5 +20,5 @@
 }
 
 .ActiveItem {
-    @apply hover:bg-middle relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-100;
+    @apply hover:bg-middle hover:text-white relative cursor-default select-none m-1 rounded-md shadow transition-all ease-in-out duration-100 ;
 }

@@ -30,7 +30,7 @@ function HomePage() {
     return (
         <>
             { loadFail ? <></> :
-                <img className="pointer-events-none absolute min-w-full min-h-fit h-full -z-50 object-cover bg-black" src={img?.src} alt="idk" /> 
+                <img className="pointer-events-none absolute min-w-full min-h-fit h-full object-cover bg-black" src={img?.src} alt="idk" /> 
             }
             {img ?
                 (<div className="overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
@@ -60,7 +60,7 @@ function HomePage() {
                     </section>
                 </div>)
                 :
-                (<section className="bg-black text-white min-h-full" data-testid="HomePage" >
+                (<section className=" text-white min-h-full" data-testid="HomePage" >
                     <img className="text-center pt-28 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />     
                 </section>)
             }
