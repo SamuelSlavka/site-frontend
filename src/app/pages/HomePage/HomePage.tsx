@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 function HomePage() {
     const [img, setImg] = useState<HTMLImageElement | undefined>(undefined);
-    const [loadFail, setLoadFail] = useState<boolean>(false);
+    const [loadFail, setLoadFail] = useState<boolean>(true);
 
 
     useEffect(() => {
@@ -17,11 +17,13 @@ function HomePage() {
 
         const loadImg = new Image()
         loadImg.src = imageUrl;
+        
         // eager loading bg immage
         loadImg.onload = () => {
             setImg(loadImg);
             setLoadFail(false);
         }
+
         loadImg.onerror = () => {
             setLoadFail(true);
         }
@@ -29,8 +31,8 @@ function HomePage() {
 
     return (
         <>
-            { loadFail ? <></> :
-                <img className="pointer-events-none absolute min-w-full min-h-fit h-full object-cover bg-black" src={img?.src} alt="idk" /> 
+            {loadFail ? <></> :
+                <img className="pointer-events-none absolute min-w-full min-h-fit h-full object-cover bg-black" src={img?.src} alt="idk" />
             }
             {img ?
                 (<div className="overflow-auto HideScrollbars inline-block relative min-w-full min-h-fit h-full object-cover">
@@ -61,7 +63,7 @@ function HomePage() {
                 </div>)
                 :
                 (<section className=" text-white min-h-full" data-testid="HomePage" >
-                    <img className="text-center pt-28 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />     
+                    <img className="text-center pt-28 m-auto" src={require('../../assets/ring-resize.svg').default} alt='mySvgImage' />
                 </section>)
             }
         </>
