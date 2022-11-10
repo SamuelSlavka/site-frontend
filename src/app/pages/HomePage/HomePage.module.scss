@@ -8,9 +8,3 @@
   @apply transition-all hover:text-light ease-in-out duration-200;
   text-shadow: 0 0 2px black;
 }
-
-.NavContainer {
-  @media (min-height: 1024px) {
-    margin-top: calc(100vh/4);
-  }
-}
