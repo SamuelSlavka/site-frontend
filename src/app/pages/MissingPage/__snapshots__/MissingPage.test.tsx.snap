@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MissingPage works it should render correnctly 1`] = `
+<div
+  className="MissingPage"
+  data-testid="MissingPage"
+>
+  <h1
+    className="text-center text-5xl font-bold py-16"
+  >
+    Wrong turn
+  </h1>
+</div>
+`;
