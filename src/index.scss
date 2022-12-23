@@ -3,71 +3,92 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  height: 100vh;
-  place-items: center;
-  margin: 0px;
-  padding: 0px;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    height: 100vh;
+    place-items: center;
+    margin: 0px;
+    padding: 0px;
 }
 
 html,
 body,
 #root {
-  overflow: hidden;
-  height: 100%;
-  min-height: fit-content;
-  background: #353535;
-	background: linear-gradient(-45deg, #353535, #457b9d, #353535);
-	background-size: 400% 400%;
-  -webkit-animation: gradient 180s ease infinite;
-  -moz-animation: gradient 180s ease infinite;
-	animation: gradient 180s ease infinite;
+    overflow: hidden;
+    height: 100%;
+    min-height: fit-content;
+    background: #353535;
+    background: linear-gradient(-45deg, #353535, #457b9d, #353535);
+    background-size: 400% 400%;
+    -webkit-animation: gradient 180s ease infinite;
+    -moz-animation: gradient 180s ease infinite;
+    animation: gradient 180s ease infinite;
 
-	height: 100vh;
-  @apply text-white;
+    height: 100vh;
+    @apply text-white;
 }
 
 @-webkit-keyframes gradient {
-    0%{background-position:0% 0%}
-    50%{background-position: 100% 100%}
-    100%{background-position: 0% 0%}
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 @-moz-keyframes gradient {
-    0%{background-position:0% 0%}
-    50%{background-position: 100% 100%}
-    100%{background-position: 0% 0%}
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 @keyframes gradient {
-    0%{background-position:0% 0%}
-    50%{background-position: 100% 100%}
-    100%{background-position: 0% 0%}
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
 .LinkTopContainer {
-  @apply text-right p-4 absolute top-0 right-0 h-16 w-32;
-  
-  & .LinkTop {
-    @apply transition-all hover:text-light ease-in-out duration-200;
-  }
+    @apply text-right p-4 absolute top-0 right-0 z-10;
+    display: inline-flex;
+    & .LinkTop {
+        @apply transition-all hover:text-light ease-in-out duration-200 pr-2;
+    }
+    &.SecondLink {
+        @apply right-20;
+    }
 }
 
-
 .LinkTopContainer.AlignLeft {
-  @apply right-auto text-left w-fit;
+    @apply right-auto text-left w-fit;
 }
 
 .HideScrollbars {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-.HideScrollbars::-webkit-scrollbar {  /* Chrome */
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+.HideScrollbars::-webkit-scrollbar {
+    /* Chrome */
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
 }
-

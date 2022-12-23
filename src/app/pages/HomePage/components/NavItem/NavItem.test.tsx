@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import renderer from 'react-test-renderer';
 import NavItem from './NavItem';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { BrowserRouter } from 'react-router-dom';
 
 
@@ -12,7 +11,7 @@ describe('NavItem works', () => {
         render(
 
             <BrowserRouter>
-                <NavItem name="name" link='' icon={solid('user-secret')} />
+                <NavItem name="name" link='' icon='user-secret' />
             </BrowserRouter>);
 
         const navItem = screen.getByTestId('NavItem');
@@ -22,7 +21,7 @@ describe('NavItem works', () => {
     test("it should render correnctly", () => {
         const component = renderer.create(
             <BrowserRouter>
-                <NavItem name="name" link='' icon={solid('user-secret')} />
+                <NavItem name="name" link='' icon='user-secret' />
             </BrowserRouter>
         );
 

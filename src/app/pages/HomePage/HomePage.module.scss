@@ -1,17 +1,10 @@
 .HeaderText {
-    @apply pb-8 text-center text-4xl md:text-6xl font-bold hover:text-light ease-in-out duration-200;
-    text-shadow: 0 0 2px black;
-}
-
-.LinkGit {
-    @apply transition-all hover:text-light ease-in-out duration-200;
+    @apply pb-8 text-center text-4xl sm:text-6xl font-bold hover:text-light ease-in-out duration-200;
     text-shadow: 0 0 2px black;
 }
 
 .NavContainer {
-    overflow: auto;
-    max-height: 100%;
-    overflow: auto;
+    @apply max-h-fit sm:max-h-screen overflow-visible sm:overflow-auto;
 }
 
 .SideBar {

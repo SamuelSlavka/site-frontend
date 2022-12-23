@@ -34,6 +34,9 @@ exports[`NavItem works it should render correnctly 1`] = `
           style={Object {}}
         />
       </svg>
+      <i
+        className="fa-regular fa-user"
+      />
       <span
         className="px-4"
       >
