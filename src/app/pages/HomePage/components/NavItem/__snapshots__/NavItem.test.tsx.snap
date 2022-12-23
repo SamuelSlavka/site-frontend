@@ -2,10 +2,10 @@
 
 exports[`NavItem works it should render correnctly 1`] = `
 <div
-  className="m-auto mx-3 self-center"
+  className="relative m-2 md:m-4 lg:m-6 self-center rounded overflow-hidden shadow-lg hover:ring-2 ring-light transition-all ease-in-out duration-300"
 >
   <button
-    className="card text-2xl p-2 m-2 md:p-4 md:m-4 lg:m-6 rounded relative"
+    className="card text-2xl p-2 md:p-4rounded relative"
     data-testid="NavItem"
     onClick={[Function]}
     style={
@@ -15,7 +15,7 @@ exports[`NavItem works it should render correnctly 1`] = `
     }
   >
     <div
-      className="p-2 md:p-4 lg:px-6 lg:py-4 relative z-20"
+      className="p-2 md:p-4 lg:px-6 lg:py-4"
     >
       <svg
         aria-hidden="true"
@@ -34,14 +34,6 @@ exports[`NavItem works it should render correnctly 1`] = `
           style={Object {}}
         />
       </svg>
-      <i
-        className="fa-regular fa-user"
-      />
-      <span
-        className="px-4"
-      >
-        name
-      </span>
     </div>
   </button>
 </div>

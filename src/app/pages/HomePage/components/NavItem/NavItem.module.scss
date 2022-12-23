@@ -1,10 +1,5 @@
 .card {
-  min-width: 12rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(29, 53, 87, 0.3);
   max-height: 6rem;
-}
-
-.CardContainer {
-    @apply hover:bg-black p-4 hover:text-red;
 }
