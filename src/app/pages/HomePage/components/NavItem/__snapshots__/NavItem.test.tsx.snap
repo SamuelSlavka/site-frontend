@@ -5,7 +5,7 @@ exports[`NavItem works it should render correnctly 1`] = `
   className="relative m-2 md:m-4 lg:m-6 self-center rounded overflow-hidden shadow-lg hover:ring-2 ring-light transition-all ease-in-out duration-300"
 >
   <button
-    className="card text-2xl p-2 md:p-4rounded relative"
+    className="card cursor-pointer text-2xl p-2 md:p-4rounded relative"
     data-testid="NavItem"
     onClick={[Function]}
     style={

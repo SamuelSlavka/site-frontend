@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavItem from "./components/NavItem/NavItem";
 import NavItemModal from "./components/NavItemModal/NavItemModal";
 import Time from "./components/Time/Time";
