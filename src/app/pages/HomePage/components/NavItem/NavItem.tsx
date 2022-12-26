@@ -34,9 +34,13 @@ const NavItem: FC<NavItemProps> = (props) => {
                 data-testid="NavItem"
             >
                 <div className="p-2 md:p-4 lg:px-6 lg:py-4">
-                    <FontAwesomeIcon
-                        icon={["fas", props.item.icon as IconName]}
-                    />
+                    {props.item.icon ? (
+                        <FontAwesomeIcon
+                            icon={["fas", props.item.icon as IconName]}
+                        />
+                    ) : (
+                        <></>
+                    )}
                     {props.item.name ? (
                         <span className="px-4"> {props.item.name} </span>
                     ) : (
