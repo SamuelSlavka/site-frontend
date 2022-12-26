@@ -6,7 +6,7 @@ import NavItemModal from './NavItemModal';
 
 describe('<FormModal />', () => {
   test('it should mount', () => {
-    render(<NavItemModal selectedItem={{}} handleChange={()=>{}} triggerUpsert={()=>{}}/>);
+    render(<NavItemModal selectedItem={{}} triggerUpsert={()=>{}}/>);
 
     const navItemModal = screen.getByTestId('NavItemModal');
 

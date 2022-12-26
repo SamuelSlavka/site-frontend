@@ -9,7 +9,11 @@ describe("NavItem works", () => {
   test("it should mount", () => {
     render(
       <BrowserRouter>
-        <NavItem editMode={false} item={{ id: "as", icon: "user-secret" }} action={()=>{}} editItem={()=>{}} deleteItem={()=>{}} />
+        <NavItem
+          editMode={false}
+          item={{ id: "as", icon: "user-secret" }}
+          action={() => {}}
+        />
       </BrowserRouter>
     );
 
@@ -20,7 +24,11 @@ describe("NavItem works", () => {
   test("it should render correnctly", () => {
     const component = renderer.create(
       <BrowserRouter>
-        <NavItem editMode={false} item={{ id: "as", icon: "user-secret" }} action={()=>{}} editItem={()=>{}} deleteItem={()=>{}} />
+        <NavItem
+          editMode={false}
+          item={{ id: "as", icon: "user-secret" }}
+          action={() => {}}
+        />
       </BrowserRouter>
     );
 

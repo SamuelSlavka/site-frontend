@@ -1,9 +1,10 @@
+import { NavItemActions } from "../enums/nav-item-actions.enum";
+
 export interface NavItemProps {
     item: NavItemInterface;
     editMode: boolean;
-    action: () => any;
-    editItem: (id: string) => any;
-    deleteItem: (id: string) => any;
+    action: (type: NavItemActions, id?: string) => any;
+    callbackAction?: (id: string) => any;
 }
 
 

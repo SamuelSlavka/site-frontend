@@ -1,9 +1,9 @@
 # Frontend
 Application with dashboard containing links to self-hosted services and scraped menus from lcoal restaurants. Written in `React` with `Redux` as state managment.
 
-### Project setup 
+### Project setup
 Project has its own `.env` which is structured according to `.env.dist` file.
-### CI/CD setup 
+### CI/CD setup
 CI/CD is configured to build arm64 immages. To change this in `.gitlab-ci.yml` change all `--platform`  flags.
 
 CI/CD has also set of following variables:
@@ -24,7 +24,7 @@ SSH_CONFIG: [
 Running jest test suite:
 #### `yarn test`
 Running eslint:
-### `yarn lint`
+#### `yarn lint`
 Installing deps:
 #### `yarn install`
 Running frontend in dev mode:

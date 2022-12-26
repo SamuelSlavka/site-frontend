@@ -3,36 +3,45 @@ import NavItem from "./components/NavItem/NavItem";
 import NavItemModal from "./components/NavItemModal/NavItemModal";
 import Time from "./components/Time/Time";
 import { navItems } from "./constants/navItems";
+import { NavItemActions } from "./enums/nav-item-actions.enum";
 
 import styles from "./HomePage.module.scss";
 import { NavItemInterface } from "./models/navItem";
 
 function HomePage() {
+  const [items, setItems] = useState<NavItemInterface[]>(navItems);
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<
     Partial<NavItemInterface> | undefined
-  >();
+  >({name: '', link: '', icon:'', bg:''});
 
-  useEffect(() => {}, [editMode]);
-
-  const addNav = () => {
-    var elm = document.getElementById("nav-item-modal");
-    if (elm) {
-      elm.click();
-    }
+  const triggerUpsert = (params: any) => {
+    console.log(params)
   };
 
-  const triggerUpsert = () => {};
-  const handleChange = () => {};
-  const editItem = (id: string) => {};
-  const deleteItem = (id: string) => {};
+  const handleAction = (type: NavItemActions, id?: string) => {
+    switch (type) {
+      case NavItemActions.ADD:
+        document.getElementById("nav-item-modal")?.click();
+        break;
+      case NavItemActions.EDIT:
+        console.log(id);
+        break;
+      case NavItemActions.DELETE:
+        setItems(items.filter((item) => item.id !== id));
+        break;
+    }
+  };
 
   return (
     <div className="h-full">
       <div className="LinkTopContainer">
-        {openModal}
-        <div className="cursor-pointer" onClick={() => setEditMode(!editMode)}>
+        <div
+          className="cursor-pointer"
+          onClick={() => {
+            setEditMode(!editMode);
+          }}
+        >
           <span className="LinkTop pr-2">
             {editMode ? "stop editing" : "edit navs"}
           </span>
@@ -55,16 +64,21 @@ function HomePage() {
         <div
           className={`max-h-fit sm:max-h-screen overflow-visible sm:overflow-auto w-full h-fit flex flex-wrap justify-center pt-2 sm:pt-12 lg:pt-16 xl:pt-18 pb-4 pr-4`}
         >
-          {navItems.map((navItem, index) => (
+          {items.map((navItem, index) => (
             <NavItem
               editMode={editMode}
               key={index}
-              action={()=>{}} editItem={()=>{}} deleteItem={()=>{}}
+              action={handleAction}
               item={navItem}
             />
           ))}
           {editMode ? (
-            <NavItem editMode={false} item={{icon:"plus", id:'-1'}} action={addNav} editItem={()=>{}} deleteItem={()=>{}}/>
+            <NavItem
+              editMode={false}
+              key="-1"
+              item={{ icon: "plus", id: "-1" }}
+              action={handleAction}
+            />
           ) : (
             <></>
           )}
@@ -74,7 +88,6 @@ function HomePage() {
       <input type="checkbox" id="nav-item-modal" className="modal-toggle" />
       <NavItemModal
         selectedItem={selectedItem}
-        handleChange={handleChange}
         triggerUpsert={triggerUpsert}
       />
     </div>
