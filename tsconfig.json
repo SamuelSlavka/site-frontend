@@ -1,6 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -22,12 +21,34 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "removeComments": true,
+    "noEmit": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+        "@app/*": [
+            "src/app/*"
+        ],
+        "@assets/*": [
+            "src/assets/*"
+        ],
+        "@core/*": [
+            "src/app/core/*"
+        ],
+        "@shared/*": [
+            "src/app/shared/*"
+        ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }
