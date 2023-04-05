@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Login</h1>
+
+    <form [formGroup]="form" autocomplete="off" novalidate (ngSubmit)="loginUser()">
+    </form>
+    <hr>
+    <div>
+      <h2>External Providers</h2>
+      <!-- TODO: Backend login endpoint -->
+      <div id="g_id_onload" data-client_id="338179295505-7im0prahsgculr64vspgntnq1gpgnn3t.apps.googleusercontent.com"
+        data-context="signin" data-ux_mode="redirect" data-login_uri="localhost:5000/login" data-auto_select="true"
+        data-itp_support="true">
+      </div>
+
+      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+        data-text="signin_with" data-size="large" data-logo_alignment="left">
+      </div>
+
+    </div>
+  </div>
+</div>

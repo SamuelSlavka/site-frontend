@@ -1,15 +1,18 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { HttpErrorInterceptor } from "./interceptors/http-error.interceptor";
 import { ApiLoaderInterceptor } from "./interceptors/api-loader.interceptor";
 import { ApiPrefixInterceptor } from "./interceptors/api-prefix.interceptor";
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from "@abacritt/angularx-social-login";
+import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
+import { GoogleLoginProvider, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, SocialLoginModule],
+  imports: [CommonModule, HttpClientModule],
   providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiLoaderInterceptor,
@@ -33,9 +36,12 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider("your client id", {
-              scopes: "email",
-            }),
+            provider: new GoogleLoginProvider(
+              "338179295505-7im0prahsgculr64vspgntnq1gpgnn3t.apps.googleusercontent.com",
+              {
+                scopes: "email",
+              },
+            ),
           },
         ],
         onError: (err) => {

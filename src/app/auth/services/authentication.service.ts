@@ -2,16 +2,13 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
 import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
 import { Subject, Subscription } from "rxjs";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { IUserAuth } from "../interfaces/UserAuth";
 import { IUserRegistration } from "../interfaces/UserRegistration";
 import { IExternalAuth } from "../interfaces/ExternalAuth";
-import { IResetPassword } from "../interfaces/ResetPassword";
-import { IForgotPassword } from "../interfaces/ForgotPassword";
 import { IAuthResponse } from "../../auth/interfaces/AuthResponse";
 import { IRegistrationResponse } from "../interfaces/RegistrationResponse";
-import { ITwoFactor } from "../interfaces/TwoFactor";
 import { EnvironmentUrlService } from "../../core/services/environment-url.service";
 
 @Injectable({
@@ -50,26 +47,6 @@ export class AuthenticationService implements OnDestroy {
     return this._http.post<IAuthResponse>(this.createCompleteRoute(route, this._envUrl.url), body);
   }
 
-  public forgotPassword = (route: string, body: IForgotPassword) => {
-    return this._http.post(this.createCompleteRoute(route, this._envUrl.url), body);
-  }
-
-  public resetPassword = (route: string, body: IResetPassword) => {
-    return this._http.post(this.createCompleteRoute(route, this._envUrl.url), body);
-  }
-
-  // public confirmEmail = (route: string, token: string, email: string) => {
-  //   let params = new HttpParams({ encoder: new CustomEncoder() })
-  //   params = params.append('token', token);
-  //   params = params.append('email', email);
-
-  //   return this._http.get(this.createCompleteRoute(route, this._envUrl.url), { params: params });
-  // }
-
-  public twoStepLogin = (route: string, body: ITwoFactor) => {
-    return this._http.post<IAuthResponse>(this.createCompleteRoute(route, this._envUrl.url), body);
-  }
-
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
     this.authChangeSub.next(isAuthenticated);
   }
@@ -77,6 +54,7 @@ export class AuthenticationService implements OnDestroy {
   public logout = () => {
     localStorage.removeItem("token");
     this.sendAuthStateChangeNotification(false);
+    this.signOutExternal();
   }
 
   public isUserAuthenticated = (): boolean => {
@@ -99,6 +77,10 @@ export class AuthenticationService implements OnDestroy {
 
   public signOutExternal = () => {
     this._externalAuthService.signOut();
+  }
+
+  refreshToken(): void {
+    this._externalAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
   public externalLogin = (route: string, body: IExternalAuth) => {
