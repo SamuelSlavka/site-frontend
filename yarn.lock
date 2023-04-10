@@ -1431,6 +1431,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ngneat/until-destroy@^10.0.0-beta.0":
+  version "10.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-10.0.0-beta.0.tgz#f91ba378c4b4647a314af975a8378997d3714bd7"
+  integrity sha512-YuvEa5bM6XjeAijSWMjTrq0dUxKE2KCT7ftQ3nu71RMZwRIMB6di/60Pf23H20jCro9J1mxArMZgiSgfx+spww==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@15.2.4":
   version "15.2.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-15.2.4.tgz#bb8afe2800e79120985657180d2b33f64ecd763d"
@@ -3292,6 +3299,11 @@ follow-redirects@^1.0.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
+
+fontawesome@^5.6.3:
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/fontawesome/-/fontawesome-5.6.3.tgz#73f0b865fa2b0b384e69d531c05a02c643b72f95"
+  integrity sha512-FCc+CawwsJWWprVEg9X14yI7zI+l9YVAyhzgu70qwGeDn0tLLDH/dVfqgij72g4BBGgLGfK2qnvFGAmYUkhaWg==
 
 forwarded@0.2.0:
   version "0.2.0"
@@ -6679,6 +6691,11 @@ yargs@^17.2.1:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
+
+zod@^3.21.4:
+  version "3.21.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.21.4.tgz#10882231d992519f0a10b5dd58a38c9dabbb64db"
+  integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
 
 zone.js@~0.12.0:
   version "0.12.0"
