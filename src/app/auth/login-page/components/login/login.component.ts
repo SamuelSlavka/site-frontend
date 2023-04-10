@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthenticationService } from "../../../services/authentication.service";
-import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
+import { BehaviorSubject } from "rxjs";
+import { ISession } from "../../../interfaces/Session";
 
 @Component({
   selector: "app-login",
@@ -10,26 +11,17 @@ import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  socialUser!: SocialUser;
-  isLoggedin: boolean = false;
 
-  constructor(
-    private readonly _fb: FormBuilder,
-    private readonly _authService: AuthenticationService,
-    private readonly _socialAuthService: SocialAuthService,
-  ) {}
+  constructor(private readonly _fb: FormBuilder, private readonly _authService: AuthenticationService) {}
 
-  ngOnInit(): void {
-    this._socialAuthService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.isLoggedin = user != null;
-    });
-  }
+  session$: BehaviorSubject<ISession> = this._authService.session;
+
+  ngOnInit(): void {}
 
   form: FormGroup = this._fb.group({ username: [], password: [] });
 
   loginUser() {
-    this._authService.loginUser(this.form.value)
+    this._authService.loginUser(this.form.value);
   }
   logOut(): void {
     this._authService.logout();

@@ -1,8 +1,8 @@
-<div class="m-3">
+<div class="m-3" *ngIf="{session: session$ | async} let context">
   <div class="card-body">
     <h1 class="card-title">Login</h1>
     <div class="container d-flex justify-content-center">
-      <div *ngIf="!isLoggedin" class="w-fit m-3">
+      <div *ngIf="!context.session?.loggedin" class="w-fit m-3">
         <form [formGroup]="form" (ngSubmit)="loginUser()">
           <div class="form-group">
             <label>email</label>
@@ -23,9 +23,9 @@
         </div>
       </div>
 
-      <div *ngIf="isLoggedin">
+      <div *ngIf="context.session?.loggedin">
         <div class="form-group">
-          <span>Logged in as {{socialUser.email}}</span>
+          <span>Logged in as {{context.session?.email}}</span>
         </div>
         <button class="btn btn-primary mt-2" type="button" (click)="logOut()">Log Out</button>
       </div>
