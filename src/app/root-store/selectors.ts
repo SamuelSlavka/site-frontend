@@ -1,5 +1,5 @@
 import { createSelector, MemoizedSelector } from "@ngrx/store";
-import { SessionStoreSelectors } from "./session-store";
+import { SessionStoreSelectors } from "../auth/auth-store";
 
 export const selectError: MemoizedSelector<object, string> = createSelector(
   SessionStoreSelectors.selectSessionError,

@@ -12,7 +12,7 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { IExternalAuth } from "../interfaces/ExternalAuth";
 import { filter } from "rxjs";
 import { Store } from "@ngrx/store";
-import { ExternalLoginRequestAction } from "../../root-store/session-store/actions";
+import { ExternalLoginRequestAction } from "../auth-store/actions";
 
 @UntilDestroy()
 @Injectable({

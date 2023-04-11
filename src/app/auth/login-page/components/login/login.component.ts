@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
-import { SessionStoreActions, SessionStoreSelectors } from "../../../../root-store";
-import { SessionState } from "../../../../root-store/session-store/reducer";
+import { SessionStoreSelectors, SessionStoreActions } from "../../../auth-store";
+import { SessionState } from "../../../auth-store/reducer";
 
 @Component({
   selector: "app-login",

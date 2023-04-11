@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { SessionStoreModule } from "./session-store/session-store.module";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../../enviroments/enviroment";
+import { SessionStoreModule } from "../auth/auth-store";
 
 @NgModule({
   declarations: [],
