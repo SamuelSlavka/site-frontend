@@ -10,22 +10,20 @@ import { IRegistrationResponse } from "../interfaces/RegistrationResponse";
 import { EnvironmentUrlService } from "../../core/services/environment-url.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { IExternalAuth } from "../interfaces/ExternalAuth";
-import { ToastrService } from "ngx-toastr";
-import { BehaviorSubject, filter } from "rxjs";
-import { ISession } from "../interfaces/Session";
+import { filter } from "rxjs";
+import { Store } from "@ngrx/store";
+import { ExternalLoginRequestAction } from "../../root-store/session-store/actions";
 
 @UntilDestroy()
 @Injectable({
   providedIn: "root",
 })
 export class AuthenticationService {
-  public session = new BehaviorSubject<ISession>({ email: "", idToken: "", loggedin: false });
-
   constructor(
     private readonly _http: HttpClient,
+    private readonly _store: Store,
     private readonly _envUrl: EnvironmentUrlService,
     private readonly _jwtHelper: JwtHelperService,
-    private readonly _toastrService: ToastrService,
     private readonly _externalAuthService: SocialAuthService,
   ) {
     this._externalAuthService.authState
@@ -34,12 +32,13 @@ export class AuthenticationService {
         filter((user) => user != undefined),
       )
       .subscribe((user: SocialUser) => {
-        this.validateExternalAuth({ idToken: user?.idToken, provider: "google", email: user?.authToken });
+        const exteralAuth = { idToken: user?.idToken, provider: "google", email: user?.authToken };
+        this._store.dispatch(ExternalLoginRequestAction({ exteralAuth }));
       });
   }
 
-  private signOutWithGoogle() {
-    this._externalAuthService.signOut();
+  public signOutWithGoogle() {
+    return this._externalAuthService.signOut();
   }
 
   public registerUser(body: IUserRegistration) {
@@ -50,32 +49,13 @@ export class AuthenticationService {
     return this._http.post<IAuthResponse>(this._envUrl.url, body);
   }
 
-  public logout() {
-    console.log("out");
-    this.session.next({ idToken: "", email: "", loggedin: false });
-    localStorage.removeItem("token");
-    this.signOutWithGoogle();
-  }
-
   public isUserAuthenticated(): boolean {
     const token = localStorage.getItem("token");
     return !!token && !this._jwtHelper.isTokenExpired(token);
   }
 
-  private validateExternalAuth(externalAuth: IExternalAuth) {
-    this._http.post<IAuthResponse>("api/accounts/externallogin", externalAuth).subscribe({
-      next: (res: IAuthResponse) => {
-        localStorage.setItem("token", res.token);
-
-        this.session.next({ idToken: res.token, email: externalAuth.email, loggedin: true });
-        this._toastrService.success("Signed in");
-      },
-      error: () => {
-        this.signOutWithGoogle();
-        this.session.next({ idToken: "", email: "", loggedin: false });
-        this._toastrService.error("Failed to sign in");
-      },
-    });
+  public validateExternal(externalAuth: IExternalAuth) {
+    return this._http.post<IAuthResponse>("api/accounts/externallogin", externalAuth);
   }
 
   public refreshToken(): void {

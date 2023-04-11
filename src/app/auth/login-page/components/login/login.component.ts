@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { AuthenticationService } from "../../../services/authentication.service";
-import { BehaviorSubject } from "rxjs";
-import { ISession } from "../../../interfaces/Session";
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { SessionStoreActions, SessionStoreSelectors } from "../../../../root-store";
+import { SessionState } from "../../../../root-store/session-store/reducer";
 
 @Component({
   selector: "app-login",
@@ -12,18 +13,18 @@ import { ISession } from "../../../interfaces/Session";
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private readonly _fb: FormBuilder, private readonly _authService: AuthenticationService) {}
+  constructor(private readonly _fb: FormBuilder, readonly _store: Store) {}
 
-  session$: BehaviorSubject<ISession> = this._authService.session;
+  session$: Observable<SessionState | null> = this._store.select(SessionStoreSelectors.selectSession);
 
   ngOnInit(): void {}
 
   form: FormGroup = this._fb.group({ username: [], password: [] });
 
   loginUser() {
-    this._authService.loginUser(this.form.value);
+    this._store.dispatch(SessionStoreActions.UserLoginRequestAction(this.form.value));
   }
   logOut(): void {
-    this._authService.logout();
+    this._store.dispatch(SessionStoreActions.LogoutRequestAction());
   }
 }

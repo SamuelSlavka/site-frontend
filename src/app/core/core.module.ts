@@ -7,10 +7,16 @@ import { ApiPrefixInterceptor } from "./interceptors/api-prefix.interceptor";
 import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
 import { GoogleLoginProvider, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 import { ToastrModule } from "ngx-toastr";
+import { RootStoreModule } from "../root-store";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, HttpClientModule, ToastrModule.forRoot(),],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    RootStoreModule,
+  ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
