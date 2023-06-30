@@ -1,9 +1,16 @@
 export const environment = {
-  appName: "NG-Start",
+  appName: 'site-frontend',
+  serverUrl: 'http://localhost:8090/api/v1/',
   production: false,
-  serverUrl: "https://localhost:5001",
-  i18nPrefix: "",
-  defaultLanguage: "en",
+  i18nPrefix: '',
+  defaultLanguage: 'en',
   configFile: 'assets/config.json',
-  supportedLanguages: ["en"],
+  supportedLanguages: ['en'],
+  keycloak: {
+    // Url of the Identity Provider
+    issuer: 'http://localhost:8080',
+    // Realm
+    realm: 'site',
+    clientId: 'site-frontend',
+  },
 };

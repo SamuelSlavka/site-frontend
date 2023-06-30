@@ -1,10 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { EffectsModule } from "@ngrx/effects";
-import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { environment } from "../../enviroments/enviroment";
-import { SessionStoreModule } from "../auth/auth-store";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../enviroments/enviroment';
 
 @NgModule({
   declarations: [],
@@ -16,7 +15,6 @@ import { SessionStoreModule } from "../auth/auth-store";
       maxAge: 25,
       logOnly: environment.production,
     }),
-    SessionStoreModule,
   ],
 })
 export class RootStoreModule {}
