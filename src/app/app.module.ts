@@ -10,8 +10,6 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { SharedModule } from './shared/shared.module';
 import { RootStoreModule } from './root-store';
 import { initializer } from 'src/utils/app-init';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,11 +25,6 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
   ],
   providers: [
     KeycloakService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
     {
       provide: APP_INITIALIZER,
       useFactory: initializer,

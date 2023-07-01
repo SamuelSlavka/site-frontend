@@ -14,7 +14,7 @@ export class AccessDeniedComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get(`${environment.serverUrl}articles`).subscribe((data: any) => {
+    this.http.get(`${environment.serverUrl}articles?page=0`).subscribe((data: any) => {
       this.message = data.message;
     });
   }
