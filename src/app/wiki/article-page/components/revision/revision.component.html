@@ -1,7 +1,7 @@
 <div class="position-relative">
   <div class="position-absolute end-0">
-    <button type="button" class="btn btn-primary mx-2">delete</button>
-    <button type="button" class="btn btn-primary">edit</button>
+    <button *ngIf="isAdmin" type="button" class="btn btn-primary mx-2" (click)="triggerDelete()">delete</button>
+    <button *ngIf="isAdmin" type="button" class="btn btn-primary" (click)="triggerEdit()">edit</button>
   </div>
   <markdown [data]="revision.text"></markdown>
 </div>

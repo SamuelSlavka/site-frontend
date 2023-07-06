@@ -1,7 +1,8 @@
 <div class="w-100 h-100 p-3" *ngIf="{ articles: (articles$ | async) }; let context">
-  <div class="d-flex flex-row-reverse">
+  <div class="d-flex border-bottom pb-3">
+    <app-login></app-login>
+    <button class="btn btn-primary me-2 ms-auto" (click)="create()">create</button>
     <button class="btn btn-primary" (click)="back()">back</button>
-    <button class="btn btn-primary mx-3" (click)="create()">create</button>
   </div>
   <app-article-list [articles]="context.articles ?? []"></app-article-list>
 </div>

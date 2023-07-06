@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -9,13 +9,15 @@ import { Subject } from 'rxjs';
   styleUrls: ['./section-form.component.css'],
 })
 export class SectionFormComponent implements OnInit {
+  isEdit: boolean = false;
+  initText: string = '';
   form!: FormGroup;
   public onClose: Subject<string> = new Subject();
-  constructor(private bsModalRef: BsModalRef, private fb: FormBuilder) {}
+  constructor(public options: ModalOptions, private bsModalRef: BsModalRef, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      text: [null, Validators.required],
+      text: [this.initText, Validators.required],
     });
   }
 

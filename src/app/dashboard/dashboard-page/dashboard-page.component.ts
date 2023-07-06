@@ -9,8 +9,7 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class DashboardPageComponent {
   title = 'keycloak-demo';
-  constructor(private keycloakService: KeycloakService, private router: Router) {
-    console.log(this.keycloakService.getToken())}
+  constructor(private keycloakService: KeycloakService, private router: Router) {}
   logout() {
     this.keycloakService.logout();
   }

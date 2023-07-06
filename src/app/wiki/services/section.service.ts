@@ -17,4 +17,12 @@ export class SectionService {
   createSection(data: SectionCreate): Observable<Section> {
     return this.http.post<Section>(`${environment.serverUrl}sections/id/${data.superSectionId}`, { text: data.text });
   }
+
+  editSection(data: SectionCreate): Observable<Section> {
+    return this.http.put<Section>(`${environment.serverUrl}sections/id/${data.superSectionId}`, { text: data.text });
+  }
+
+  deleteSection(id: string): Observable<Section> {
+    return this.http.delete<Section>(`${environment.serverUrl}sections/id/${id}`);
+  }
 }

@@ -3,8 +3,9 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Article, ArticleListItem } from '../models/article.model';
 import { ArticleActions } from '../actions/article.actions';
 
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { ArticleService } from '@app/wiki/services/article.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface ArticleStateModel {
   articles: ArticleListItem[];
@@ -17,13 +18,17 @@ export interface ArticleStateModel {
 })
 @Injectable()
 export class ArticleState {
-  constructor(private articleService: ArticleService) {}
+  constructor(private toastr: ToastrService, private articleService: ArticleService) {}
 
   @Action(ArticleActions.FetchOne)
   fetchOneArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.FetchOne) {
     return this.articleService.getOneArticle(action.id).pipe(
       tap((article) => {
         ctx.patchState({ selected: article });
+      }),
+      catchError((error) => {
+        this.toastr.error('Creation failed');
+        return error;
       }),
     );
   }
@@ -34,6 +39,10 @@ export class ArticleState {
       tap((articles) => {
         ctx.patchState({ articles });
       }),
+      catchError((error) => {
+        this.toastr.error('Failed to get articles');
+        return error;
+      }),
     );
   }
 
@@ -43,6 +52,11 @@ export class ArticleState {
       tap((article) => {
         const state = ctx.getState();
         ctx.patchState({ articles: [article, ...state.articles] });
+        this.toastr.success('Article created');
+      }),
+      catchError((error) => {
+        this.toastr.error('Failed to create article');
+        return error;
       }),
     );
   }

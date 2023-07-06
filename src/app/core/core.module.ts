@@ -12,16 +12,16 @@ import { initializer } from 'src/utils/app-init';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArticleState } from '@app/wiki/store/state/article.state';
 import { NgxsModule } from '@ngxs/store';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [],
   imports: [
+    NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    ToastrModule.forRoot(),
     NgxsModule.forRoot([ArticleState]),
   ],
   providers: [

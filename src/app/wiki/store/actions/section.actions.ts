@@ -11,7 +11,7 @@ export namespace SectionActions {
   }
   export class Edit {
     static readonly type = '[Sections] Edit';
-    constructor(public section: Section) {}
+    constructor(public data: SectionCreate) {}
   }
   export class Remove {
     static readonly type = '[Sections] Remove';
