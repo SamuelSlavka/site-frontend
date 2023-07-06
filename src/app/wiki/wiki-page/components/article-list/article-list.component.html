@@ -1,0 +1,10 @@
+<div class="m-3 w-100 h-100" *ngFor="let article of articles">
+  <div class="row">
+    <div class="col">
+      {{ article.title }}
+    </div>
+    <div class="col">
+      <button class="btn btn-primary" (click)="viewArticle(article)">View</button>
+    </div>
+  </div>
+</div>

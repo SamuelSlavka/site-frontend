@@ -28,21 +28,21 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "paths": {
-        "@app/*": [
-            "src/app/*"
-        ],
-        "@assets/*": [
-            "src/assets/*"
-        ],
-        "@core/*": [
-            "src/app/core/*"
-        ],
-        "@shared/*": [
-            "src/app/shared/*"
-        ]
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
     }
   },
   "angularCompilerOptions": {

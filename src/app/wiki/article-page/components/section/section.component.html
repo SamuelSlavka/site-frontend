@@ -1,0 +1,8 @@
+<div class="border p-2 my-2">
+  <app-revision *ngIf="section.latestRevision" [revision]="section.latestRevision"></app-revision>
+  <app-section *ngFor="let section of section.subsections" [section]="section"></app-section>
+  <div class="row m-0">
+    <button class="btn btn-primary col-auto" (click)="addSection()">add section</button>
+    <button *ngIf="!!section.latestRevision" (click)="editSection()" class="btn btn-primary col-auto mx-2">edit</button>
+  </div>
+</div>

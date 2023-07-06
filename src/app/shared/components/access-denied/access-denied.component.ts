@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/enviroments/enviroment';
 
 @Component({
   selector: 'app-access-denied',
@@ -11,13 +10,9 @@ import { environment } from 'src/enviroments/enviroment';
 export class AccessDeniedComponent implements OnInit {
   message = 'message';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.http.get(`${environment.serverUrl}articles?page=0`).subscribe((data: any) => {
-      this.message = data.message;
-    });
-  }
+  ngOnInit(): void {}
 
   back() {
     this.router.navigate(['']);

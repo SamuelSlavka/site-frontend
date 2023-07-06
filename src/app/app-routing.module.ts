@@ -25,9 +25,9 @@ const routes: Routes = [
         loadChildren: () => import('./privacy/privacy.module').then((m) => m.PrivacyModule),
       },
       {
-        path: 'home',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+        path: 'wiki',
+        canActivate: [],
+        loadChildren: () => import('./wiki/wiki.module').then((m) => m.WikiModule),
       },
       {
         path: 'access-denied',

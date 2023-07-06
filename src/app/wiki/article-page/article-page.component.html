@@ -1,0 +1,9 @@
+<div class="m-3" *ngIf="{ section: (section$ | async) }; let context">
+  <div class="position-relative w-100 mb-3">
+    <button class="position-absolute end-0 btn btn-primary" (click)="goBack()">back</button>
+    <div class="article-title text-center fw-bold text-uppercase h4">{{ title }}</div>
+  </div>
+  <div *ngIf="context.section">
+    <app-section *ngIf="context.section" [section]="context.section"></app-section>
+  </div>
+</div>
