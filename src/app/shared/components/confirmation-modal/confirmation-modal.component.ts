@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-confirmation-modal',
   templateUrl: './confirmation-modal.component.html',
-  styleUrls: ['./confirmation-modal.component.css'],
+  styleUrls: ['./confirmation-modal.component.scss'],
 })
 export class ConfirmationModalComponent {
   public onClose: Subject<boolean> = new Subject();

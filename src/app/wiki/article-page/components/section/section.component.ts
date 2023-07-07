@@ -13,7 +13,7 @@ import { UserRoles } from '@app/shared/enums/user-roles.enum';
 @Component({
   selector: 'app-section',
   templateUrl: './section.component.html',
-  styleUrls: ['./section.component.css'],
+  styleUrls: ['./section.component.scss'],
 })
 export class SectionComponent implements OnInit {
   @Input() section!: Section;

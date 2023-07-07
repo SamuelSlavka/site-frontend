@@ -12,7 +12,7 @@ import { InputModalComponent } from '@app/shared/components/input-modal/input-mo
 @Component({
   selector: 'app-wiki-page',
   templateUrl: './wiki-page.component.html',
-  styleUrls: ['./wiki-page.component.css'],
+  styleUrls: ['./wiki-page.component.scss'],
 })
 export class WikiPageComponent implements OnInit {
   private page: number = 0;

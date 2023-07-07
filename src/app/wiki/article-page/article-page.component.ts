@@ -12,7 +12,7 @@ import { Section } from '../store/models/section.model';
 @Component({
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
-  styleUrls: ['./article-page.component.css'],
+  styleUrls: ['./article-page.component.scss'],
 })
 export class ArticlePageComponent implements OnInit {
   public title!: string;

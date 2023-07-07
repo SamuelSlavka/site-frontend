@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-input-modal',
   templateUrl: './input-modal.component.html',
-  styleUrls: ['./input-modal.component.css'],
+  styleUrls: ['./input-modal.component.scss'],
 })
 export class InputModalComponent implements OnInit {
   public onClose: Subject<string> = new Subject();

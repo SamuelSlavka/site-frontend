@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-access-denied',
   templateUrl: './access-denied.component.html',
-  styleUrls: ['./access-denied.component.css'],
+  styleUrls: ['./access-denied.component.scss'],
 })
 export class AccessDeniedComponent implements OnInit {
   message = 'message';

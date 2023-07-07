@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-section-form',
   templateUrl: './section-form.component.html',
-  styleUrls: ['./section-form.component.css'],
+  styleUrls: ['./section-form.component.scss'],
 })
 export class SectionFormComponent implements OnInit {
   isEdit: boolean = false;

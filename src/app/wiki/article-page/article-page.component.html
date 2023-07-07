@@ -1,9 +1,5 @@
 <div class="m-3" *ngIf="{ section: (section$ | async) }; let context">
-  <div class="d-flex pb-2 justify-content-between">
-    <div class="col-auto"><app-login></app-login></div>
-    <div class="col-auto article-title text-center fw-bold text-uppercase h4">{{ title }}</div>
-    <div class="col-auto"><button class="btn btn-primary" (click)="goBack()">back</button></div>
-  </div>
+  <app-nav [title]="title" backUrl="/wiki"></app-nav>
   <div *ngIf="context.section">
     <app-section *ngIf="context.section" [section]="context.section"></app-section>
   </div>

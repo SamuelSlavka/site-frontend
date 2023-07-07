@@ -1,0 +1,15 @@
+.action-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 576px) {
+  .article-title {
+    order: -1;
+  }
+  .action-mobile {
+    display: block;
+  }
+  .action-desktop {
+    display: none;
+  }
+}

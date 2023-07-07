@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './components/login/login.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   imports: [
@@ -24,8 +25,9 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     ConfirmationModalComponent,
     InputModalComponent,
     NotFoundComponent,
+    NavComponent,
     AccessDeniedComponent,
   ],
-  exports: [LoginComponent],
+  exports: [LoginComponent, NavComponent],
 })
 export class SharedModule {}

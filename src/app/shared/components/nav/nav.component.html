@@ -1,0 +1,19 @@
+<div class="d-flex row m-0 pb-3 justify-content-between">
+  <div class="col-6 col-sm-4">
+    <app-login></app-login>
+  </div>
+  <div *ngIf="title" class="col-12 col-sm-4 article-title text-center fw-bold text-uppercase h4">
+    {{ title }}
+  </div>
+  <div class="col-6 col-sm-4 d-flex justify-content-end">
+    <button *ngIf="actionLabel" class="action-desktop col-auto btn btn-primary me-2" (click)="actionTrigger()">
+      {{ actionLabel }}
+    </button>
+    <button class="btn btn-primary" (click)="back()">back</button>
+  </div>
+</div>
+<div class="row m-0 d-flex justify-content-end">
+  <button *ngIf="actionLabel" class="action-mobile col-auto btn btn-primary me-2" (click)="actionTrigger()">
+    {{ actionLabel }}
+  </button>
+</div>

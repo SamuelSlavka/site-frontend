@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-revision',
   templateUrl: './revision.component.html',
-  styleUrls: ['./revision.component.css'],
+  styleUrls: ['./revision.component.scss'],
 })
 export class RevisionComponent {
   @Input() revision!: Revision;

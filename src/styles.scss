@@ -3,16 +3,15 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
-
 .w-fit {
   width: fit-content;
 }
 
 /* Importing Bootstrap SCSS file. */
-@import "./node_modules/bootstrap/scss/bootstrap";
+@import 'node_modules/bootstrap/scss/bootstrap';
 
 /* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
