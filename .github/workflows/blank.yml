@@ -14,11 +14,17 @@ jobs:
         run: npm install -g yarn
       - name: Build App
         run: yarn install && yarn run build:prod
+      - name: Run a multi-line script
+        run: |
+          mkdir ../build
+          cp -TR ./dist/site-frontend ../build
+          tar -cvf deploy.tar ../build/
+
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: "dist/site-frontend"
+          source: "deploy.tar"
           target: "/site-frontend"
