@@ -13,7 +13,7 @@ jobs:
       - name: Install yarn
         run: npm install -g yarn
       - name: Build App
-        run: yarn install && yarn run build
+        run: yarn install && yarn run build --configuration='production'
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.4
         with:
