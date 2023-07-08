@@ -1,0 +1,40 @@
+name: Server Build & Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Build App
+        run: yarn install && yarn run build
+      - name: Remove old app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          path: site
+          script: |
+            git clone https://github.com/SamuelSlavka/site.git 2> /dev/null
+            cd site
+            git pull
+            touch .env
+            echo "${{ secrets.SERVER_ENV_PROD }}" > .env
+            docker-compose pull
+            docker-compose up -d
+            docker-compose restart
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "dist/site-frontend"
+          target: "/"
