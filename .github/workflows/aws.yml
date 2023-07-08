@@ -28,6 +28,7 @@ jobs:
       - name: Build App
         run: yarn install && yarn run build
       - name: Deploy app build to S3 bucket
-        run: aws s3 sync ./dist/site-frontend s3://site.sam-sla.net --delete
+        run: aws s3 sync ./dist/site-frontend s3://sam-sla.net --delete
+
 
 
