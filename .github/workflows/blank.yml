@@ -14,11 +14,11 @@ jobs:
         run: npm install -g yarn
       - name: Build App
         run: yarn install && yarn run build:prod
-      - name: copy file via ssh key
-        uses: appleboy/scp-action@v0.1.4
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
         with:
+          local: dist/site-frontend
+          remote: /
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          source: "dist/site-frontend"
-          target: "/dist"
+          privateKey: ${{ secrets.KEY }}
