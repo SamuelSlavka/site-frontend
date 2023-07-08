@@ -30,3 +30,4 @@ jobs:
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./dist/site-frontend s3://site.sam-sla.net --delete
 
+
