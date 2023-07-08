@@ -21,4 +21,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           source: "dist/site-frontend"
-          target: "/"
+          target: "/site-frontend"
