@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Article, ArticleListItem } from '../store/models/article.model';
+import { Article, ArticleListItem, CreateArticle } from '../store/models/article.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class ArticleService {
     return this.http.get<Article>(`${environment.serverUrl}articles/id/${id}`);
   }
 
-  createArticle(title: string): Observable<ArticleListItem> {
-    return this.http.post<ArticleListItem>(`${environment.serverUrl}articles`, { title });
+  createArticle(data: CreateArticle): Observable<ArticleListItem> {
+    return this.http.post<ArticleListItem>(`${environment.serverUrl}articles`, data);
   }
 }

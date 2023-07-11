@@ -1,0 +1,17 @@
+<div>
+  <div class="modal-header">
+    <label class="input font-weight-bold">Create article</label>
+  </div>
+  <form class="modal-body" [formGroup]="form">
+    <label for="text-input">Article title</label>
+    <input name="text-input" class="w-100" formControlName="title" />
+    <div class="form-check mt-3">
+      <input type="checkbox" class="form-check-input" formControlName="isPrivate" id="flexCheckDefault" />
+      <label class="form-check-label" for="flexCheckDefault">Set as private</label>
+    </div>
+    <div class="d-flex flex-row-reverse mt-3">
+      <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">save</button>
+      <button class="btn btn-primary mx-3" (click)="cancel()">cancel</button>
+    </div>
+  </form>
+</div>
