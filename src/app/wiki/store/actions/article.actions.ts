@@ -1,4 +1,4 @@
-import { Article, ArticleListItem } from '../models/article.model';
+import { Article, ArticleListItem, CreateArticle } from '../models/article.model';
 
 export namespace ArticleActions {
   export class Fetch {
@@ -11,7 +11,7 @@ export namespace ArticleActions {
   }
   export class Create {
     static readonly type = '[Articles] Create';
-    constructor(public title: string) {}
+    constructor(public data: CreateArticle) {}
   }
   export class Edit {
     static readonly type = '[Articles] Edit';

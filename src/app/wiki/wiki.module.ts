@@ -13,9 +13,11 @@ import { ArticlePageComponent } from './article-page/article-page.component';
 import { SectionFormComponent } from './article-page/components/section-form/section-form.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { SectionState } from './store/state/section.state';
+import { ArticleFormComponent } from './wiki-page/components/article-form/article-form.component';
 
 @NgModule({
   declarations: [
+    ArticleFormComponent,
     ArticlePageComponent,
     ArticleListComponent,
     RevisionComponent,

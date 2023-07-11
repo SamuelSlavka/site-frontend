@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Article, ArticleListItem } from '../models/article.model';
 import { ArticleActions } from '../actions/article.actions';
 
-import { catchError, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 import { ArticleService } from '@app/wiki/services/article.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +28,7 @@ export class ArticleState {
       }),
       catchError((error) => {
         this.toastr.error('Creation failed');
-        return error;
+        return of(error);
       }),
     );
   }
@@ -41,14 +41,14 @@ export class ArticleState {
       }),
       catchError((error) => {
         this.toastr.error('Failed to get articles');
-        return error;
+        return of(error);
       }),
     );
   }
 
   @Action(ArticleActions.Create)
   createArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Create) {
-    return this.articleService.createArticle(action.title).pipe(
+    return this.articleService.createArticle(action.data).pipe(
       tap((article) => {
         const state = ctx.getState();
         ctx.patchState({ articles: [article, ...state.articles] });
@@ -56,7 +56,7 @@ export class ArticleState {
       }),
       catchError((error) => {
         this.toastr.error('Failed to create article');
-        return error;
+        return of(error);
       }),
     );
   }

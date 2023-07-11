@@ -16,3 +16,8 @@ export interface ArticleListItem {
   title: string;
   superSection: string;
 }
+
+export interface CreateArticle {
+  title: string;
+  isPrivate: boolean;
+}

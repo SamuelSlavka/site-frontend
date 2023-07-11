@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Select, Store } from '@ngxs/store';
-import { ArticleActions } from '../store/actions/article.actions';
-import { Article, ArticleListItem } from '../store/models/article.model';
-import { ArticleState } from '../store/state/article.state';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { InputModalComponent } from '@app/shared/components/input-modal/input-modal.component';
+
+import { ArticleActions } from '../store/actions/article.actions';
+import { ArticleListItem, CreateArticle } from '../store/models/article.model';
+import { ArticleState } from '../store/state/article.state';
+import { ArticleFormComponent } from './components/article-form/article-form.component';
 
 @Component({
   selector: 'app-wiki-page',
@@ -30,9 +30,8 @@ export class WikiPageComponent implements OnInit {
   }
 
   create() {
-    this.bsModalRef = this.modalService.show(InputModalComponent);
-    this.bsModalRef.content.label = 'Input article name';
-    this.bsModalRef.content.onClose.subscribe((res: string) => {
+    this.bsModalRef = this.modalService.show(ArticleFormComponent);
+    this.bsModalRef.content.onClose.subscribe((res: CreateArticle) => {
       this.store.dispatch(new ArticleActions.Create(res));
     });
   }
