@@ -24,3 +24,8 @@ export interface CreateArticle {
   title: string;
   isPrivate: boolean;
 }
+
+export interface CreateArticle {
+  title: string;
+  isPrivate: boolean;
+}
