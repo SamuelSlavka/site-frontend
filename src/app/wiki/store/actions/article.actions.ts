@@ -15,7 +15,7 @@ export namespace ArticleActions {
   }
   export class Edit {
     static readonly type = '[Articles] Edit';
-    constructor(public article: ArticleListItem) {}
+    constructor(public article: CreateArticle, public id: string) {}
   }
   export class Remove {
     static readonly type = '[Articles] Remove';

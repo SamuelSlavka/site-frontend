@@ -8,6 +8,8 @@ import { ArticleActions } from '../store/actions/article.actions';
 import { ArticleListItem, CreateArticle } from '../store/models/article.model';
 import { ArticleState } from '../store/state/article.state';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
+import { KeycloakProfile } from 'keycloak-js';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-wiki-page',
@@ -17,10 +19,20 @@ import { ArticleFormComponent } from './components/article-form/article-form.com
 export class WikiPageComponent implements OnInit {
   private page: number = 0;
   bsModalRef?: BsModalRef;
+
+  isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
+  profile$: Observable<KeycloakProfile | undefined> = this.sessionService.profile$;
+
   @Select(ArticleState.articles)
   articles$!: Observable<ArticleListItem[]>;
 
-  constructor(private modalService: BsModalService, private router: Router, private store: Store) {}
+  constructor(
+    private sessionService: SessionService,
+    private modalService: BsModalService,
+    private router: Router,
+    private store: Store,
+  ) {}
+
   ngOnInit(): void {
     this.store.dispatch(new ArticleActions.Fetch(this.page));
   }

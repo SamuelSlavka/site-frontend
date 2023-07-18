@@ -4,7 +4,8 @@ import { Section } from './section.model';
 export interface Article {
   id: string;
   title: string;
-  creatorId: string;
+  createdBy: string;
+  isPrivate: boolean;
   categories: Category[];
   section: Section;
   deleted: boolean;
@@ -14,7 +15,14 @@ export interface Article {
 export interface ArticleListItem {
   id: string;
   title: string;
+  isPrivate: boolean;
   superSection: string;
+  createdBy: string;
+}
+
+export interface CreateArticle {
+  title: string;
+  isPrivate: boolean;
 }
 
 export interface CreateArticle {

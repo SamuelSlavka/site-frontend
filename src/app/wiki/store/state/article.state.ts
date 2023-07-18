@@ -61,6 +61,21 @@ export class ArticleState {
     );
   }
 
+  @Action(ArticleActions.Edit)
+  editArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Edit) {
+    return this.articleService.editArticle(action.id, action.article).pipe(
+      tap((article) => {
+        const state = ctx.getState();
+        ctx.patchState({ articles: [article, ...state.articles] });
+        this.toastr.success('Article edited');
+      }),
+      catchError((error) => {
+        this.toastr.error('Failed to edit article');
+        return of(error);
+      }),
+    );
+  }
+
   @Selector()
   static articles(state: ArticleStateModel) {
     return state.articles;

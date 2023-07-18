@@ -1,5 +1,12 @@
-<div class="m-2 p-2 row article-item border rounded" *ngFor="let article of articles" (click)="viewArticle(article)">
-  <div class="col">
+<div class="mx-2 p-2 row article-item border rounded" *ngFor="let article of articles" (click)="viewArticle(article)">
+  <div class="col my-2">
     {{ article.title }}
+  </div>
+  <div
+    class="col-auto me-0 ms-auto"
+    *ngIf="(isAdmin$ | async) || (currentUserId && article.createdBy === currentUserId)"
+  >
+    <button class="btn btn-primary mx-2" (click)="edit(article, $event)">edit</button>
+    <button class="btn btn-primary" (click)="delete($event)">delete</button>
   </div>
 </div>
