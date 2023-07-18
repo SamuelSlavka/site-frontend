@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable, from } from 'rxjs';
+import { KeycloakProfile } from 'keycloak-js';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-  constructor(private keycloakService: KeycloakService, private router: Router) {}
-  logged$: Observable<boolean> | undefined;
+export class LoginComponent {
+  constructor(
+    private keycloakService: KeycloakService,
+    private sessionService: SessionService,
+    private router: Router,
+  ) {}
+  isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
+  profile$: Subject<KeycloakProfile | undefined> = this.sessionService.profile$;
   email: string = '';
-
-  ngOnInit() {
-    this.logged$ = from(this.keycloakService.isLoggedIn());
-    this.email = this.keycloakService.getKeycloakInstance()?.tokenParsed?.['email'];
-  }
 
   logout() {
     this.keycloakService.logout();

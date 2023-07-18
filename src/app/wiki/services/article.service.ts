@@ -21,4 +21,8 @@ export class ArticleService {
   createArticle(data: CreateArticle): Observable<ArticleListItem> {
     return this.http.post<ArticleListItem>(`${environment.serverUrl}articles`, data);
   }
+
+  editArticle(id: string, data: CreateArticle): Observable<ArticleListItem> {
+    return this.http.put<ArticleListItem>(`${environment.serverUrl}articles/${id}`, data);
+  }
 }
