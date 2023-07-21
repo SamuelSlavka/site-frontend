@@ -1,8 +1,8 @@
 import { Section, SectionCreate } from '../models/section.model';
 
 export namespace SectionActions {
-  export class FetchOne {
-    static readonly type = '[Sections] Fetch one';
+  export class GetOne {
+    static readonly type = '[Sections] Get one';
     constructor(public id: string) {}
   }
   export class Create {
@@ -13,8 +13,8 @@ export namespace SectionActions {
     static readonly type = '[Sections] Edit';
     constructor(public data: SectionCreate) {}
   }
-  export class Remove {
-    static readonly type = '[Sections] Remove';
+  export class Delete {
+    static readonly type = '[Sections] Delete';
     constructor(public id: string) {}
   }
 }

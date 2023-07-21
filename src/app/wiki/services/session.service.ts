@@ -25,13 +25,11 @@ export class SessionService implements OnDestroy {
   userId$: Subject<string | undefined> = new Subject();
   profile$: Subject<KeycloakProfile | undefined> = new BehaviorSubject<KeycloakProfile | undefined>(undefined);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isEditable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   subscription: Subscription = new Subscription();
 
   constructor(private keycloakService: KeycloakService) {
-    combineLatest([this.keycloakService.isLoggedIn()]).subscribe((res) => {
-      console.log(res);
-    });
     this.subscription.add(
       from(this.keycloakService.isLoggedIn()).subscribe((loggedIn) => {
         this.isLoggedIn$.next(loggedIn);

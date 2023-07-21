@@ -14,6 +14,7 @@ import { SectionFormComponent } from './article-page/components/section-form/sec
 import { SharedModule } from '@app/shared/shared.module';
 import { SectionState } from './store/state/section.state';
 import { ArticleFormComponent } from './wiki-page/components/article-form/article-form.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ArticleFormComponent } from './wiki-page/components/article-form/articl
   ],
   imports: [
     SharedModule,
+    NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
     MarkdownModule.forRoot(),

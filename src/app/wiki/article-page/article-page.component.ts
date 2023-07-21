@@ -24,7 +24,7 @@ export class ArticlePageComponent implements OnInit {
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title') ?? '';
     const sectionId = this.route.snapshot.paramMap.get('id') ?? 'default';
-    this.store.dispatch(new SectionActions.FetchOne(sectionId));
+    this.store.dispatch(new SectionActions.GetOne(sectionId));
   }
 
   goBack() {

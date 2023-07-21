@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class ConfirmationModalComponent {
   public onClose: Subject<boolean> = new Subject();
-  @Input() label: string = 'Are you sure?';
+  label: string = 'Are you sure?';
 
   constructor(private bsModalRef: BsModalRef) {}
 

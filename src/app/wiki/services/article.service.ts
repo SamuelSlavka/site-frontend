@@ -25,4 +25,8 @@ export class ArticleService {
   editArticle(id: string, data: CreateArticle): Observable<ArticleListItem> {
     return this.http.put<ArticleListItem>(`${environment.serverUrl}articles/${id}`, data);
   }
+
+  deleteArticle(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.serverUrl}articles/${id}`);
+  }
 }

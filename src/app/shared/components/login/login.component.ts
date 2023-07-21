@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
-import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +17,14 @@ export class LoginComponent {
     private router: Router,
   ) {}
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
+  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
   profile$: Subject<KeycloakProfile | undefined> = this.sessionService.profile$;
   email: string = '';
+
+  toggleEdit() {
+    const editable = this.isEditable$.getValue();
+    this.sessionService.isEditable$.next(!editable);
+  }
 
   logout() {
     this.keycloakService.logout();

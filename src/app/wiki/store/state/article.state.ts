@@ -20,8 +20,8 @@ export interface ArticleStateModel {
 export class ArticleState {
   constructor(private toastr: ToastrService, private articleService: ArticleService) {}
 
-  @Action(ArticleActions.FetchOne)
-  fetchOneArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.FetchOne) {
+  @Action(ArticleActions.GetOne)
+  getOneArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.GetOne) {
     return this.articleService.getOneArticle(action.id).pipe(
       tap((article) => {
         ctx.patchState({ selected: article });
@@ -33,8 +33,8 @@ export class ArticleState {
     );
   }
 
-  @Action(ArticleActions.Fetch)
-  fetchArticles(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Fetch) {
+  @Action(ArticleActions.Get)
+  getArticles(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Get) {
     return this.articleService.getArticles(action.page).pipe(
       tap((articles) => {
         ctx.patchState({ articles });
@@ -66,11 +66,28 @@ export class ArticleState {
     return this.articleService.editArticle(action.id, action.article).pipe(
       tap((article) => {
         const state = ctx.getState();
-        ctx.patchState({ articles: [article, ...state.articles] });
+        const updatedArticles = state.articles.filter((stateArt) => stateArt.id !== article.id);
+        ctx.patchState({ articles: [article, ...updatedArticles] });
         this.toastr.success('Article edited');
       }),
       catchError((error) => {
         this.toastr.error('Failed to edit article');
+        return of(error);
+      }),
+    );
+  }
+
+  @Action(ArticleActions.Delete)
+  deleteArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Delete) {
+    return this.articleService.deleteArticle(action.id).pipe(
+      tap(() => {
+        const state = ctx.getState();
+        const updatedArticles = state.articles.filter((stateArt) => stateArt.id !== action.id);
+        ctx.patchState({ articles: updatedArticles });
+        this.toastr.success('Article deleted');
+      }),
+      catchError((error) => {
+        this.toastr.error('Failed to delete article');
         return of(error);
       }),
     );

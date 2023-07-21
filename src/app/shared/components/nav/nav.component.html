@@ -1,19 +1,19 @@
-<div class="d-flex row m-0 pb-3 justify-content-between">
-  <div class="col-6 col-sm-4">
+<div class="d-flex row m-0 justify-content-between">
+  <div class="col-6 col-sm-4 p-0">
     <app-login></app-login>
   </div>
-  <div *ngIf="title" class="col-12 col-sm-4 article-title text-center fw-bold text-uppercase h4">
+  <div *ngIf="title" class="col-12 col-sm-4 p-0 article-title text-center fw-bold text-uppercase h4">
     {{ title }}
   </div>
-  <div class="col-6 col-sm-4 d-flex justify-content-end">
-    <button *ngIf="actionLabel" class="action-desktop col-auto btn btn-primary me-2" (click)="actionTrigger()">
-      {{ actionLabel }}
-    </button>
-    <button class="btn btn-primary" (click)="back()">back</button>
+  <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
+    <div class="col-auto">
+      <button *ngIf="actionLabel" class="btn btn-primary" (click)="actionTrigger()">
+        {{ actionLabel }}
+      </button>
+    </div>
+    <button class="back-desktop btn btn-outline-secondary ms-2 mb-3" (click)="back()">back</button>
   </div>
 </div>
-<div class="row m-0 d-flex justify-content-end">
-  <button *ngIf="actionLabel" class="action-mobile col-auto btn btn-primary me-2" (click)="actionTrigger()">
-    {{ actionLabel }}
-  </button>
+<div class="row m-0 d-flex justify-content-end mb-3 mt-2">
+  <button class="back-mobile btn btn-outline-secondary ms-2 col-auto" (click)="back()">back</button>
 </div>
