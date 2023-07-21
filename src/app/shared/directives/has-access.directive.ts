@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { SessionService } from '@app/wiki/services/session.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
@@ -22,7 +22,7 @@ export class HasAccessDirective {
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
 
   constructor(
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<Element>,
     private viewContainerRef: ViewContainerRef,
     private sessionService: SessionService,
   ) {}

@@ -30,9 +30,6 @@ export class SessionService implements OnDestroy {
   subscription: Subscription = new Subscription();
 
   constructor(private keycloakService: KeycloakService) {
-    combineLatest([this.keycloakService.isLoggedIn()]).subscribe((res) => {
-      console.log(res);
-    });
     this.subscription.add(
       from(this.keycloakService.isLoggedIn()).subscribe((loggedIn) => {
         this.isLoggedIn$.next(loggedIn);

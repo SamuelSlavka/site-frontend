@@ -26,7 +26,6 @@ export class SectionComponent {
   add() {
     this.bsModalRef = this.modalService.show(SectionFormComponent, { class: 'modal-lg' });
     this.bsModalRef.content.onClose.subscribe((text: string) => {
-      console.log({ superSectionId: this.section.id, text });
       this.store.dispatch(new SectionActions.Create({ superSectionId: this.section.id, text }));
     });
   }
@@ -38,7 +37,6 @@ export class SectionComponent {
     });
 
     this.bsModalRef.content.onClose.subscribe((text: string) => {
-      console.log({ superSectionId: this.section.id, text });
       this.store.dispatch(new SectionActions.Edit({ superSectionId: this.section.id, text }));
     });
   }

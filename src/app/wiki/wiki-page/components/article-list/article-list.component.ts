@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
-import { SessionService } from '@app/wiki/services/session.service';
 import { ArticleFormComponent } from '../article-form/article-form.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ArticleActions } from '@app/wiki/store/actions/article.actions';
 import { Store } from '@ngxs/store';
-import { BehaviorSubject, filter } from 'rxjs';
+import { filter } from 'rxjs';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 
 @Component({

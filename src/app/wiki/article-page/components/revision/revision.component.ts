@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UserRoles } from '@app/shared/enums/user-roles.enum';
 import { SessionService } from '@app/wiki/services/session.service';
 import { Revision } from '@app/wiki/store/models/revision.model';
-import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-revision',
