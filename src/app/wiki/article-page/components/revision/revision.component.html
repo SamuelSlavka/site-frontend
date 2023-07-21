@@ -1,7 +1,13 @@
 <div class="position-relative">
-  <div class="position-absolute end-0">
-    <button *ngIf="isAdmin" type="button" class="btn btn-primary mx-2" (click)="triggerDelete()">delete</button>
-    <button *ngIf="isAdmin" type="button" class="btn btn-primary" (click)="triggerEdit()">edit</button>
+  <div *appHasAccess="createdBy" class="position-absolute end-0">
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>action</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem (click)="add()">add section</button>
+        <button ngbDropdownItem (click)="edit()">create revision</button>
+        <button ngbDropdownItem (click)="delete()">delete</button>
+      </div>
+    </div>
   </div>
   <markdown [data]="revision.text"></markdown>
 </div>

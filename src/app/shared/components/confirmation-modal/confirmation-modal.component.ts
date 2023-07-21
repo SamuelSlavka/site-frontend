@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class ConfirmationModalComponent {
   public onClose: Subject<boolean> = new Subject();
-  @Input() label: string = 'Are you sure?';
+  label: string = 'Are you sure?';
 
   constructor(private bsModalRef: BsModalRef) {}
 

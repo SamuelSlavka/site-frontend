@@ -6,7 +6,8 @@ import { ArticleFormComponent } from '../article-form/article-form.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ArticleActions } from '@app/wiki/store/actions/article.actions';
 import { Store } from '@ngxs/store';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
+import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-article-list',
@@ -15,16 +16,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ArticleListComponent {
   @Input() articles!: ArticleListItem[];
-  @Input() currentUserId: string | undefined;
-  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
   bsModalRef?: BsModalRef;
 
-  constructor(
-    private router: Router,
-    private store: Store,
-    private sessionService: SessionService,
-    private modalService: BsModalService,
-  ) {}
+  constructor(private router: Router, private store: Store, private modalService: BsModalService) {}
 
   viewArticle(article: ArticleListItem) {
     this.router.navigate([`wiki/${article.superSection}`, { title: article.title }]);
@@ -40,7 +34,17 @@ export class ArticleListComponent {
     });
   }
 
-  delete(event: Event) {
+  delete(article: ArticleListItem, event: Event) {
+    event.stopPropagation();
+    this.bsModalRef = this.modalService.show(ConfirmationModalComponent, {
+      initialState: { label: 'Do you want to delete this article?' },
+    });
+    this.bsModalRef.content.onClose.pipe(filter((res: boolean) => res)).subscribe(() => {
+      this.store.dispatch(new ArticleActions.Delete(article.id));
+    });
+  }
+
+  dropdown(event: Event) {
     event.stopPropagation();
   }
 }

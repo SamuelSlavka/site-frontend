@@ -1,12 +1,28 @@
-<div class="mx-2 p-2 row article-item border rounded" *ngFor="let article of articles" (click)="viewArticle(article)">
-  <div class="col my-2">
-    {{ article.title }}
-  </div>
-  <div
-    class="col-auto me-0 ms-auto"
-    *ngIf="(isAdmin$ | async) || (currentUserId && article.createdBy === currentUserId)"
+<ul class="w-100 p-0">
+  <li
+    class="mx-2 mb-1 p-2 row article-item border rounded"
+    *ngFor="let article of articles"
+    (click)="viewArticle(article)"
   >
-    <button class="btn btn-primary mx-2" (click)="edit(article, $event)">edit</button>
-    <button class="btn btn-primary" (click)="delete($event)">delete</button>
-  </div>
-</div>
+    <div class="col my-2">
+      {{ article.title }}
+    </div>
+    <div *appHasAccess="article.createdBy" class="col-auto me-0 ms-auto">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          (click)="dropdown($event)"
+          type="button"
+          class="btn btn-outline-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          action
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="edit(article, $event)">edit</button>
+          <button ngbDropdownItem (click)="delete(article, $event)">delete</button>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

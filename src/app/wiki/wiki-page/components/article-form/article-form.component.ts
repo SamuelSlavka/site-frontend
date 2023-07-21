@@ -20,7 +20,7 @@ export class ArticleFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       title: [this.title, Validators.required],
-      isPrivate: [this.isPrivate],
+      isPrivate: this.isPrivate,
     });
   }
 

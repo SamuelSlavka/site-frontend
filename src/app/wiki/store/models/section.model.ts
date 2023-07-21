@@ -6,6 +6,7 @@ export interface Section {
   subsections: Section[];
   sectionOrder: number;
   depth: number;
+  createdBy: string;
 }
 
 export interface SectionCreate {

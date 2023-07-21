@@ -1,4 +1,6 @@
 <div class="w-100 h-100 p-3" *ngIf="{ articles: (articles$ | async), profile: (profile$ | async) }; let context">
-  <app-nav (action)="create()" [title]="'wiki'" [actionLabel]="'create article'"></app-nav>
-  <app-article-list [articles]="context.articles ?? []" [currentUserId]="context.profile?.id"></app-article-list>
+  <div class="m-2">
+    <app-nav (action)="create()" [title]="'wiki'" [actionLabel]="'create article'"></app-nav>
+  </div>
+  <app-article-list [articles]="context.articles ?? []"></app-article-list>
 </div>

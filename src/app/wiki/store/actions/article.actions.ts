@@ -1,12 +1,12 @@
 import { Article, ArticleListItem, CreateArticle } from '../models/article.model';
 
 export namespace ArticleActions {
-  export class Fetch {
-    static readonly type = '[Articles] Fetch all';
+  export class Get {
+    static readonly type = '[Articles] Get all';
     constructor(public page: number) {}
   }
-  export class FetchOne {
-    static readonly type = '[Articles] Fetch one';
+  export class GetOne {
+    static readonly type = '[Articles] Get one';
     constructor(public id: string) {}
   }
   export class Create {
@@ -17,8 +17,8 @@ export namespace ArticleActions {
     static readonly type = '[Articles] Edit';
     constructor(public article: CreateArticle, public id: string) {}
   }
-  export class Remove {
-    static readonly type = '[Articles] Remove';
+  export class Delete {
+    static readonly type = '[Articles] Delete';
     constructor(public id: string) {}
   }
 }

@@ -34,7 +34,7 @@ export class WikiPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new ArticleActions.Fetch(this.page));
+    this.store.dispatch(new ArticleActions.Get(this.page));
   }
 
   back() {

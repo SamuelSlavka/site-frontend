@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './components/login/login.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavComponent } from './components/nav/nav.component';
+import { HasAccessDirective } from './directives/has-access.directive';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { NavComponent } from './components/nav/nav.component';
     NotFoundComponent,
     NavComponent,
     AccessDeniedComponent,
+    HasAccessDirective,
   ],
-  exports: [LoginComponent, NavComponent],
+  exports: [LoginComponent, NavComponent, HasAccessDirective],
 })
 export class SharedModule {}

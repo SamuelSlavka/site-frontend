@@ -30,7 +30,7 @@ export class SectionState {
       mergeMap(() => {
         const sectionId = ctx.getState().selected;
         if (sectionId) {
-          return ctx.dispatch(new SectionActions.FetchOne(sectionId));
+          return ctx.dispatch(new SectionActions.GetOne(sectionId));
         }
         return of(true);
       }),
@@ -50,7 +50,7 @@ export class SectionState {
       mergeMap(() => {
         const sectionId = ctx.getState().selected;
         if (sectionId) {
-          return ctx.dispatch(new SectionActions.FetchOne(sectionId));
+          return ctx.dispatch(new SectionActions.GetOne(sectionId));
         }
         return of(true);
       }),
@@ -61,8 +61,8 @@ export class SectionState {
     );
   }
 
-  @Action(SectionActions.Remove)
-  removeSection(ctx: StateContext<SectionStateModel>, action: SectionActions.Remove) {
+  @Action(SectionActions.Delete)
+  removeSection(ctx: StateContext<SectionStateModel>, action: SectionActions.Delete) {
     return this.sectionService.deleteSection(action.id).pipe(
       tap(() => {
         this.toastr.success('Section deleted');
@@ -70,7 +70,7 @@ export class SectionState {
       mergeMap(() => {
         const sectionId = ctx.getState().selected;
         if (sectionId) {
-          return ctx.dispatch(new SectionActions.FetchOne(sectionId));
+          return ctx.dispatch(new SectionActions.GetOne(sectionId));
         }
         return of(true);
       }),
@@ -81,8 +81,8 @@ export class SectionState {
     );
   }
 
-  @Action(SectionActions.FetchOne)
-  fetchSection(ctx: StateContext<SectionStateModel>, action: SectionActions.FetchOne) {
+  @Action(SectionActions.GetOne)
+  fetchSection(ctx: StateContext<SectionStateModel>, action: SectionActions.GetOne) {
     ctx.patchState({ selected: null });
     return this.sectionService.getOneSection(action.id).pipe(
       tap((section) => {

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserRoles } from '@app/shared/enums/user-roles.enum';
+import { SessionService } from '@app/wiki/services/session.service';
 import { Revision } from '@app/wiki/store/models/revision.model';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-revision',
@@ -11,20 +12,25 @@ import { Observable } from 'rxjs';
 })
 export class RevisionComponent {
   @Input() revision!: Revision;
+  @Input() createdBy!: string;
   @Output() editSection: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteSection: EventEmitter<void> = new EventEmitter<void>();
+  @Output() addSection: EventEmitter<void> = new EventEmitter<void>();
 
-  isAdmin: boolean = false;
+  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
+  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
 
-  constructor(private keycloakService: KeycloakService) {
-    this.isAdmin = this.keycloakService.isUserInRole(UserRoles.ADMIN);
+  constructor(private sessionService: SessionService) {}
+
+  add() {
+    this.addSection.emit();
   }
 
-  triggerEdit() {
+  edit() {
     this.editSection.emit();
   }
 
-  triggerDelete() {
+  delete() {
     this.deleteSection.emit();
   }
 }

@@ -1,12 +1,16 @@
-<div class="border rounded p-2 my-2">
+<div class="border rounded p-2 my-2 position-relative">
   <app-revision
     *ngIf="section.latestRevision"
-    (editSection)="editSection()"
-    (deleteSection)="deleteSection()"
+    (editSection)="edit()"
+    (deleteSection)="delete()"
+    (addSection)="add()"
     [revision]="section.latestRevision"
+    [createdBy]="section.createdBy"
   ></app-revision>
   <app-section *ngFor="let section of section.subsections" [section]="section"></app-section>
-  <div *ngIf="isAdmin" class="row m-0">
-    <button class="btn btn-primary col-auto" (click)="addSection()">add section</button>
+  <div *appHasAccess="section.createdBy">
+    <button *ngIf="section.depth === 0" type="button" class="btn btn-outline-primary" (click)="add()">
+      add section
+    </button>
   </div>
 </div>
