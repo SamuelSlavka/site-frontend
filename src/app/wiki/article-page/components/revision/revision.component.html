@@ -1,13 +1,28 @@
-<div class="position-relative">
+<div class="position-relative d-inline-block w-100">
   <div *appHasAccess="createdBy" class="position-absolute end-0">
-    <div ngbDropdown class="d-inline-block">
-      <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>action</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem (click)="add()">add section</button>
-        <button ngbDropdownItem (click)="edit()">create revision</button>
-        <button ngbDropdownItem (click)="delete()">delete</button>
-      </div>
+    <div class="btn-group d-inline-block" dropdown>
+      <button
+        id="button-basic"
+        dropdownToggle
+        type="button"
+        class="btn btn-outline-primary dropdown-toggle"
+        aria-controls="dropdown-basic"
+      >
+        action
+      </button>
+      <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu dropdown-menu-right"
+        role="menu"
+        aria-labelledby="button-basic"
+      >
+        <li role="menuitem"><button class="dropdown-item" (click)="add()">add section</button></li>
+        <li role="menuitem"><button class="dropdown-item" (click)="edit()">create revision</button></li>
+        <li role="menuitem"><button class="dropdown-item" (click)="delete()">delete</button></li>
+      </ul>
     </div>
   </div>
+
   <markdown [data]="revision.text"></markdown>
 </div>

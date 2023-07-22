@@ -14,7 +14,11 @@ import { SectionFormComponent } from './article-page/components/section-form/sec
 import { SharedModule } from '@app/shared/shared.module';
 import { SectionState } from './store/state/section.state';
 import { ArticleFormComponent } from './wiki-page/components/article-form/article-form.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -28,15 +32,21 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     SharedModule,
-    NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    MarkdownModule.forRoot(),
     CommonModule,
     WikiRoutingModule,
     NgxsModule.forFeature([ArticleState]),
     NgxsModule.forFeature([SectionState]),
     FormsModule,
+    BsDropdownModule.forRoot(),
+    MarkdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
   ],
 })
-export class WikiModule {}
+export class WikiModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faAngleDown, faAngleUp);
+  }
+}

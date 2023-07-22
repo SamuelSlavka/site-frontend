@@ -7,6 +7,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SectionFormComponent } from '../section-form/section-form.component';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 import { BehaviorSubject, filter } from 'rxjs';
+import { RevisionCreate } from '@app/wiki/store/models/revision.model';
 
 @Component({
   selector: 'app-section',
@@ -16,25 +17,26 @@ import { BehaviorSubject, filter } from 'rxjs';
 export class SectionComponent {
   @Input() section!: Section;
   bsModalRef?: BsModalRef;
+  isCollapsed: boolean = false;
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
 
   constructor(private sessionService: SessionService, private modalService: BsModalService, private store: Store) {}
 
   add() {
     this.bsModalRef = this.modalService.show(SectionFormComponent, { class: 'modal-lg' });
-    this.bsModalRef.content.onClose.subscribe((text: string) => {
-      this.store.dispatch(new SectionActions.Create({ superSectionId: this.section.id, text }));
+    this.bsModalRef.content.onClose.subscribe((revision: RevisionCreate) => {
+      this.store.dispatch(new SectionActions.Create({ superSectionId: this.section.id, revision }));
     });
   }
 
   edit() {
     this.bsModalRef = this.modalService.show(SectionFormComponent, {
       class: 'modal-lg',
-      initialState: { isEdit: true, initText: this.section.latestRevision.text },
+      initialState: { isEdit: true, initData: this.section.latestRevision },
     });
 
-    this.bsModalRef.content.onClose.subscribe((text: string) => {
-      this.store.dispatch(new SectionActions.Edit({ superSectionId: this.section.id, text }));
+    this.bsModalRef.content.onClose.subscribe((revision: RevisionCreate) => {
+      this.store.dispatch(new SectionActions.Edit({ superSectionId: this.section.id, revision }));
     });
   }
 

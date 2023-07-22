@@ -20,7 +20,7 @@ export class ArticleListComponent {
   constructor(private router: Router, private store: Store, private modalService: BsModalService) {}
 
   viewArticle(article: ArticleListItem) {
-    this.router.navigate([`wiki/${article.superSection}`, { title: article.title }]);
+    this.router.navigate([`wiki/${article.section}`, { title: article.title }]);
   }
 
   edit(article: ArticleListItem, event: Event) {

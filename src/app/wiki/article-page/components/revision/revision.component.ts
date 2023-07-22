@@ -18,6 +18,8 @@ export class RevisionComponent {
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
 
+  isCollapsed = false;
+
   constructor(private sessionService: SessionService) {}
 
   add() {
