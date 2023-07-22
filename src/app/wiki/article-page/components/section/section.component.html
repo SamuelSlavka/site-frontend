@@ -1,4 +1,4 @@
-<div class="border rounded p-2 my-2 position-relative">
+<div class="position-relative" [ngClass]="{ 'border rounded p-2 my-2': section.depth > 0 }">
   <app-revision
     *ngIf="section.latestRevision"
     (editSection)="edit()"
@@ -8,9 +8,12 @@
     [createdBy]="section.createdBy"
   ></app-revision>
   <app-section *ngFor="let section of section.subsections" [section]="section"></app-section>
-  <div *appHasAccess="section.createdBy">
+  <ng-template [appHasAccess]="section.createdBy">
     <button *ngIf="section.depth === 0" type="button" class="btn btn-outline-primary" (click)="add()">
       add section
     </button>
-  </div>
+  </ng-template>
 </div>
+<ng-container *ngIf="!(isEditable$ | async) && section.depth === 0 && section.subsections.length === 0">
+  <button type="button" class="btn btn-outline-primary" (click)="add()">create first section</button>
+</ng-container>

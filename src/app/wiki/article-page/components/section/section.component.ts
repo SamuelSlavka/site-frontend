@@ -1,3 +1,4 @@
+import { SessionService } from '@app/wiki/services/session.service';
 import { Component, Input } from '@angular/core';
 import { SectionActions } from '@app/wiki/store/actions/section.actions';
 import { Section } from '@app/wiki/store/models/section.model';
@@ -5,9 +6,7 @@ import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SectionFormComponent } from '../section-form/section-form.component';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
-import { KeycloakService } from 'keycloak-angular';
-import { UserRoles } from '@app/shared/enums/user-roles.enum';
-import { filter } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 @Component({
   selector: 'app-section',
@@ -16,12 +15,10 @@ import { filter } from 'rxjs';
 })
 export class SectionComponent {
   @Input() section!: Section;
-  isAdmin: boolean = false;
   bsModalRef?: BsModalRef;
+  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
 
-  constructor(private keycloakService: KeycloakService, private modalService: BsModalService, private store: Store) {
-    this.isAdmin = this.keycloakService.isUserInRole(UserRoles.ADMIN);
-  }
+  constructor(private sessionService: SessionService, private modalService: BsModalService, private store: Store) {}
 
   add() {
     this.bsModalRef = this.modalService.show(SectionFormComponent, { class: 'modal-lg' });

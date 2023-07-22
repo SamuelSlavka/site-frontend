@@ -27,7 +27,14 @@ export class LoginComponent {
   }
 
   logout() {
-    this.keycloakService.logout();
+    const route = this.router.routerState.snapshot.url.split('/');
+    switch (route[1]) {
+      case 'wiki':
+        this.keycloakService.logout(window.location.origin + '/wiki');
+        break;
+      default:
+        this.keycloakService.logout(window.location.origin);
+    }
   }
 
   login() {
