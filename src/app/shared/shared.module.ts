@@ -19,7 +19,7 @@ import { HasAccessDirective } from './directives/has-access.directive';
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    ToastrModule.forRoot({ progressBar: true }),
+    ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
   ],
   declarations: [
     LoginComponent,
