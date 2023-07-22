@@ -1,17 +1,17 @@
 <div class="position-relative" [ngClass]="{ 'border rounded p-2 my-2': section.depth > 0 }">
-  <div class="row h5 mx-0 my-2 font-weight-bold p-0">
-    <div
-      *ngIf="section.depth !== 0"
-      class="revision-title col-auto p-0"
-      (click)="isCollapsed = !isCollapsed"
-      [attr.aria-expanded]="!isCollapsed"
-      aria-controls="collapseBasic"
-    >
+  <div
+    class="row h5 mx-0 my-2 font-weight-bold p-0 revision-title"
+    *ngIf="section.depth !== 0"
+    (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed"
+    aria-controls="collapseBasic"
+  >
+    <div class="col-auto p-0 text-capitalize font-weight-bold">
       {{ section.latestRevision ? section.latestRevision.title : '' }}
-      <span class="w-auto">
-        <fa-icon *ngIf="isCollapsed" icon="angle-down"></fa-icon>
-        <fa-icon *ngIf="!isCollapsed" icon="angle-up"></fa-icon>
-      </span>
+    </div>
+    <div class="col-auto p-0 ps-2">
+      <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
+      <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
     </div>
   </div>
   <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
