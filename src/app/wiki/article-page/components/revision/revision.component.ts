@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SessionService } from '@app/wiki/services/session.service';
 import { Revision } from '@app/wiki/store/models/revision.model';
 import { BehaviorSubject } from 'rxjs';
@@ -10,10 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RevisionComponent {
   @Input() revision!: Revision;
-  @Input() createdBy!: string;
-  @Output() editSection: EventEmitter<void> = new EventEmitter<void>();
-  @Output() deleteSection: EventEmitter<void> = new EventEmitter<void>();
-  @Output() addSection: EventEmitter<void> = new EventEmitter<void>();
 
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
@@ -21,16 +17,4 @@ export class RevisionComponent {
   isCollapsed = false;
 
   constructor(private sessionService: SessionService) {}
-
-  add() {
-    this.addSection.emit();
-  }
-
-  edit() {
-    this.editSection.emit();
-  }
-
-  delete() {
-    this.deleteSection.emit();
-  }
 }

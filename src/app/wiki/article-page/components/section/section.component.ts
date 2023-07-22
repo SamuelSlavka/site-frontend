@@ -16,9 +16,9 @@ import { RevisionCreate } from '@app/wiki/store/models/revision.model';
 })
 export class SectionComponent {
   @Input() section!: Section;
-  bsModalRef?: BsModalRef;
   isCollapsed: boolean = false;
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
+  bsModalRef?: BsModalRef;
 
   constructor(private sessionService: SessionService, private modalService: BsModalService, private store: Store) {}
 
@@ -28,7 +28,6 @@ export class SectionComponent {
       this.store.dispatch(new SectionActions.Create({ superSectionId: this.section.id, revision }));
     });
   }
-
   edit() {
     this.bsModalRef = this.modalService.show(SectionFormComponent, {
       class: 'modal-lg',
@@ -47,5 +46,9 @@ export class SectionComponent {
     this.bsModalRef.content.onClose.pipe(filter((res: boolean) => res)).subscribe(() => {
       this.store.dispatch(new SectionActions.Delete(this.section.id));
     });
+  }
+
+  collapse() {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

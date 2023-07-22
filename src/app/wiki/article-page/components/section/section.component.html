@@ -1,36 +1,23 @@
 <div class="position-relative" [ngClass]="{ 'border rounded p-2 my-2': section.depth > 0 }">
-  <div
-    class="row h5 mx-0 my-2 font-weight-bold p-0 revision-title"
-    *ngIf="section.depth !== 0"
-    (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed"
-    aria-controls="collapseBasic"
-  >
-    <div class="col-auto p-0 text-capitalize font-weight-bold">
-      {{ section.latestRevision ? section.latestRevision.title : '' }}
-    </div>
-    <div class="col-auto p-0 ps-2">
-      <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
-      <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
-    </div>
-  </div>
+  <app-section-nav
+    [section]="section"
+    [isCollapsed]="isCollapsed"
+    (addSection)="add()"
+    (editSection)="edit()"
+    (deleteSection)="delete()"
+    (collapseSection)="collapse()"
+  ></app-section-nav>
+
   <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-    <app-revision
-      *ngIf="section.latestRevision"
-      (editSection)="edit()"
-      (deleteSection)="delete()"
-      (addSection)="add()"
-      [revision]="section.latestRevision"
-      [createdBy]="section.createdBy"
-    ></app-revision>
+    <app-revision *ngIf="section.latestRevision" [revision]="section.latestRevision"></app-revision>
     <app-section *ngFor="let section of section.subsections" [section]="section"></app-section>
     <ng-template [appHasAccess]="section.createdBy">
-      <button *ngIf="section.depth === 0" type="button" class="btn btn-outline-primary" (click)="add()">
+      <button *ngIf="section.depth === 0" type="button" class="btn btn-sm btn-outline-primary" (click)="add()">
         add section
       </button>
     </ng-template>
   </div>
 </div>
 <ng-container *ngIf="!(isEditable$ | async) && section.depth === 0 && section.subsections.length === 0">
-  <button type="button" class="btn btn-outline-primary" (click)="add()">create first section</button>
+  <button type="button" class="btn btn-sm btn-outline-primary" (click)="add()">create first section</button>
 </ng-container>

@@ -1,0 +1,24 @@
+<div
+  class="row h5 mx-0 p-0"
+  *ngIf="section && section.depth !== 0"
+  [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseBasic"
+>
+  <div class="revision-title col-auto p-0 my-2 text-capitalize font-weight-bold" (click)="collapse()">
+    {{ section.latestRevision ? section.latestRevision.title : '' }}
+
+    <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
+    <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
+  </div>
+
+  <div class="col p-0"></div>
+
+  <div class="col-auto p-0 mt-2">
+    <app-section-actions
+      [createdBy]="section.createdBy"
+      (addSection)="add()"
+      (editSection)="edit()"
+      (deleteSection)="delete()"
+    ></app-section-actions>
+  </div>
+</div>
