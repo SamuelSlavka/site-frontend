@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from './core/core.module';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { SharedModule } from './shared/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +18,11 @@ import { SharedModule } from './shared/shared.module';
     KeycloakAngularModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgbModule,
     CoreModule,
     SharedModule,
+    FontAwesomeModule,
+    TooltipModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

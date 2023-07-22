@@ -2,24 +2,29 @@
   login
 </button>
 <ng-template #profile>
-  <div ngbDropdown class="d-inline-block">
+  <div dropdown class="d-inline-block btn-group">
     <button
       type="button"
-      class="btn btn-outline-primary"
-      id="dropdownBasic1"
+      class="btn btn-outline-primary dropdown-toggle"
+      id="button-basic"
       aria-labelledby="actions"
-      ngbDropdownToggle
+      aria-controls="dropdown-basic"
+      dropdownToggle
     >
       {{ (profile$ | async)?.email }}
     </button>
-    <div *ngIf="{ editable: (isEditable$ | async) }; let context" ngbDropdownMenu aria-labelledby="dropdown-menu">
-      <button ngbDropdownItem (click)="toggleEdit()" aria-labelledby="togge-edit">
-        <span *ngIf="isEditable$ | async; else enable">disable editing</span>
-        <ng-template #enable>
-          <span *ngIf="!context.editable">enable editing</span>
-        </ng-template>
-      </button>
-      <button ngbDropdownItem (click)="logout()" aria-labelledby="logout">logout</button>
-    </div>
+    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+      <li role="menuitem">
+        <button class="dropdown-item" href="#" (click)="toggleEdit()" aria-labelledby="togge-edit">
+          <span *ngIf="isEditable$ | async; else enable">disable editing</span>
+          <ng-template #enable>
+            <span *ngIf="!(isEditable$ | async)">enable editing</span>
+          </ng-template>
+        </button>
+      </li>
+      <li role="menuitem">
+        <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">logout</button>
+      </li>
+    </ul>
   </div>
 </ng-template>

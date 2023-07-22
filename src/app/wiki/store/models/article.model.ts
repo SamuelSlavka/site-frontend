@@ -16,7 +16,7 @@ export interface ArticleListItem {
   id: string;
   title: string;
   isPrivate: boolean;
-  superSection: string;
+  section: string;
   createdBy: string;
 }
 

@@ -1,4 +1,4 @@
-import { Revision } from './revision.model';
+import { Revision, RevisionCreate } from './revision.model';
 
 export interface Section {
   id: string;
@@ -11,5 +11,5 @@ export interface Section {
 
 export interface SectionCreate {
   superSectionId: string;
-  text: string;
+  revision: RevisionCreate;
 }

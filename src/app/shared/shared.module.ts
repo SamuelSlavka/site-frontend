@@ -8,17 +8,19 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './components/login/login.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavComponent } from './components/nav/nav.component';
 import { HasAccessDirective } from './directives/has-access.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   imports: [
     CommonModule,
-    NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
     ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
   ],
   declarations: [
@@ -30,6 +32,6 @@ import { HasAccessDirective } from './directives/has-access.directive';
     AccessDeniedComponent,
     HasAccessDirective,
   ],
-  exports: [LoginComponent, NavComponent, HasAccessDirective],
+  exports: [FontAwesomeModule, LoginComponent, NavComponent, HasAccessDirective],
 })
 export class SharedModule {}

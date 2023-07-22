@@ -8,20 +8,22 @@
       {{ article.title }}
     </div>
     <div *appHasAccess="article.createdBy" class="col-auto me-0 ms-auto">
-      <div ngbDropdown class="d-inline-block">
+      <div class="btn-group" dropdown>
         <button
-          (click)="dropdown($event)"
+          id="button-basic"
+          dropdownToggle
           type="button"
-          class="btn btn-outline-primary"
-          id="dropdownBasic1"
-          ngbDropdownToggle
+          class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic"
+          (click)="dropdown($event)"
         >
           action
+          <span class="caret"></span>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem (click)="edit(article, $event)">edit</button>
-          <button ngbDropdownItem (click)="delete(article, $event)">delete</button>
-        </div>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><button class="dropdown-item" (click)="edit(article, $event)">edit</button></li>
+          <li role="menuitem"><button class="dropdown-item" (click)="delete(article, $event)">delete</button></li>
+        </ul>
       </div>
     </div>
   </li>

@@ -5,7 +5,11 @@
       <span class="p-0" *ngIf="isEdit">Edit section</span>
     </div>
     <div class="row m-0 mt-3">
-      <label class="p-0" for="inputText font-weight-bold">Input section text</label>
+      <label class="p-0" for="inputTitle">Input section title</label>
+      <input name="inputTitle" class="w-100" formControlName="title" />
+    </div>
+    <div class="row m-0 mt-3">
+      <label class="p-0" for="inputText">Input section text</label>
       <textarea
         name="inputText"
         class="w-100 input-text-area"
