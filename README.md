@@ -1,4 +1,4 @@
-# SiteFrontend
+# site frontend
 
 An application for md document storage and visualization. Needs keycloak, server and db to run properly.
 
