@@ -1,13 +1,11 @@
-import { ArticleActions } from './../store/actions/article.actions';
-import { Article } from '@app/wiki/store/models/article.model';
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { ArticleState } from '../store/state/article.state';
+import { Observable } from 'rxjs';
+
 import { SectionActions } from '../store/actions/section.actions';
-import { SectionState } from '../store/state/section.state';
 import { Section } from '../store/models/section.model';
+import { SectionState } from '../store/state/section.state';
 
 @Component({
   selector: 'app-article-page',
