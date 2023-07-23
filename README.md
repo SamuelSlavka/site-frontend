@@ -1,15 +1,29 @@
 # SiteFrontend
 
-This is markdown document management and presentation utility written in Angular.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
-## to run
+## Development server
 
-`$ yarn run start`
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## to build
+## Code scaffolding
 
-`$ yarn run build`
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## to test
+## Build
 
-`$ yarn run test`
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+The app uses two environments. By default `environment.development.ts` is used. When running in production `environment.production.ts`.
+
+to run:
+
+  $ yarn run start
+
+to build:
+
+  $ yarn run build
+
+to test:
+
+  $ yarn run test`
