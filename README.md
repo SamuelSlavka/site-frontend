@@ -1,29 +1,17 @@
 # SiteFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+An application for md document storage and visualization. Needs keycloak, server and db to run properly.
 
 The app uses two environments. By default `environment.development.ts` is used. When running in production `environment.production.ts`.
 
 to run:
 
-  $ yarn run start
+    $ yarn run start
 
 to build:
 
-  $ yarn run build
+    $ yarn run build
 
 to test:
 
-  $ yarn run test`
+    $ yarn run test
