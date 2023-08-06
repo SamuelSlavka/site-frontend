@@ -1,4 +1,4 @@
-import { Section, SectionCreate, SectionDelete } from '../models/section.model';
+import { SectionCreate, SectionDelete } from '../models/section.model';
 
 export namespace SectionActions {
   export class GetOne {

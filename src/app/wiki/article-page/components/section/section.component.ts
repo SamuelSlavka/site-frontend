@@ -1,14 +1,15 @@
-import { SessionService } from '@app/wiki/services/session.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
+import { SessionService } from '@app/wiki/services/session.service';
 import { SectionActions } from '@app/wiki/store/actions/section.actions';
-import { Section, SectionDto } from '@app/wiki/store/models/section.model';
+import { RevisionDto } from '@app/wiki/store/models/revision.model';
+import { SectionDto } from '@app/wiki/store/models/section.model';
+import { SectionState } from '@app/wiki/store/state/section.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
+
 import { SectionFormComponent } from '../section-form/section-form.component';
-import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
-import { BehaviorSubject, Observable, filter, map, mergeMap, of, tap } from 'rxjs';
-import { RevisionDto } from '@app/wiki/store/models/revision.model';
-import { SectionState } from '@app/wiki/store/state/section.state';
 
 @Component({
   selector: 'app-section',

@@ -4,7 +4,6 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { SectionActions } from '../store/actions/section.actions';
-import { Section, SectionDto } from '../store/models/section.model';
 import { SectionState } from '../store/state/section.state';
 
 @Component({

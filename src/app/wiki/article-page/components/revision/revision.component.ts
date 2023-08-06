@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { SessionService } from '@app/wiki/services/session.service';
-import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({

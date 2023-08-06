@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Section, SectionCreate, SectionDelete, SectionDto } from '../store/models/section.model';
+
+import { SectionCreate, SectionDelete, SectionDto } from '../store/models/section.model';
 
 @Injectable({
   providedIn: 'root',

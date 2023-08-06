@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Section, SectionDto } from '@app/wiki/store/models/section.model';
+import { SectionDto } from '@app/wiki/store/models/section.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

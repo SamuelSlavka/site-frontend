@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { SectionService } from '@app/wiki/services/section.service';
-import { Section, SectionDto } from '@app/wiki/store/models/section.model';
+import { SectionDto } from '@app/wiki/store/models/section.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, mergeMap, of, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 
 import { SectionActions } from '../actions/section.actions';
 
