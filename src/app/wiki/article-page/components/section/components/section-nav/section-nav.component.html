@@ -5,7 +5,7 @@
   aria-controls="collapseBasic"
 >
   <div class="revision-title col-auto p-0 my-2 text-capitalize font-weight-bold" (click)="collapse()">
-    {{ section.latestRevision ? section.latestRevision.title : '' }}
+    {{ section.title }}
 
     <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
     <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>

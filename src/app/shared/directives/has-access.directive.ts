@@ -6,7 +6,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
   selector: '[appHasAccess]',
 })
 export class HasAccessDirective {
-  @Input() set appHasAccess(creatorId: string) {
+  @Input() set appHasAccess(creatorId: string | undefined) {
     combineLatest([this.isAdmin$, this.sessionService.profile$, this.isEditable$]).subscribe(
       ([admin, profile, editable]) => {
         if ((admin || profile?.id === creatorId) && editable) {

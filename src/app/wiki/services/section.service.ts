@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Section, SectionCreate } from '../store/models/section.model';
+
+import { SectionCreate, SectionDelete, SectionDto } from '../store/models/section.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +11,19 @@ import { Section, SectionCreate } from '../store/models/section.model';
 export class SectionService {
   constructor(private http: HttpClient) {}
 
-  getOneSection(id: string): Observable<Section> {
-    return this.http.get<Section>(`${environment.serverUrl}sections/id/${id}`);
+  getOneSection(id: string): Observable<SectionDto[]> {
+    return this.http.get<SectionDto[]>(`${environment.serverUrl}sections/id/${id}`);
   }
 
-  createSection(data: SectionCreate): Observable<Section> {
-    return this.http.post<Section>(`${environment.serverUrl}sections/id/${data.superSectionId}`, data.revision);
+  createSection(data: SectionCreate): Observable<SectionDto> {
+    return this.http.post<SectionDto>(`${environment.serverUrl}sections/id/${data.superSectionId}`, data.revision);
   }
 
-  editSection(data: SectionCreate): Observable<Section> {
-    return this.http.put<Section>(`${environment.serverUrl}sections/id/${data.superSectionId}`, data.revision);
+  editSection(data: SectionCreate): Observable<SectionDto> {
+    return this.http.put<SectionDto>(`${environment.serverUrl}sections/id/${data.superSectionId}`, data.revision);
   }
 
-  deleteSection(id: string): Observable<Section> {
-    return this.http.delete<Section>(`${environment.serverUrl}sections/id/${id}`);
+  deleteSection(data: SectionDelete): Observable<void> {
+    return this.http.delete<void>(`${environment.serverUrl}sections/id/${data.id}`);
   }
 }

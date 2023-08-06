@@ -1,4 +1,4 @@
-import { Section, SectionCreate } from '../models/section.model';
+import { SectionCreate, SectionDelete } from '../models/section.model';
 
 export namespace SectionActions {
   export class GetOne {
@@ -15,6 +15,6 @@ export namespace SectionActions {
   }
   export class Delete {
     static readonly type = '[Sections] Delete';
-    constructor(public id: string) {}
+    constructor(public data: SectionDelete) {}
   }
 }

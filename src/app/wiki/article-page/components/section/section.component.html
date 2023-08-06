@@ -1,23 +1,38 @@
-<div class="position-relative" [ngClass]="{ 'border rounded p-2 my-2': section.depth > 0 }">
-  <app-section-nav
-    [section]="section"
-    [isCollapsed]="isCollapsed"
-    (addSection)="add()"
-    (editSection)="edit()"
-    (deleteSection)="delete()"
-    (collapseSection)="collapse()"
-  ></app-section-nav>
+<ng-container *ngIf="{ head: (head$ | async), selected: (selected$ | async) }; let context">
+  <div
+    class="position-relative"
+    [ngClass]="{ 'border rounded p-2 my-2': context.selected && context.selected.depth > 0 }"
+  >
+    <app-section-nav
+      [section]="context.selected"
+      [isCollapsed]="isCollapsed"
+      (addSection)="add(selected)"
+      (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
+      (deleteSection)="delete(selected, context.selected?.superSection)"
+      (collapseSection)="collapse()"
+    ></app-section-nav>
 
-  <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-    <app-revision *ngIf="section.latestRevision" [revision]="section.latestRevision"></app-revision>
-    <app-section *ngFor="let section of section.subsections" [section]="section"></app-section>
-    <ng-template [appHasAccess]="section.createdBy">
-      <button *ngIf="section.depth === 0" type="button" class="btn btn-sm btn-outline-primary" (click)="add()">
-        add section
-      </button>
-    </ng-template>
+    <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+      <app-revision [text]="context.selected?.text" [title]="context.selected?.title"></app-revision>
+      <ng-container *ngIf="context.selected">
+        <app-section *ngFor="let section of context.selected.subsections" [selected]="section"></app-section>
+      </ng-container>
+
+      <ng-template [appHasAccess]="context.selected?.createdBy">
+        <button
+          *ngIf="context.selected?.depth === 0"
+          type="button"
+          class="btn btn-sm btn-outline-primary"
+          (click)="add(selected)"
+        >
+          add section
+        </button>
+      </ng-template>
+    </div>
   </div>
-</div>
-<ng-container *ngIf="!(isEditable$ | async) && section.depth === 0 && section.subsections.length === 0">
-  <button type="button" class="btn btn-sm btn-outline-primary" (click)="add()">create first section</button>
+  <ng-container
+    *ngIf="!(isEditable$ | async) && context.selected?.depth === 0 && context.selected?.subsections?.length === 0"
+  >
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="add(selected)">create first section</button>
+  </ng-container>
 </ng-container>
