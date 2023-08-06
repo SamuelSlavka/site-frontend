@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { SectionActions } from '../store/actions/section.actions';
-import { Section } from '../store/models/section.model';
+import { Section, SectionDto } from '../store/models/section.model';
 import { SectionState } from '../store/state/section.state';
 
 @Component({
@@ -15,8 +15,9 @@ import { SectionState } from '../store/state/section.state';
 export class ArticlePageComponent implements OnInit {
   public title!: string;
 
-  @Select(SectionState.current)
-  section$!: Observable<Section>;
+  @Select(SectionState.selectHead)
+  selected$!: Observable<string>;
+
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit() {

@@ -7,7 +7,7 @@ export interface Revision {
   deletedAt: string;
 }
 
-export interface RevisionCreate {
+export interface RevisionDto {
   text: string;
   title: string;
 }

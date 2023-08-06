@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RevisionCreate } from '@app/wiki/store/models/revision.model';
+import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 })
 export class SectionFormComponent implements OnInit {
   isEdit: boolean = false;
-  initData!: RevisionCreate;
+  initData!: RevisionDto;
   form!: FormGroup;
   public onClose: Subject<string> = new Subject();
   constructor(public options: ModalOptions, private bsModalRef: BsModalRef, private fb: FormBuilder) {}

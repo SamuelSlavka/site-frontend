@@ -1,4 +1,4 @@
-import { Revision, RevisionCreate } from './revision.model';
+import { Revision, RevisionDto } from './revision.model';
 
 export interface Section {
   id: string;
@@ -9,7 +9,25 @@ export interface Section {
   createdBy: string;
 }
 
+export interface SectionDto {
+  id: string;
+  latestRevision: string;
+  superSection: string;
+  sectionOrder: number;
+  depth: number;
+  createdBy: string;
+  article: string;
+  text: string;
+  title: string;
+  subsections: string[];
+}
+
 export interface SectionCreate {
   superSectionId: string;
-  revision: RevisionCreate;
+  revision: RevisionDto;
+}
+
+export interface SectionDelete {
+  superSectionId: string;
+  id: string;
 }

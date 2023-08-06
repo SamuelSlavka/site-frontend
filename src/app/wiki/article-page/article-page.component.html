@@ -1,6 +1,6 @@
-<div class="m-3" *ngIf="{ section: (section$ | async) }; let context">
+<div class="m-3" *ngIf="{ selected: (selected$ | async) }; let context">
   <app-nav [title]="title" backUrl="/wiki"></app-nav>
-  <div *ngIf="context.section">
-    <app-section *ngIf="context.section" [section]="context.section"></app-section>
+  <div *ngIf="context.selected">
+    <app-section [selected]="context.selected"></app-section>
   </div>
 </div>

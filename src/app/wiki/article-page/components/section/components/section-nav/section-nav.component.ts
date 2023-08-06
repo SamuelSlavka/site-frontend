@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Section } from '@app/wiki/store/models/section.model';
+import { Section, SectionDto } from '@app/wiki/store/models/section.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -8,7 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./section-nav.component.scss'],
 })
 export class SectionNavComponent {
-  @Input() section!: Section;
+  @Input() section!: SectionDto | null;
   @Input() isCollapsed: boolean = false;
   @Output() editSection: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteSection: EventEmitter<void> = new EventEmitter<void>();

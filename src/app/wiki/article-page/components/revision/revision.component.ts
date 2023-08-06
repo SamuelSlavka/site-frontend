@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SessionService } from '@app/wiki/services/session.service';
-import { Revision } from '@app/wiki/store/models/revision.model';
+import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -9,7 +9,8 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./revision.component.scss'],
 })
 export class RevisionComponent {
-  @Input() revision!: Revision;
+  @Input() text!: string | undefined;
+  @Input() title!: string | undefined;
 
   isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
