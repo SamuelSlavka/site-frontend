@@ -1,6 +1,6 @@
-<div class="w-100 h-100 p-3" *ngIf="{ articles: (articles$ | async), profile: (profile$ | async) }; let context">
-  <div class="m-2">
-    <app-nav (action)="create()" [title]="'wiki'" [actionLabel]="'create article'"></app-nav>
-  </div>
-  <app-article-list [articles]="context.articles ?? []"></app-article-list>
-</div>
+<ng-template #navTemplate>
+  <app-nav (action)="create()" [title]="'wiki'" [actionLabel]="'create article'"></app-nav>
+</ng-template>
+<ng-template #contentTemplate><app-article-list [articles]="(articles$ | async) ?? []"></app-article-list></ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>

@@ -12,7 +12,9 @@ export class SectionService {
   constructor(private http: HttpClient) {}
 
   getOneSection(id: string): Observable<SectionDto[]> {
-    return this.http.get<SectionDto[]>(`${environment.serverUrl}sections/id/${id}`);
+    return this.http.get<SectionDto[]>(
+      `${environment.serverUrl}sections/id/${id}?page=0&pageSize=10&limit=10&initDepth=0`,
+    );
   }
 
   createSection(data: SectionCreate): Observable<SectionDto> {

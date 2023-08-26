@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
@@ -8,12 +8,14 @@ import { Subject } from 'rxjs';
   selector: 'app-section-form',
   templateUrl: './section-form.component.html',
   styleUrls: ['./section-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionFormComponent implements OnInit {
   isEdit: boolean = false;
   initData!: RevisionDto;
   form!: FormGroup;
   public onClose: Subject<string> = new Subject();
+
   constructor(public options: ModalOptions, private bsModalRef: BsModalRef, private fb: FormBuilder) {}
 
   ngOnInit() {

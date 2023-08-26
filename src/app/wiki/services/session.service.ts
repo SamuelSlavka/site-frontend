@@ -25,7 +25,7 @@ export class SessionService implements OnDestroy {
   userId$: Subject<string | undefined> = new Subject();
   profile$: Subject<KeycloakProfile | undefined> = new BehaviorSubject<KeycloakProfile | undefined>(undefined);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  isEditable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  showActions$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   subscription: Subscription = new Subscription();
 

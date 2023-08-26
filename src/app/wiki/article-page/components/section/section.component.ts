@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
+import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
 import { SessionService } from '@app/wiki/services/session.service';
 import { SectionActions } from '@app/wiki/store/actions/section.actions';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
@@ -15,32 +16,34 @@ import { SectionFormComponent } from '../section-form/section-form.component';
   selector: 'app-section',
   templateUrl: './section.component.html',
   styleUrls: ['./section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionComponent implements OnInit {
   isCollapsed: boolean = false;
-  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
   bsModalRef?: BsModalRef;
 
   @Input() selected!: string;
-
-  @Select(SectionState.selectHead)
-  head$!: Observable<string>;
-
-  @Select(SectionState.selectSections)
-  sections$!: Observable<Record<string, SectionDto>>;
+  @Input() isPublic: boolean = false;
+  @Select(SectionState.selectSections) sections$!: Observable<Record<string, SectionDto>>;
 
   selected$!: Observable<SectionDto | null>;
+  isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
+  showActions$: BehaviorSubject<boolean> = this.sessionService.showActions$;
 
-  constructor(private store: Store, private sessionService: SessionService, private modalService: BsModalService) {}
+  constructor(private sessionService: SessionService, private store: Store, private modalService: BsModalService) {}
   ngOnInit(): void {
     this.selected$ = this.sections$.pipe(map((sections) => sections[this.selected]));
   }
 
-  add(selected: string) {
-    this.bsModalRef = this.modalService.show(SectionFormComponent, { class: 'modal-lg' });
-    this.bsModalRef.content.onClose.subscribe((revision: RevisionDto) => {
-      this.store.dispatch(new SectionActions.Create({ superSectionId: selected, revision }));
-    });
+  add(selected: string, isLoggedIn: boolean | null) {
+    if (isLoggedIn) {
+      this.bsModalRef = this.modalService.show(SectionFormComponent, { class: 'modal-lg' });
+      this.bsModalRef.content.onClose.subscribe((revision: RevisionDto) => {
+        this.store.dispatch(new SectionActions.Create({ superSectionId: selected, revision }));
+      });
+    } else {
+      this.bsModalRef = this.modalService.show(LoginPromptComponent);
+    }
   }
 
   edit(selected: string, title: string | undefined, text: string | undefined) {

@@ -17,13 +17,13 @@ export class LoginComponent {
     private router: Router,
   ) {}
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
-  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
+  showActions$: BehaviorSubject<boolean> = this.sessionService.showActions$;
   profile$: Subject<KeycloakProfile | undefined> = this.sessionService.profile$;
   email: string = '';
 
-  toggleEdit() {
-    const editable = this.isEditable$.getValue();
-    this.sessionService.isEditable$.next(!editable);
+  toggleShowActions() {
+    const show = this.showActions$.getValue();
+    this.sessionService.showActions$.next(!show);
   }
 
   logout() {

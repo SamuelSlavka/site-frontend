@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
   @Output() action = new EventEmitter();

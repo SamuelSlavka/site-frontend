@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
   selector: 'app-confirmation-modal',
   templateUrl: './confirmation-modal.component.html',
   styleUrls: ['./confirmation-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationModalComponent {
   public onClose: Subject<boolean> = new Subject();

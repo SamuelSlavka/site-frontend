@@ -6,20 +6,20 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
   selector: '[appHasAccess]',
 })
 export class HasAccessDirective {
+  @Input() isPublic: boolean = false;
+
   @Input() set appHasAccess(creatorId: string | undefined) {
-    combineLatest([this.isAdmin$, this.sessionService.profile$, this.isEditable$]).subscribe(
-      ([admin, profile, editable]) => {
-        if ((admin || profile?.id === creatorId) && editable) {
-          this.viewContainerRef.createEmbeddedView(this.templateRef);
-        } else {
-          this.viewContainerRef.clear();
-        }
-      },
-    );
+    combineLatest([this.isAdmin$, this.sessionService.profile$]).subscribe(([admin, profile]) => {
+      if (admin || profile?.id === creatorId || this.isPublic) {
+        this.viewContainerRef.clear();
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+      } else {
+        this.viewContainerRef.clear();
+      }
+    });
   }
 
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
-  isEditable$: BehaviorSubject<boolean> = this.sessionService.isEditable$;
 
   constructor(
     private templateRef: TemplateRef<Element>,

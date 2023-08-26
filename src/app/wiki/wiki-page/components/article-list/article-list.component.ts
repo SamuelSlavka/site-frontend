@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
 import { ArticleFormComponent } from '../article-form/article-form.component';
@@ -12,6 +12,7 @@ import { ConfirmationModalComponent } from '@app/shared/components/confirmation-
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleListComponent {
   @Input() articles!: ArticleListItem[];
@@ -20,21 +21,33 @@ export class ArticleListComponent {
   constructor(private router: Router, private store: Store, private modalService: BsModalService) {}
 
   viewArticle(article: ArticleListItem) {
-    this.router.navigate([`wiki/${article.section}`, { title: article.title }]);
+    this.router.navigate([
+      `wiki/${article.section}`,
+      { title: article.title, isPubliclyEditable: article.isPubliclyEditable },
+    ]);
   }
 
-  edit(article: ArticleListItem, event: Event) {
-    event.stopPropagation();
+  edit(article: ArticleListItem) {
     this.bsModalRef = this.modalService.show(ArticleFormComponent, {
-      initialState: { title: article.title, isPrivate: article.isPrivate },
+      initialState: {
+        isEdit: true,
+        initData: {
+          title: article.title,
+          isPrivate: article.isPrivate,
+          isPubliclyEditable: article.isPubliclyEditable,
+        },
+      },
     });
     this.bsModalRef.content.onClose.subscribe((res: CreateArticle) => {
       this.store.dispatch(new ArticleActions.Edit(res, article.id));
     });
   }
 
-  delete(article: ArticleListItem, event: Event) {
-    event.stopPropagation();
+  stopPropagation(event$: Event) {
+    event$.stopPropagation();
+  }
+
+  delete(article: ArticleListItem) {
     this.bsModalRef = this.modalService.show(ConfirmationModalComponent, {
       initialState: { label: 'Do you want to delete this article?' },
     });

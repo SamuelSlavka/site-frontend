@@ -6,6 +6,7 @@ export interface Article {
   title: string;
   createdBy: string;
   isPrivate: boolean;
+  isPubliclyEditable: boolean;
   categories: Category[];
   section: Section;
   deleted: boolean;
@@ -16,6 +17,7 @@ export interface ArticleListItem {
   id: string;
   title: string;
   isPrivate: boolean;
+  isPubliclyEditable: boolean;
   section: string;
   createdBy: string;
 }
@@ -23,9 +25,7 @@ export interface ArticleListItem {
 export interface CreateArticle {
   title: string;
   isPrivate: boolean;
+  isPubliclyEditable: boolean;
 }
 
-export interface CreateArticle {
-  title: string;
-  isPrivate: boolean;
-}
+export interface EditArticle extends CreateArticle {}

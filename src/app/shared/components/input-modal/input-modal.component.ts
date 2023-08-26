@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
   selector: 'app-input-modal',
   templateUrl: './input-modal.component.html',
   styleUrls: ['./input-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputModalComponent implements OnInit {
   public onClose: Subject<string> = new Subject();

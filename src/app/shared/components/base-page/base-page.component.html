@@ -1,0 +1,14 @@
+<ng-template #baseNav>
+  <app-nav [title]="'Site'"></app-nav>
+</ng-template>
+
+<div class="container-fluid h-100 d-flex flex-column p-2">
+  <div class="row flex-shrink-0 mx-0">
+    <ng-container *ngTemplateOutlet="navTemplate ? navTemplate : baseNav"></ng-container>
+  </div>
+  <div class="row flex-fill mx-0" style="min-height: 0" *ngIf="showContent">
+    <div class="col mh-1008 py-2" style="overflow-y: auto">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+  </div>
+</div>

@@ -9,13 +9,9 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   message = 'message';
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.http.get(`http://localhost:8090/api/v1/articles?page=0`).subscribe((data: any) => {
-      this.message = data.message;
-    });
-  }
+  ngOnInit() {}
 
   back() {
     this.router.navigate(['']);

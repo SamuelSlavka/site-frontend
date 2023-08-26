@@ -8,10 +8,14 @@ import { Article, ArticleListItem, CreateArticle } from '../store/models/article
   providedIn: 'root',
 })
 export class ArticleService {
+  static offset = 10;
+
   constructor(private http: HttpClient) {}
 
   getArticles(page: number): Observable<ArticleListItem[]> {
-    return this.http.get<ArticleListItem[]>(`${environment.serverUrl}articles?page=${page}`);
+    return this.http.get<ArticleListItem[]>(
+      `${environment.serverUrl}articles?page=${page}&pageSize=${ArticleService.offset}`,
+    );
   }
 
   getOneArticle(id: string): Observable<Article> {

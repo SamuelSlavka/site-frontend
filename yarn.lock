@@ -1469,6 +1469,13 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@ng-bootstrap/ng-bootstrap@14.2.0":
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-14.2.0.tgz#2371e2c9ec6fd7809c1d7ca99597394df6cde003"
+  integrity sha512-nqEKVXauSontGKqC5WSKpch5TiAGDZB3hluvxkINS0r9LUE6sBQRP3qeYOe7Uwu+UbQcj28NG3qFHhpfnG8KHw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngneat/until-destroy@^10.0.0-beta.0":
   version "10.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-10.0.0-beta.0.tgz#f91ba378c4b4647a314af975a8378997d3714bd7"

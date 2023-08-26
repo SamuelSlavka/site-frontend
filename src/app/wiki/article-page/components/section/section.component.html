@@ -1,38 +1,54 @@
-<ng-container *ngIf="{ head: (head$ | async), selected: (selected$ | async) }; let context">
+<ng-container *ngIf="{ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; let context">
   <div
-    class="position-relative"
-    [ngClass]="{ 'border rounded p-2 my-2': context.selected && context.selected.depth > 0 }"
+    class="position-relative rounded"
+    [ngClass]="{ 'border-start rounded p-2 my-2 section-item': context.selected && context.selected.depth > 0 }"
   >
-    <app-section-nav
-      [section]="context.selected"
-      [isCollapsed]="isCollapsed"
-      (addSection)="add(selected)"
-      (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
-      (deleteSection)="delete(selected, context.selected?.superSection)"
-      (collapseSection)="collapse()"
-    ></app-section-nav>
+    <ng-container *ngIf="context.selected?.title">
+      <div class="row m-0 pointer" (click)="collapse()">
+        <div class="col p-0 h5 p-0 m-0">
+          {{ context.selected?.title }}
+        </div>
+        <div class="col-auto p-0">
+          <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
+          <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
+        </div>
+      </div>
+    </ng-container>
 
     <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-      <app-revision [text]="context.selected?.text" [title]="context.selected?.title"></app-revision>
-      <ng-container *ngIf="context.selected">
-        <app-section *ngFor="let section of context.selected.subsections" [selected]="section"></app-section>
+      <ng-container *ngIf="context.selected?.text">
+        <app-revision [text]="context.selected?.text" [title]="context.selected?.title"></app-revision>
       </ng-container>
+
+      <ng-container *ngIf="showActions$ | async">
+        <app-section-actions
+          [selected]="selected"
+          [section]="context.selected"
+          (addSection)="add(selected, context.isLoggedIn)"
+          (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
+          (deleteSection)="delete(selected, context.selected?.superSection)"
+        ></app-section-actions>
+      </ng-container>
+
+      <div class="subsections" *ngIf="context.selected">
+        <app-section
+          *ngFor="let section of context.selected.subsections"
+          [selected]="section"
+          [isPublic]="isPublic"
+        ></app-section>
+      </div>
 
       <ng-template [appHasAccess]="context.selected?.createdBy">
         <button
-          *ngIf="context.selected?.depth === 0"
+          *ngIf="context.selected?.depth === 0 && (showActions$ | async)"
           type="button"
           class="btn btn-sm btn-outline-primary"
-          (click)="add(selected)"
+          (click)="add(selected, context.isLoggedIn)"
         >
-          add section
+          <span *ngIf="context.selected?.subsections">add section</span>
+          <span *ngIf="!context.selected?.subsections">create first section</span>
         </button>
       </ng-template>
     </div>
   </div>
-  <ng-container
-    *ngIf="!(isEditable$ | async) && context.selected?.depth === 0 && context.selected?.subsections?.length === 0"
-  >
-    <button type="button" class="btn btn-sm btn-outline-primary" (click)="add(selected)">create first section</button>
-  </ng-container>
 </ng-container>

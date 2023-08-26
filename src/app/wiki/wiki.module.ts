@@ -3,7 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAngleUp,
+  faCircle,
+  faCircleQuestion,
+  faPen,
+  faPlus,
+  faPlusCircle,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -13,8 +23,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { RevisionComponent } from './article-page/components/revision/revision.component';
 import { SectionFormComponent } from './article-page/components/section-form/section-form.component';
-import { SectionActionsComponent } from './article-page/components/section/components/section-actions/section-actions.component';
-import { SectionNavComponent } from './article-page/components/section/components/section-nav/section-nav.component';
 import { SectionComponent } from './article-page/components/section/section.component';
 import { ArticleState } from './store/state/article.state';
 import { SectionState } from './store/state/section.state';
@@ -22,6 +30,7 @@ import { ArticleFormComponent } from './wiki-page/components/article-form/articl
 import { ArticleListComponent } from './wiki-page/components/article-list/article-list.component';
 import { WikiPageComponent } from './wiki-page/wiki-page.component';
 import { WikiRoutingModule } from './wiki-routing.module';
+import { SectionActionsComponent } from './article-page/components/section-actions/section-actions.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +42,10 @@ import { WikiRoutingModule } from './wiki-routing.module';
     WikiPageComponent,
     SectionFormComponent,
     SectionActionsComponent,
-    SectionNavComponent,
   ],
   imports: [
     SharedModule,
+    NgbTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
@@ -52,6 +61,6 @@ import { WikiRoutingModule } from './wiki-routing.module';
 })
 export class WikiModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faAngleDown, faAngleUp);
+    library.addIcons(faAngleDown, faAngleUp, faCircleQuestion, faPlus, faTrashCan, faPen);
   }
 }

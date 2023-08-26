@@ -102,4 +102,9 @@ export class ArticleState {
   static selected(state: ArticleStateModel) {
     return state.selected;
   }
+
+  @Selector()
+  static isPubliclyEditable(state: ArticleStateModel) {
+    return state.selected?.isPubliclyEditable;
+  }
 }

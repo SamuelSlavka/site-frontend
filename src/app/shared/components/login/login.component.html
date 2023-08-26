@@ -15,10 +15,10 @@
     </button>
     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
       <li role="menuitem">
-        <button class="dropdown-item" href="#" (click)="toggleEdit()" aria-labelledby="togge-edit">
-          <span *ngIf="isEditable$ | async; else enable">disable editing</span>
+        <button class="dropdown-item" href="#" (click)="toggleShowActions()" aria-labelledby="togge-edit">
+          <span *ngIf="showActions$ | async; else enable">hide actions</span>
           <ng-template #enable>
-            <span *ngIf="!(isEditable$ | async)">enable editing</span>
+            <span *ngIf="!(showActions$ | async)">show actions</span>
           </ng-template>
         </button>
       </li>

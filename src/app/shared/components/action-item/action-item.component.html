@@ -1,0 +1,8 @@
+<span
+  class="text-muted quick-action rounded pointer py-1 px-2 m-1"
+  [ngClass]="{ 'p-2': size === 'bg' }"
+  (click)="trigger($event)"
+>
+  <fa-icon [icon]="icon"></fa-icon>
+  {{ text }}
+</span>

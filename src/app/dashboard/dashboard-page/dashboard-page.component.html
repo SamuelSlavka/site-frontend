@@ -1,5 +1,7 @@
 <h1 class="card-title p-3">Dashboard</h1>
-<button class="btn btn-primary m-2" (click)="goTo('privacy')">Privacy Page</button>
-<button class="btn btn-primary m-2" (click)="goTo('admin')">Admin Page</button>
-<button class="btn btn-primary m-2" (click)="goTo('wiki')">Wiki</button>
-<button class="btn btn-primary m-2" (click)="logout()">logout</button>
+<div class="m-2">
+  <button class="btn btn-primary m-2" (click)="goTo('privacy')">Privacy Page</button>
+  <button *ngIf="isAdmin$ | async" class="btn btn-primary m-2" (click)="goTo('admin')">Admin Page</button>
+  <button class="btn btn-primary m-2" (click)="goTo('wiki')">Wiki</button>
+  <button *ngIf="isLoggedIn$ | async" class="btn btn-primary m-2" (click)="logout()">logout</button>
+</div>

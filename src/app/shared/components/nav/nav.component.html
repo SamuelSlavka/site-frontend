@@ -7,15 +7,15 @@
   </div>
   <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
     <div class="col-auto">
-      <button *ngIf="actionLabel" class="btn btn-primary" (click)="actionTrigger()">
+      <button *ngIf="actionLabel" class="btn btn-primary mb-2" (click)="actionTrigger()">
         {{ actionLabel }}
       </button>
     </div>
-    <button [ngClass]="{ 'back-desktop': !!actionLabel }" class="btn btn-outline-secondary ms-2 mb-3" (click)="back()">
+    <button [ngClass]="{ 'back-desktop': !!actionLabel }" class="btn btn-outline-secondary ms-2 mb-2" (click)="back()">
       back
     </button>
   </div>
 </div>
-<div *ngIf="actionLabel" class="row m-0 d-flex justify-content-end mb-3 mt-2">
+<div *ngIf="actionLabel" class="row m-0 d-flex justify-content-end mb-2 mt-2">
   <button class="back-mobile btn btn-outline-secondary ms-2 col-auto" (click)="back()">back</button>
 </div>

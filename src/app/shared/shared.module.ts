@@ -12,6 +12,9 @@ import { NavComponent } from './components/nav/nav.component';
 import { HasAccessDirective } from './directives/has-access.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BasePageComponent } from './components/base-page/base-page.component';
+import { LoginPromptComponent } from './components/login-prompt/login-prompt.component';
+import { ActionItemComponent } from './components/action-item/action-item.component';
 
 @NgModule({
   imports: [
@@ -25,13 +28,24 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   ],
   declarations: [
     LoginComponent,
+    LoginPromptComponent,
     ConfirmationModalComponent,
     InputModalComponent,
     NotFoundComponent,
     NavComponent,
     AccessDeniedComponent,
     HasAccessDirective,
+    BasePageComponent,
+    ActionItemComponent,
   ],
-  exports: [FontAwesomeModule, LoginComponent, NavComponent, HasAccessDirective],
+  exports: [
+    FontAwesomeModule,
+    LoginComponent,
+    NavComponent,
+    HasAccessDirective,
+    BasePageComponent,
+    LoginPromptComponent,
+    ActionItemComponent,
+  ],
 })
 export class SharedModule {}

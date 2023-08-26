@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ArticleActions } from '../store/actions/article.actions';
-import { ArticleListItem, CreateArticle } from '../store/models/article.model';
+import { ArticleListItem, CreateArticle, EditArticle } from '../store/models/article.model';
 import { ArticleState } from '../store/state/article.state';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
 import { KeycloakProfile } from 'keycloak-js';
 import { SessionService } from '../services/session.service';
+import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
 
 @Component({
   selector: 'app-wiki-page',
   templateUrl: './wiki-page.component.html',
   styleUrls: ['./wiki-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WikiPageComponent implements OnInit {
   private page: number = 0;
@@ -23,8 +25,7 @@ export class WikiPageComponent implements OnInit {
   isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
   profile$: Observable<KeycloakProfile | undefined> = this.sessionService.profile$;
 
-  @Select(ArticleState.articles)
-  articles$!: Observable<ArticleListItem[]>;
+  @Select(ArticleState.articles) articles$!: Observable<ArticleListItem[]>;
 
   constructor(
     private sessionService: SessionService,
@@ -42,9 +43,16 @@ export class WikiPageComponent implements OnInit {
   }
 
   create() {
-    this.bsModalRef = this.modalService.show(ArticleFormComponent);
-    this.bsModalRef.content.onClose.subscribe((res: CreateArticle) => {
-      this.store.dispatch(new ArticleActions.Create(res));
+    const sub: Subscription = this.isLoggedIn$.subscribe((logged) => {
+      if (logged) {
+        this.bsModalRef = this.modalService.show(ArticleFormComponent);
+        this.bsModalRef.content.onClose.subscribe((res: EditArticle) => {
+          this.store.dispatch(new ArticleActions.Create(res));
+        });
+      } else {
+        this.bsModalRef = this.modalService.show(LoginPromptComponent);
+      }
     });
+    sub.unsubscribe();
   }
 }

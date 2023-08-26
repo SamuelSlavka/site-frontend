@@ -10,10 +10,22 @@ import { initializer } from 'src/utils/app-init';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArticleState } from '@app/wiki/store/state/article.state';
 import { NgxsModule } from '@ngxs/store';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [],
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, HttpClientModule, NgxsModule.forRoot([ArticleState])],
+  imports: [
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    BsDropdownModule.forRoot(),
+    NgxsModule.forRoot([ArticleState]),
+  ],
   providers: [
     KeycloakService,
     JwtHelperService,

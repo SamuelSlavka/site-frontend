@@ -7,23 +7,11 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { SharedModule } from './shared/shared.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    KeycloakAngularModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    CoreModule,
-    SharedModule,
-    FontAwesomeModule,
-    TooltipModule.forRoot(),
-    BsDropdownModule.forRoot(),
-  ],
+  imports: [BrowserModule, KeycloakAngularModule, BrowserAnimationsModule, AppRoutingModule, CoreModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })

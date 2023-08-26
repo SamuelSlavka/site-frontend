@@ -1,17 +1,52 @@
-<div>
-  <div class="modal-header">
-    <label class="input font-weight-bold">Create article</label>
-  </div>
-  <form class="modal-body" [formGroup]="form">
-    <label for="text-input">Article title</label>
-    <input name="text-input" class="w-100" formControlName="title" />
-    <div class="form-check mt-3">
-      <input type="checkbox" class="form-check-input" formControlName="isPrivate" id="flexCheckDefault" />
-      <label class="form-check-label" for="flexCheckDefault">Set as private</label>
-    </div>
-    <div class="d-flex flex-row-reverse mt-3">
-      <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">save</button>
-      <button class="btn btn-primary mx-3" (click)="cancel()">cancel</button>
-    </div>
-  </form>
+<div class="modal-header">
+  <label *ngIf="!isEdit" class="input fw-bold h5 mb-0">Create article</label>
+  <label *ngIf="isEdit" class="input fw-bold h5 mb-0">Edit article</label>
 </div>
+<form class="modal-body" [formGroup]="form">
+  <label for="text-input">Article title</label>
+  <input name="text-input" class="w-100" formControlName="title" />
+  <div class="row m-0">
+    <div class="form-check mt-3 col">
+      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="isPrivate" />
+      <label
+        class="form-check-label pointer"
+        [ngClass]="{ 'text-muted': form.value.isPubliclyEditable }"
+        for="isPrivate"
+      >
+        Set as private
+      </label>
+      <fa-icon
+        ngbTooltip="Only you will be able to see and edit this article"
+        class="ms-2"
+        icon="circle-question"
+      ></fa-icon>
+    </div>
+    <div class="form-check mt-3 col">
+      <input
+        type="checkbox"
+        class="form-check-input pointer"
+        formControlName="isPubliclyEditable"
+        id="isPubliclyEditable"
+      />
+      <label
+        class="form-check-label pointer"
+        [ngClass]="{ 'text-muted': form.value.isPrivate }"
+        for="isPubliclyEditable"
+      >
+        Set fully public
+      </label>
+      <fa-icon
+        class="ms-2"
+        ngbTooltip="Everybody will be able to see this article and add their sections"
+        icon="circle-question"
+      ></fa-icon>
+    </div>
+  </div>
+  <div class="d-flex flex-row-reverse mt-3">
+    <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">
+      <span *ngIf="!isEdit">Create</span>
+      <span *ngIf="isEdit">Edit</span>
+    </button>
+    <button class="btn btn-secondary mx-3" (click)="cancel()">cancel</button>
+  </div>
+</form>

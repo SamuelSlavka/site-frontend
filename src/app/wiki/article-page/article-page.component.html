@@ -1,6 +1,10 @@
-<div class="m-3" *ngIf="{ selected: (selected$ | async) }; let context">
-  <app-nav [title]="title" backUrl="/wiki"></app-nav>
-  <div *ngIf="context.selected">
-    <app-section [selected]="context.selected"></app-section>
-  </div>
-</div>
+<ng-template #navTemplate><app-nav [title]="title" backUrl="/wiki"></app-nav></ng-template>
+<ng-template #contentTemplate>
+  <app-section [selected]="(selected$ | async) ?? ''" [isPublic]="isPublic"></app-section>
+</ng-template>
+
+<app-base-page
+  [showContent]="selected$ | async"
+  [navTemplate]="navTemplate"
+  [contentTemplate]="contentTemplate"
+></app-base-page>

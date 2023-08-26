@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -10,9 +10,11 @@ import { SectionState } from '../store/state/section.state';
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticlePageComponent implements OnInit {
   public title!: string;
+  public isPublic: boolean = false;
 
   @Select(SectionState.selectHead)
   selected$!: Observable<string>;
@@ -21,6 +23,7 @@ export class ArticlePageComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title') ?? '';
+    this.isPublic = this.route.snapshot.paramMap.get('isPubliclyEditable') === 'true';
     const sectionId = this.route.snapshot.paramMap.get('id') ?? 'default';
     this.store.dispatch(new SectionActions.GetOne(sectionId));
   }
