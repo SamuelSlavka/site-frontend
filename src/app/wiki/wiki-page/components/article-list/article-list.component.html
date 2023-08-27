@@ -7,9 +7,11 @@
     <div class="col my-2">
       {{ article.title }}
     </div>
-    <div *appHasAccess="article.createdBy" class="col-auto my-2 ms-auto">
-      <app-action-item [text]="'delete'" icon="trash-can" (action)="delete(article)" size="bg"></app-action-item>
-      <app-action-item [text]="'edit'" icon="pen" (action)="edit(article)" size="bg"></app-action-item>
-    </div>
+    <ng-template [appHasAccess]="article.createdBy">
+      <div class="col-auto my-2 ms-auto">
+        <app-action-item [text]="'delete'" icon="trash-can" (action)="delete(article)" size="bg"></app-action-item>
+        <app-action-item [text]="'edit'" icon="pen" (action)="edit(article)" size="bg"></app-action-item>
+      </div>
+    </ng-template>
   </li>
 </ul>

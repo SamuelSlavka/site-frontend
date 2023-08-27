@@ -23,6 +23,7 @@
       <ng-container *ngIf="showActions$ | async">
         <app-section-actions
           [selected]="selected"
+          [isPublic]="isPublic"
           [section]="context.selected"
           (addSection)="add(selected, context.isLoggedIn)"
           (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
@@ -38,7 +39,7 @@
         ></app-section>
       </div>
 
-      <ng-template [appHasAccess]="context.selected?.createdBy">
+      <ng-template [isPublic]="isPublic" [appHasAccess]="context.selected?.createdBy">
         <button
           *ngIf="context.selected?.depth === 0 && (showActions$ | async)"
           type="button"
