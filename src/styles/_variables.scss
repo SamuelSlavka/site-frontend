@@ -1,0 +1,29 @@
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/variables-dark';
+@import '../node_modules/bootstrap/scss/mixins';
+
+$primary: #8ecae6;
+$secondary: #326273;
+$success: #6b9080;
+$info: #70a9a1;
+$warning: #ffb703;
+$danger: #e63946;
+$light: #f1faee;
+$dark: #0b2027;
+
+$body-bg: #2b2d42;
+
+//futhermore it's necessary override the $theme-colors
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+);
+
+$body-bg-dark: $body-bg;

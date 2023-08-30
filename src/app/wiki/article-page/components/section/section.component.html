@@ -1,11 +1,11 @@
 <ng-container *ngIf="{ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; let context">
   <div
     class="position-relative rounded"
-    [ngClass]="{ 'border-start rounded p-2 my-2 section-item': context.selected && context.selected.depth > 0 }"
+    [ngClass]="{ 'border-start rounded p-2 my-2 section-item ': context.selected && context.selected.depth > 0 }"
   >
     <ng-container *ngIf="context.selected?.title">
-      <div class="row m-0 pointer" (click)="collapse()">
-        <div class="col p-0 h5 p-0 m-0">
+      <div class="row m-0 pointer mb-2" (click)="collapse()">
+        <div class="col h5 p-0 m-0 section-title">
           {{ context.selected?.title }}
         </div>
         <div class="col-auto p-0">

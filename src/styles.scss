@@ -18,18 +18,9 @@
 /* Importing Datepicker SCSS file. */
 @import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
 
-.w-fit {
-  width: fit-content;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-html,
-body {
-  height: 100%;
-}
-
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+@import 'styles/variables';
+
+@import 'styles/app.scss';

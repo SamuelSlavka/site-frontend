@@ -38,7 +38,10 @@
               "node_modules/prismjs/plugins/command-line/prism-command-line.js",
               "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "node_modules/clipboard/dist/clipboard.min.js"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/", "src/assets", "src/styles"]
+            }
           },
           "configurations": {
             "production": {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
@@ -9,6 +9,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   constructor(
