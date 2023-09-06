@@ -1,20 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  Subscription,
-  combineLatest,
-  combineLatestWith,
-  concatMap,
-  filter,
-  from,
-  mergeMap,
-  of,
-  withLatestFrom,
-} from 'rxjs';
+import { BehaviorSubject, from, Subject, Subscription } from 'rxjs';
+
 import { UserRoles } from '../enums/user-roles.enum';
 
 @Injectable({
