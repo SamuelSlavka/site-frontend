@@ -1,4 +1,4 @@
-import { Article, ArticleListItem, CreateArticle } from '../models/article.model';
+import { CreateArticle } from '../models/article.model';
 
 export namespace ArticleActions {
   export class Get {

@@ -1,7 +1,36 @@
-<h1 class="card-title p-3">Dashboard</h1>
-<div class="m-2">
-  <button class="btn btn-primary m-2" (click)="goTo('privacy')">Privacy Page</button>
+<ng-template #navTemplate>
   <button *ngIf="isAdmin$ | async" class="btn btn-primary m-2" (click)="goTo('admin')">Admin Page</button>
-  <button class="btn btn-primary m-2" (click)="goTo('wiki')">Wiki</button>
   <button *ngIf="isLoggedIn$ | async" class="btn btn-primary m-2" (click)="logout()">logout</button>
-</div>
+  <button class="btn btn-primary ms-2 float-end" (click)="goTo('wiki')">Wiki</button>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <div class="d-flex flex-column h-100" *ngIf="{ latest: (latest$ | async) }; let context">
+    <div>
+      <div class="row m-0 p-0 mt-3">
+        <span class="text-muted p-0">measured at: {{ context.latest?.measuredAt | date }}</span>
+      </div>
+      <div class="row m-0 p-0 mt-2">
+        <span class="text-muted p-0">temperature:</span>
+      </div>
+      <div class="row m-0 p-0">
+        <span class="h3 m-0 p-0">{{ context.latest?.temperature }} °C</span>
+      </div>
+
+      <div class="row m-0 p-0 mt-2">
+        <span class="text-muted p-0">humidity:</span>
+      </div>
+      <div class="row m-0 p-0">
+        <span class="h3 m-0 p-0">{{ context.latest?.humidity }} %</span>
+      </div>
+    </div>
+    <div class="mt-auto">
+      <div class="row m-0 mt-2 p-0 d-flex">
+        <button class="btn btn-outline-dark me-2 w-fit" (click)="goTo('privacy')">Privacy Page</button>
+        <button class="btn btn-outline-primary w-fit ms-auto" (click)="goTo('privacy')">Git</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>

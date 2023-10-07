@@ -11,11 +11,13 @@
         {{ actionLabel }}
       </button>
     </div>
-    <button [ngClass]="{ 'back-desktop': !!actionLabel }" class="btn btn-outline-secondary ms-2 mb-2" (click)="back()">
-      back
-    </button>
+    <div class="col-auto ms-2 mb-2">
+      <button [ngClass]="{ 'back-desktop': !!actionLabel }" class="btn btn-outline-secondary" (click)="back()">
+        back
+      </button>
+    </div>
   </div>
 </div>
-<div *ngIf="actionLabel" class="row m-0 d-flex justify-content-end mb-2 mt-2">
-  <button class="back-mobile btn btn-outline-secondary ms-2 col-auto" (click)="back()">back</button>
+<div *ngIf="actionLabel" class="row m-0 d-flex justify-content-end my-2 ms-2 col-auto">
+  <button class="back-mobile btn btn-outline-secondary" (click)="back()">back</button>
 </div>

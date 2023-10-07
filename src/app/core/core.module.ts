@@ -15,7 +15,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [],
   imports: [
     NgbModule,
     FormsModule,
