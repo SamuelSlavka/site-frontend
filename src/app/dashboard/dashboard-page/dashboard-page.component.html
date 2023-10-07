@@ -1,7 +1,7 @@
 <ng-template #navTemplate>
   <button *ngIf="isAdmin$ | async" class="btn btn-primary m-2" (click)="goTo('admin')">Admin Page</button>
   <button *ngIf="isLoggedIn$ | async" class="btn btn-primary m-2" (click)="logout()">logout</button>
-  <button class="btn btn-primary ms-2 float-end" (click)="goTo('wiki')">Wiki</button>
+  <button class="btn btn-primary ms-2 float-end mt-2" (click)="goTo('wiki')">Wiki</button>
 </ng-template>
 
 <ng-template #contentTemplate>
@@ -27,7 +27,7 @@
     <div class="mt-auto">
       <div class="row m-0 mt-2 p-0 d-flex">
         <button class="btn btn-outline-dark me-2 w-fit" (click)="goTo('privacy')">Privacy Page</button>
-        <button class="btn btn-outline-primary w-fit ms-auto" (click)="goTo('privacy')">Git</button>
+        <button class="btn btn-outline-primary w-fit ms-auto" (click)="openGit()">Git</button>
       </div>
     </div>
   </div>

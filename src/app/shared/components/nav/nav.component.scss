@@ -9,9 +9,11 @@
 
   .back-mobile {
     display: block;
+    width: fit-content;
   }
 
   .back-desktop {
     display: none;
+    width: fit-content;
   }
 }

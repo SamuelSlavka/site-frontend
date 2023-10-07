@@ -4,12 +4,12 @@
 
 <div class="container-fluid h-100 d-flex flex-column p-2">
   <div class="row flex-shrink-0 mx-0 justify-content-center">
-    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 col-12">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 col-12 px-2">
       <ng-container *ngTemplateOutlet="navTemplate ? navTemplate : baseNav"></ng-container>
     </div>
   </div>
   <div class="row flex-fill mx-0 justify-content-center" style="min-height: 0" *ngIf="showContent">
-    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 col-12 mh-100 py-2 overflow-y-auto">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 col-12 mh-100 p-2 overflow-y-auto">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </div>
   </div>

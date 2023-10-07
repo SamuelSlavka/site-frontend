@@ -37,4 +37,8 @@ export class DashboardPageComponent implements OnInit {
   goTo(route: string) {
     this.router.navigate([route]);
   }
+
+  openGit() {
+    window.open('https://github.com/SamuelSlavka/', '_blank');
+  }
 }
