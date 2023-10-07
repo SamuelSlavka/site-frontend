@@ -15,6 +15,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BasePageComponent } from './components/base-page/base-page.component';
 import { LoginPromptComponent } from './components/login-prompt/login-prompt.component';
 import { ActionItemComponent } from './components/action-item/action-item.component';
+import { CustomDatePipe } from './pipes/custom-date.pipe';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { ActionItemComponent } from './components/action-item/action-item.compon
     HasAccessDirective,
     BasePageComponent,
     ActionItemComponent,
+    CustomDatePipe,
   ],
   exports: [
     FontAwesomeModule,
@@ -46,6 +48,7 @@ import { ActionItemComponent } from './components/action-item/action-item.compon
     BasePageComponent,
     LoginPromptComponent,
     ActionItemComponent,
+    CustomDatePipe,
   ],
 })
 export class SharedModule {}
