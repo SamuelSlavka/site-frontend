@@ -39,7 +39,7 @@ export class ArticleState {
     ctx.patchState({ loading: true });
     return this.articleService.getArticles(action.page).pipe(
       tap((articles) => {
-        ctx.patchState({ articles, loading: false });
+        ctx.patchState({ loading: false, articles });
       }),
       catchError((error) => {
         ctx.patchState({ loading: false });

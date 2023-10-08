@@ -1,4 +1,9 @@
-<app-placeholder [loading]="loading$" [count]="4" [height]="3.5"></app-placeholder>
+<app-placeholder
+  *ngIf="!articles || articles.length === 0"
+  [loading]="loading$"
+  [count]="4"
+  [height]="3.5"
+></app-placeholder>
 
 <div *ngIf="articles.length === 0" class="text-center">
   <span class="h6 m-0 p-0 mx-3">no articles found...</span>
