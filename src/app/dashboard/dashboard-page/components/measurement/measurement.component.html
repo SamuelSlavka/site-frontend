@@ -1,0 +1,18 @@
+<div *ngIf="latest$ | async; let latest">
+  <div class="row m-0 p-0 mt-3">
+    <span class="text-muted p-0">measured at: {{ latest?.measuredAt | customDate }}</span>
+  </div>
+  <div class="row m-0 p-0 mt-2">
+    <span class="text-muted p-0">temperature:</span>
+  </div>
+  <div class="row m-0 p-0">
+    <span class="h3 m-0 p-0">{{ latest?.temperature }} °C</span>
+  </div>
+
+  <div class="row m-0 p-0 mt-2">
+    <span class="text-muted p-0">humidity:</span>
+  </div>
+  <div class="row m-0 p-0">
+    <span class="h3 m-0 p-0">{{ latest?.humidity }} %</span>
+  </div>
+</div>

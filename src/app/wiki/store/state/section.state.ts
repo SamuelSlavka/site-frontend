@@ -10,11 +10,12 @@ import { SectionActions } from '../actions/section.actions';
 export interface SectionStateModel {
   sectionLists: Record<string, Record<string, SectionDto>>;
   selected: string | null;
+  loading: boolean;
 }
 
 @State<SectionStateModel>({
   name: 'section',
-  defaults: { selected: null, sectionLists: {} },
+  defaults: { selected: null, sectionLists: {}, loading: false },
 })
 @Injectable()
 export class SectionState {
@@ -22,11 +23,12 @@ export class SectionState {
 
   @Action(SectionActions.GetOne)
   fetchSection(ctx: StateContext<SectionStateModel>, action: SectionActions.GetOne) {
-    ctx.patchState({ selected: null });
+    ctx.patchState({ selected: null, loading: true });
     return this.sectionService.getOneSection(action.id).pipe(
       tap((sections) => {
         const head = action.id;
         ctx.patchState({
+          loading: false,
           selected: head,
           sectionLists: {
             ...ctx.getState().sectionLists,
@@ -35,6 +37,7 @@ export class SectionState {
         });
       }),
       catchError((error) => {
+        ctx.patchState({ loading: false });
         this.toastr.error('Fetch failed');
         return of(error);
       }),
@@ -161,6 +164,11 @@ export class SectionState {
   @Selector()
   static selectSections(state: SectionStateModel) {
     return state.sectionLists[state.selected ?? ''];
+  }
+
+  @Selector()
+  static loading(state: SectionStateModel) {
+    return state.loading;
   }
 
   @Selector()

@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
-import { ArticleFormComponent } from '../article-form/article-form.component';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ArticleActions } from '@app/wiki/store/actions/article.actions';
-import { Store } from '@ngxs/store';
-import { filter } from 'rxjs';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
+import { ArticleActions } from '@app/wiki/store/actions/article.actions';
+import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
+import { ArticleState } from '@app/wiki/store/state/article.state';
+import { Select, Store } from '@ngxs/store';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { filter, Observable } from 'rxjs';
+
+import { ArticleFormComponent } from '../article-form/article-form.component';
 
 @Component({
   selector: 'app-article-list',
@@ -16,6 +18,8 @@ import { ConfirmationModalComponent } from '@app/shared/components/confirmation-
 })
 export class ArticleListComponent {
   @Input() articles!: ArticleListItem[];
+  @Select(ArticleState.loading) loading$!: Observable<boolean>;
+
   bsModalRef?: BsModalRef;
 
   constructor(private router: Router, private store: Store, private modalService: BsModalService) {}

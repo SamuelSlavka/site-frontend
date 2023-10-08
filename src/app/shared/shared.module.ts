@@ -16,6 +16,7 @@ import { BasePageComponent } from './components/base-page/base-page.component';
 import { LoginPromptComponent } from './components/login-prompt/login-prompt.component';
 import { ActionItemComponent } from './components/action-item/action-item.component';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     BasePageComponent,
     ActionItemComponent,
     CustomDatePipe,
+    PlaceholderComponent,
   ],
   exports: [
     FontAwesomeModule,
@@ -49,6 +51,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     LoginPromptComponent,
     ActionItemComponent,
     CustomDatePipe,
+    PlaceholderComponent,
   ],
 })
 export class SharedModule {}

@@ -17,8 +17,6 @@ export class DashboardPageComponent implements OnInit {
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
 
-  @Select(MeasurementState.latestMeasurement) latest$!: Observable<Measurement>;
-
   constructor(
     private keycloakService: KeycloakService,
     private router: Router,

@@ -5,25 +5,8 @@
 </ng-template>
 
 <ng-template #contentTemplate>
-  <div class="d-flex flex-column h-100" *ngIf="{ latest: (latest$ | async) }; let context">
-    <div>
-      <div class="row m-0 p-0 mt-3">
-        <span class="text-muted p-0">measured at: {{ context.latest?.measuredAt | customDate }}</span>
-      </div>
-      <div class="row m-0 p-0 mt-2">
-        <span class="text-muted p-0">temperature:</span>
-      </div>
-      <div class="row m-0 p-0">
-        <span class="h3 m-0 p-0">{{ context.latest?.temperature }} °C</span>
-      </div>
-
-      <div class="row m-0 p-0 mt-2">
-        <span class="text-muted p-0">humidity:</span>
-      </div>
-      <div class="row m-0 p-0">
-        <span class="h3 m-0 p-0">{{ context.latest?.humidity }} %</span>
-      </div>
-    </div>
+  <div class="d-flex flex-column h-100">
+    <app-measurement></app-measurement>
     <div class="mt-auto">
       <div class="row m-0 mt-2 p-0 d-flex">
         <button class="btn btn-outline-dark me-2 w-fit" (click)="goTo('privacy')">Privacy Page</button>

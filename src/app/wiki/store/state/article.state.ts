@@ -10,11 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 export interface ArticleStateModel {
   articles: ArticleListItem[];
   selected: Article | null;
+  loading: boolean;
 }
 
 @State<ArticleStateModel>({
   name: 'article',
-  defaults: { articles: [], selected: null },
+  defaults: { articles: [], selected: null, loading: false },
 })
 @Injectable()
 export class ArticleState {
@@ -35,11 +36,13 @@ export class ArticleState {
 
   @Action(ArticleActions.Get)
   getArticles(ctx: StateContext<ArticleStateModel>, action: ArticleActions.Get) {
+    ctx.patchState({ loading: true });
     return this.articleService.getArticles(action.page).pipe(
       tap((articles) => {
-        ctx.patchState({ articles });
+        ctx.patchState({ articles, loading: false });
       }),
       catchError((error) => {
+        ctx.patchState({ loading: false });
         this.toastr.error('Failed to get articles');
         return of(error);
       }),
@@ -96,6 +99,11 @@ export class ArticleState {
   @Selector()
   static articles(state: ArticleStateModel) {
     return state.articles;
+  }
+
+  @Selector()
+  static loading(state: ArticleStateModel) {
+    return state.loading;
   }
 
   @Selector()

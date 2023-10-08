@@ -8,7 +8,7 @@ export const environment = {
   supportedLanguages: ['en'],
   keycloak: {
     // Url of the Identity Provider
-    issuer: 'https://keycloak.sam-sla.net/',
+    issuer: 'http://localhost:8080',
     // Realm
     realm: 'site',
     clientId: 'site-frontend',

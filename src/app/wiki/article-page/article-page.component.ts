@@ -16,8 +16,8 @@ export class ArticlePageComponent implements OnInit {
   public title!: string;
   public isPublic: boolean = false;
 
-  @Select(SectionState.selectHead)
-  selected$!: Observable<string>;
+  @Select(SectionState.selectHead) selected$!: Observable<string>;
+  @Select(SectionState.loading) loading$!: Observable<boolean>;
 
   constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 

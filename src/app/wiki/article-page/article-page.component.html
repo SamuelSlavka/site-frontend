@@ -1,5 +1,7 @@
 <ng-template #navTemplate><app-nav [title]="title" backUrl="/wiki"></app-nav></ng-template>
+
 <ng-template #contentTemplate>
+  <app-placeholder [loading]="loading$" [height]="7" [count]="3"></app-placeholder>
   <app-section [selected]="(selected$ | async) ?? ''" [isPublic]="isPublic"></app-section>
 </ng-template>
 

@@ -1,0 +1,7 @@
+<p *ngIf="loading | async" class="placeholder-glow">
+  <span
+    *ngFor="let _ of [].constructor(count)"
+    class="placeholder col-12 rounded bg-dark mb-1"
+    [ngStyle]="{ height: height + 'rem' }"
+  ></span>
+</p>
