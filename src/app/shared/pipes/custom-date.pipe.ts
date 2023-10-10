@@ -11,7 +11,15 @@ export class CustomDatePipe implements PipeTransform {
     const d = new Date(value);
     d.setHours(d.getHours() + 2);
     return (
-      d.getDate() + '. ' + (d.getMonth() + 1) + '. ' + d.getFullYear() + ', at ' + d.getHours() + ':' + d.getMinutes()
+      d.getDate() +
+      '. ' +
+      (d.getMonth() + 1) +
+      '. ' +
+      d.getFullYear() +
+      ', at ' +
+      d.getHours() +
+      ':' +
+      ('00' + d.getMinutes()).slice(-2)
     );
   }
 }
