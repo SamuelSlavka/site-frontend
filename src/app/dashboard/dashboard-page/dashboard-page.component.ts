@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { MeasurementState } from '../store/state/measurements.state';
-import { Select, Store } from '@ngxs/store';
-import { Measurement } from '../store/models/measurement.model';
-import { MeasurementActions } from '../store/actions/measurement.actions';
+import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 
 @Component({
   selector: 'app-dashboard-page',

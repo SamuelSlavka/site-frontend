@@ -13,6 +13,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MeasurementState } from './store/state/measurements.state';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     FontAwesomeModule,
     BsDropdownModule.forRoot(),
-    NgxsModule.forRoot([ArticleState]),
+    NgxsModule.forRoot([MeasurementState]),
   ],
   providers: [
     KeycloakService,

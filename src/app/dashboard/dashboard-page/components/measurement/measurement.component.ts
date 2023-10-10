@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Measurement } from '@app/dashboard/store/models/measurement.model';
-import { MeasurementState } from '@app/dashboard/store/state/measurements.state';
+import { Component } from '@angular/core';
+import { Measurement } from '@app/core/store/models/measurement.model';
+import { MeasurementState } from '@app/core/store/state/measurements.state';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 

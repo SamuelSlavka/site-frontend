@@ -30,6 +30,12 @@ const routes: Routes = [
         loadChildren: () => import('./wiki/wiki.module').then((m) => m.WikiModule),
       },
       {
+        path: 'smart',
+        canActivate: [],
+        loadChildren: () => import('./smart-home/smart-home.module').then((m) => m.SmartHomeModule),
+        data: { roles: ['ADMIN'] },
+      },
+      {
         path: 'access-denied',
         component: AccessDeniedComponent,
         canActivate: [],

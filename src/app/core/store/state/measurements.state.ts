@@ -4,8 +4,8 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { catchError, of, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Measurement } from '../models/measurement.model';
-import { MeasurementService } from '@app/dashboard/services/measurement.service';
 import { MeasurementActions } from '../actions/measurement.actions';
+import { MeasurementService } from '@app/core/services/measurement.service';
 
 export interface MeasurementStateModel {
   measurements: Measurement[];

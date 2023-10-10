@@ -3,16 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import {
-  faAngleDown,
-  faAngleUp,
-  faCircle,
-  faCircleQuestion,
-  faPen,
-  faPlus,
-  faPlusCircle,
-  faTrashCan,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faCircleQuestion, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
 import { CollapseModule } from 'ngx-bootstrap/collapse';

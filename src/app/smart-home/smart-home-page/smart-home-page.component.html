@@ -1,0 +1,11 @@
+<ng-template #navTemplate>
+  <app-nav [title]="'smart home'"></app-nav>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <div class="d-flex flex-column h-100">
+    <!-- <div echarts [options]="options" class="demo-chart"></div> -->
+  </div>
+</ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>
