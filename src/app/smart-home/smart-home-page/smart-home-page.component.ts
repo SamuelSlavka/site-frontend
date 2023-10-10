@@ -35,11 +35,15 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
         this.updateOptions = {
           series: [
             {
+              smooth: true,
+              sampling: 'average',
               name: 'Temperature',
               type: 'line',
               data: measurements.temperature,
             },
             {
+              smooth: true,
+              sampling: 'average',
               name: 'Humidity',
               type: 'line',
               data: measurements.humidity,
