@@ -56,6 +56,9 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
     this.options = {
       legend: {
         data: ['Temperature', 'Humidity'],
+        textStyle: {
+          color: '#8ecae6',
+        },
       },
       xAxis: {
         type: 'time',
