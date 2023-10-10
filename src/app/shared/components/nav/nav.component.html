@@ -2,22 +2,23 @@
   <div class="col-6 col-sm-4 p-0">
     <app-login></app-login>
   </div>
-  <div *ngIf="title" class="col-12 col-sm-4 p-0 article-title text-center fw-bold text-uppercase h4">
+  <div *ngIf="title" class="desktop col-4 p-0 article-title text-center fw-bold text-uppercase h5">
     {{ title }}
   </div>
   <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
     <div class="col-auto">
-      <button *ngIf="actionLabel" class="btn btn-primary mb-2" (click)="actionTrigger()">
-        {{ actionLabel }}
-      </button>
+      <button [ngClass]="{ desktop: actionLabel }" class="btn btn-outline-secondary" (click)="back()">back</button>
     </div>
     <div class="col-auto">
-      <button [ngClass]="{ 'back-desktop': !!actionLabel }" class="btn btn-outline-secondary ms-2" (click)="back()">
-        back
+      <button *ngIf="actionLabel" class="btn btn-primary ms-2" (click)="actionTrigger()">
+        {{ actionLabel }}
       </button>
     </div>
   </div>
 </div>
-<div *ngIf="actionLabel" class="row m-0 d-flex justify-content-end mb-2 col-auto">
-  <button class="back-mobile btn btn-outline-secondary" (click)="back()">back</button>
+<div class="mobile__flex w-100 row m-0 col-auto">
+  <div *ngIf="title" class="p-0 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-0">
+    {{ title }}
+  </div>
+  <button *ngIf="actionLabel" class="ms-auto col-auto btn btn-outline-secondary" (click)="back()">back</button>
 </div>

@@ -1,5 +1,8 @@
-.back-mobile {
+.mobile {
   display: none;
+  &__flex {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 576px) {
@@ -7,12 +10,16 @@
     order: -1;
   }
 
-  .back-mobile {
+  .mobile {
     display: block;
     width: fit-content;
+    &__flex {
+      display: flex;
+      width: 100%;
+    }
   }
 
-  .back-desktop {
+  .desktop {
     display: none;
     width: fit-content;
   }

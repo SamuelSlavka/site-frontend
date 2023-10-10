@@ -1,5 +1,5 @@
 <ng-template #navTemplate>
-  <app-nav (action)="create()" [title]="'wiki'" [actionLabel]="'create article'"></app-nav>
+  <app-nav (action)="create()" [actionLabel]="'create article'"></app-nav>
 </ng-template>
 <ng-template #contentTemplate><app-article-list [articles]="(articles$ | async) ?? []"></app-article-list></ng-template>
 
