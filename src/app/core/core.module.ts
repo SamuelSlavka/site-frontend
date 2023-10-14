@@ -1,23 +1,29 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxsModule } from '@ngxs/store';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { initializer } from 'src/utils/app-init';
+
 import { ApiLoaderInterceptor } from './interceptors/api-loader.interceptor';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
-import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { KeycloakService } from 'keycloak-angular';
-import { initializer } from 'src/utils/app-init';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ArticleState } from '@app/wiki/store/state/article.state';
-import { NgxsModule } from '@ngxs/store';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MeasurementState } from './store/state/measurements.state';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   imports: [
     NgbModule,
+    KeycloakAngularModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
@@ -25,6 +31,13 @@ import { MeasurementState } from './store/state/measurements.state';
     FontAwesomeModule,
     BsDropdownModule.forRoot(),
     NgxsModule.forRoot([MeasurementState]),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     KeycloakService,

@@ -5,21 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { KeycloakAngularModule } from 'keycloak-angular';
 import { SharedModule } from './shared/shared.module';
-import { SmartHomeModule } from './smart-home/smart-home.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    KeycloakAngularModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    CoreModule,
-    SharedModule,
-    SmartHomeModule,
-  ],
+  imports: [BrowserModule, BrowserAnimationsModule, CoreModule, SharedModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

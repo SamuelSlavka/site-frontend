@@ -1,10 +1,10 @@
 <ng-container *ngIf="section?.depth !== 0">
   <ng-template [isPublic]="isPublic ?? false" [appHasAccess]="section?.createdBy">
-    <app-action-item [text]="'add'" icon="plus" (action)="add()"></app-action-item>
+    <app-action-item [text]="'button.add' | translate" icon="plus" (action)="add()"></app-action-item>
   </ng-template>
 
   <ng-template [appHasAccess]="section?.createdBy">
-    <app-action-item [text]="'edit'" icon="pen" (action)="edit()"></app-action-item>
-    <app-action-item [text]="'delete'" icon="trash-can" (action)="delete()"></app-action-item>
+    <app-action-item [text]="'button.edit' | translate" icon="pen" (action)="edit()"></app-action-item>
+    <app-action-item [text]="'button.delete' | translate" icon="trash-can" (action)="delete()"></app-action-item>
   </ng-template>
 </ng-container>

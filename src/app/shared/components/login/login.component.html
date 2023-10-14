@@ -1,5 +1,5 @@
 <button *ngIf="!(isLoggedIn$ | async); else profile" class="btn btn-primary" aria-labelledby="login" (click)="login()">
-  login
+  {{ 'button.login' | translate }}
 </button>
 <ng-template #profile>
   <div dropdown class="d-inline-block btn-group dropdown-wrapper">
@@ -16,14 +16,16 @@
     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
       <li role="menuitem">
         <button class="dropdown-item" href="#" (click)="toggleShowActions()" aria-labelledby="togge-edit">
-          <span *ngIf="showActions$ | async; else enable">hide actions</span>
+          <span *ngIf="showActions$ | async; else enable">{{ 'action.login.hide' | translate }}</span>
           <ng-template #enable>
-            <span *ngIf="!(showActions$ | async)">show actions</span>
+            <span *ngIf="!(showActions$ | async)">{{ 'action.login.show' | translate }}</span>
           </ng-template>
         </button>
       </li>
       <li role="menuitem">
-        <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">logout</button>
+        <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">
+          {{ 'button.logout' | translate }}
+        </button>
       </li>
     </ul>
   </div>

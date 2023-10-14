@@ -1,11 +1,11 @@
 <div class="modal-header">
-  <label class="input fw-bold h5 mb-0">You need to login for this action</label>
+  <label class="input fw-bold h5 mb-0">{{ 'label.login.needToLog' | translate }}</label>
 </div>
 <div class="row m-3">
   <div class="col-auto ms-auto">
-    <button class="btn btn-secondary" (click)="cancel()">cancel</button>
+    <button class="btn btn-secondary" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
   </div>
   <div class="col-auto">
-    <button class="btn btn-primary" (click)="login()">login</button>
+    <button class="btn btn-primary" (click)="login()">{{ 'button.login' | translate }}</button>
   </div>
 </div>

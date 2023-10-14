@@ -46,8 +46,8 @@
           class="btn btn-sm btn-outline-primary"
           (click)="add(selected, context.isLoggedIn)"
         >
-          <span *ngIf="context.selected?.subsections">add section</span>
-          <span *ngIf="!context.selected?.subsections">create first section</span>
+          <span *ngIf="context.selected?.subsections">{{ 'action.section.add' | translate }}</span>
+          <span *ngIf="!context.selected?.subsections">{{ 'action.section.createFirst' | translate }}</span>
         </button>
       </ng-template>
     </div>

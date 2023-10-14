@@ -1,0 +1,61 @@
+{
+  "button": {
+    "back": "back",
+    "privacy": "privacy page",
+    "git": "git",
+    "cancel": "cancel",
+    "login": "login",
+    "logout": "logout",
+    "create": "create",
+    "confirm": "confirm",
+    "edit": "edit",
+    "save": "save",
+    "delete": "delete",
+    "getBack": "Get back",
+    "add": "add",
+    "smartHome": "smart home"
+  },
+  "toggle": {
+    "setPrivate": "Set as private",
+    "setFullyPublic": "Set fully public"
+  },
+  "navigation": {
+    "wiki": "wiki"
+  },
+  "action": {
+    "login": {
+      "show": "show actions",
+      "hide": "hide actions"
+    },
+    "section": {
+      "add": "add section",
+      "createFirst": "create first section"
+    }
+  },
+  "label": {
+    "login": { "needToLog": "You need to login for this action" },
+    "denied": {
+      "cantAccess": "cant let you there :///"
+    },
+    "notFound": {
+      "lost": "you got lost"
+    },
+    "section": {
+      "title": "Input section title",
+      "text": "Input section text",
+      "edit": "Edit section",
+      "create": "Create section"
+    },
+    "article": {
+      "title": "Article title",
+      "create": "Create article",
+      "edit": "Edit article",
+      "notFound": "no articles found..."
+    },
+    "measurement": {
+      "measuredAt": "measured at:",
+      "temperature": "temperature:",
+      "humidity": "humidity:"
+    }
+  }
+}

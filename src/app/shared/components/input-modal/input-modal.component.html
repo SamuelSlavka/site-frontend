@@ -4,8 +4,8 @@
   </div>
   <form class="modal-body" [formGroup]="form">
     <div class="d-flex flex-row-reverse mt-3">
-      <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">save</button>
-      <button class="btn btn-primary mx-3" (click)="cancel()">cancel</button>
+      <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">{{ 'button.save' | translate }}</button>
+      <button class="btn btn-primary mx-3" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
     </div>
   </form>
 </div>

@@ -17,6 +17,13 @@ import { LoginPromptComponent } from './components/login-prompt/login-prompt.com
 import { ActionItemComponent } from './components/action-item/action-item.component';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   imports: [
@@ -26,6 +33,7 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     FontAwesomeModule,
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TranslateModule,
     ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
   ],
   declarations: [
@@ -52,6 +60,7 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     ActionItemComponent,
     CustomDatePipe,
     PlaceholderComponent,
+    TranslateModule,
   ],
 })
 export class SharedModule {}

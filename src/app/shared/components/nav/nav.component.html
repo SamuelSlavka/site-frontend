@@ -7,7 +7,9 @@
   </div>
   <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
     <div class="col-auto">
-      <button [ngClass]="{ desktop: actionLabel }" class="btn btn-outline-secondary" (click)="back()">back</button>
+      <button [ngClass]="{ desktop: actionLabel }" class="btn btn-outline-secondary" (click)="back()">
+        {{ 'button.back' | translate }}
+      </button>
     </div>
     <div class="col-auto">
       <button *ngIf="actionLabel" class="btn btn-primary ms-2" (click)="actionTrigger()">
@@ -20,5 +22,7 @@
   <div *ngIf="title" class="p-0 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-0">
     {{ title }}
   </div>
-  <button *ngIf="actionLabel" class="ms-auto col-auto btn btn-outline-secondary" (click)="back()">back</button>
+  <button *ngIf="actionLabel" class="ms-auto col-auto btn btn-outline-secondary" (click)="back()">
+    {{ 'button.back' | translate }}
+  </button>
 </div>
