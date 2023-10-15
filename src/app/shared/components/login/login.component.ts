@@ -17,6 +17,7 @@ export class LoginComponent {
     private sessionService: SessionService,
     private router: Router,
   ) {}
+  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
   showActions$: BehaviorSubject<boolean> = this.sessionService.showActions$;
   profile$: Subject<KeycloakProfile | undefined> = this.sessionService.profile$;
@@ -25,6 +26,10 @@ export class LoginComponent {
   toggleShowActions() {
     const show = this.showActions$.getValue();
     this.sessionService.showActions$.next(!show);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['admin']);
   }
 
   logout() {

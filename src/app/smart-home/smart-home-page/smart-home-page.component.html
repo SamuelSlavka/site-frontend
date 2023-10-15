@@ -3,8 +3,12 @@
 </ng-template>
 
 <ng-template #contentTemplate>
-  <div class="d-flex flex-column h-100">
-    <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+  <div *ngIf="{ devices: (devices$ | async) }; let context" class="d-flex flex-column h-100">
+    <div *ngFor="let device of context.devices">
+      <div *ngIf="device.measurements > 0">
+        <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+      </div>
+    </div>
   </div>
 </ng-template>
 

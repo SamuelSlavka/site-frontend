@@ -1,3 +1,4 @@
+import { Device, SimpleDevice } from '@app/core/store/models/device.model';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
@@ -8,7 +9,8 @@ import { MeasurementActions } from '../actions/measurement.actions';
 import { MeasurementService } from '@app/core/services/measurement.service';
 
 export interface MeasurementStateModel {
-  measurements: ParsedMeasurements;
+  devices: SimpleDevice[];
+  measurements: Record<string, ParsedMeasurements>;
   latest: Measurement | null;
   loading: boolean;
 }
@@ -16,11 +18,8 @@ export interface MeasurementStateModel {
 @State<MeasurementStateModel>({
   name: 'measurement',
   defaults: {
-    measurements: {
-      device: '',
-      humidity: [],
-      temperature: [],
-    },
+    devices: [],
+    measurements: {},
     latest: null,
     loading: false,
   },
@@ -48,18 +47,19 @@ export class MeasurementState {
   getMeasurements(ctx: StateContext<MeasurementStateModel>) {
     ctx.patchState({ loading: true });
     return this.measurementService.getAllMeasurements().pipe(
-      tap((measurements) => {
-        const parsed: ParsedMeasurements = {
-          device: measurements[0]?.device,
-          humidity: [],
-          temperature: [],
-        };
-
-        measurements.forEach((m) => {
-          parsed.humidity.push([m.measuredAt, m.humidity + 1]);
-          parsed.temperature.push([m.measuredAt, m.temperature]);
+      tap((devices) => {
+        const measurements: Record<string, ParsedMeasurements> = {};
+        const simpleDevices: SimpleDevice[] = [];
+        devices.forEach((device) => {
+          const parsed = this.parseDevice(device);
+          if (device.isMain) {
+            ctx.patchState({ latest: device.measurements[0] });
+          }
+          measurements[device.id] = parsed;
+          simpleDevices.push({ ...device, measurements: device.measurements.length });
         });
-        ctx.patchState({ latest: measurements[0], measurements: parsed, loading: false });
+
+        ctx.patchState({ measurements, devices: simpleDevices, loading: false });
       }),
       catchError((error) => {
         ctx.patchState({ loading: false });
@@ -67,6 +67,21 @@ export class MeasurementState {
         return of(error);
       }),
     );
+  }
+
+  private parseDevice(device: Device): ParsedMeasurements {
+    const parsed: ParsedMeasurements = {
+      device: device.id,
+      humidity: [],
+      temperature: [],
+    };
+
+    device.measurements.forEach((m) => {
+      parsed.humidity.push([m.measuredAt, m.humidity + 1]);
+      parsed.temperature.push([m.measuredAt, m.temperature]);
+    });
+
+    return parsed;
   }
 
   @Selector()
@@ -82,5 +97,10 @@ export class MeasurementState {
   @Selector()
   static allMeasurements(state: MeasurementStateModel) {
     return state.measurements;
+  }
+
+  @Selector()
+  static allDevices(state: MeasurementStateModel) {
+    return state.devices;
   }
 }

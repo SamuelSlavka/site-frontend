@@ -21,6 +21,9 @@
             <span *ngIf="!(showActions$ | async)">{{ 'action.login.show' | translate }}</span>
           </ng-template>
         </button>
+        <button *ngIf="isAdmin$ | async" class="dropdown-item" (click)="goToAdmin()" aria-labelledby="admin-page">
+          <span>{{ 'action.login.admin' | translate }}</span>
+        </button>
       </li>
       <li role="menuitem">
         <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">

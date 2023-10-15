@@ -12,7 +12,6 @@ import { MeasurementActions } from '@app/core/store/actions/measurement.actions'
   styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
-  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
 
   constructor(

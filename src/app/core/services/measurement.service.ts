@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { Measurement } from '../store/models/measurement.model';
+import { Device } from '../store/models/device.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ import { Measurement } from '../store/models/measurement.model';
 export class MeasurementService {
   constructor(private http: HttpClient) {}
 
-  getAllMeasurements(): Observable<Measurement[]> {
-    return this.http.get<Measurement[]>(`${environment.serverUrl}measurements/all`);
+  getAllMeasurements(): Observable<Device[]> {
+    return this.http.get<Device[]>(`${environment.serverUrl}devices`);
   }
 
   getLatestMeasurement(): Observable<Measurement> {

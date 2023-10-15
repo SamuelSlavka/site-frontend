@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
+import { SimpleDevice } from '@app/core/store/models/device.model';
 import { Measurement, ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
 import { Select, Store } from '@ngxs/store';
@@ -20,36 +21,21 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   public options!: EChartsOption;
-  public updateOptions!: EChartsOption;
+  public updateOptions: Record<string, EChartsOption> = {};
 
   constructor(private readonly store: Store) {}
 
-  @Select(MeasurementState.allMeasurements) all$!: Observable<Measurement>;
   @Select(MeasurementState.loading) loading$!: Observable<boolean>;
-  @Select(MeasurementState.allMeasurements) measurements$!: Observable<ParsedMeasurements>;
+  @Select(MeasurementState.allMeasurements) measurements$!: Observable<Record<string, ParsedMeasurements>>;
+  @Select(MeasurementState.allDevices) devices$!: Observable<SimpleDevice[]>;
 
   ngOnInit() {
     this.store.dispatch(new MeasurementActions.GetAll());
     this.subscription.add(
       this.measurements$.subscribe((measurements) => {
-        this.updateOptions = {
-          series: [
-            {
-              smooth: true,
-              sampling: 'average',
-              name: 'Temperature',
-              type: 'line',
-              data: measurements.temperature,
-            },
-            {
-              smooth: true,
-              sampling: 'average',
-              name: 'Humidity',
-              type: 'line',
-              data: measurements.humidity,
-            },
-          ],
-        };
+        Object.keys(measurements).forEach((key) => {
+          this.refreshOptions(measurements[key], key);
+        });
       }),
     );
 
@@ -100,5 +86,26 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  private refreshOptions(parsed: ParsedMeasurements, key: string) {
+    this.updateOptions[key] = {
+      series: [
+        {
+          smooth: true,
+          sampling: 'average',
+          name: 'Temperature',
+          type: 'line',
+          data: parsed.temperature,
+        },
+        {
+          smooth: true,
+          sampling: 'average',
+          name: 'Humidity',
+          type: 'line',
+          data: parsed.humidity,
+        },
+      ],
+    };
   }
 }

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleDown, faAngleUp, faCircleQuestion, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +12,7 @@ import { MarkdownModule } from 'ngx-markdown';
 
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { RevisionComponent } from './article-page/components/revision/revision.component';
+import { SectionActionsComponent } from './article-page/components/section-actions/section-actions.component';
 import { SectionFormComponent } from './article-page/components/section-form/section-form.component';
 import { SectionComponent } from './article-page/components/section/section.component';
 import { ArticleState } from './store/state/article.state';
@@ -21,7 +21,6 @@ import { ArticleFormComponent } from './wiki-page/components/article-form/articl
 import { ArticleListComponent } from './wiki-page/components/article-list/article-list.component';
 import { WikiPageComponent } from './wiki-page/wiki-page.component';
 import { WikiRoutingModule } from './wiki-routing.module';
-import { SectionActionsComponent } from './article-page/components/section-actions/section-actions.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +36,10 @@ import { SectionActionsComponent } from './article-page/components/section-actio
   imports: [
     SharedModule,
     NgbTooltipModule,
-    FormsModule,
-    ReactiveFormsModule,
     CommonModule,
     WikiRoutingModule,
     NgxsModule.forFeature([ArticleState]),
     NgxsModule.forFeature([SectionState]),
-    FormsModule,
     BsDropdownModule.forRoot(),
     MarkdownModule.forRoot(),
     CollapseModule.forRoot(),

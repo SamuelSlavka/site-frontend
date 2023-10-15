@@ -17,7 +17,9 @@
   },
   "toggle": {
     "setPrivate": "Set as private",
-    "setFullyPublic": "Set fully public"
+    "setFullyPublic": "Set fully public",
+    "isMain": "Should this device be in main page?",
+    "assignPrevious": "Add all unassigned measurements to this device"
   },
   "navigation": {
     "wiki": "wiki"
@@ -25,7 +27,8 @@
   "action": {
     "login": {
       "show": "show actions",
-      "hide": "hide actions"
+      "hide": "hide actions",
+      "admin": "admin"
     },
     "section": {
       "add": "add section",
@@ -33,6 +36,10 @@
     }
   },
   "label": {
+    "admin": {
+      "createDevice": "create a new device",
+      "deviceName": "device name"
+    },
     "login": { "needToLog": "You need to login for this action" },
     "denied": {
       "cantAccess": "cant let you there :///"

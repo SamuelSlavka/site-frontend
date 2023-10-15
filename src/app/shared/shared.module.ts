@@ -61,6 +61,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CustomDatePipe,
     PlaceholderComponent,
     TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}

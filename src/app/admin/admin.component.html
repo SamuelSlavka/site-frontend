@@ -1,4 +1,41 @@
-<div class="text-center m-5">
-  <p>{{ 'admin.title' | translate }}</p>
-  <button class="btn btn-primary" (click)="back()">{{ 'button.back' | translate }}</button>
-</div>
+<ng-template #navTemplate>
+  <app-nav></app-nav>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <div class="border-top py-3 my-3">
+    <form [formGroup]="form">
+      <div class="h5 m-0 p-0">{{ 'label.admin.createDevice' | translate }}</div>
+      <div class="row m-0 mt-3">
+        <label class="p-0" for="deviceName">{{ 'label.admin.deviceName' | translate }}</label>
+        <input name="deviceName" class="w-100" formControlName="name" />
+      </div>
+      <div class="row m-0">
+        <div class="form-check mt-3 col">
+          <input type="checkbox" class="form-check-input pointer" formControlName="isMain" id="isMain" />
+          <label class="form-check-label pointer" for="isMain">
+            {{ 'toggle.isMain' | translate }}
+          </label>
+        </div>
+      </div>
+    </form>
+
+    <button class="btn btn-primary mt-3" (click)="createDevice()" [disabled]="!form.valid">
+      {{ 'button.create' | translate }}
+    </button>
+  </div>
+  <div class="border-bottom border-top py-3 my-3">
+    <div *ngFor="let device of this.devices$ | async" class="row m-0">
+      <div class="row m-0 mb-2 rounded p-1" [ngClass]="{ 'bg-primary': device.isMain }">
+        <div class="col-2">{{ device.name }}</div>
+        <div class="col">{{ device.id }}</div>
+        <div class="col">{{ device.isMain }}</div>
+        <div class="col-auto">
+          <button class="btn btn-danger" (click)="deleteDevice(device.id)">delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>
