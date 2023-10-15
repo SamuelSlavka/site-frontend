@@ -11,5 +11,4 @@ export interface SimpleDevice {
   id: string;
   name: string;
   isMain: boolean;
-  measurements: number;
 }

@@ -29,8 +29,21 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
   @Select(MeasurementState.allMeasurements) measurements$!: Observable<Record<string, ParsedMeasurements>>;
   @Select(MeasurementState.allDevices) devices$!: Observable<SimpleDevice[]>;
 
+  setOffset(deviceId: string, offset: number = 0) {
+    this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
+  }
+
   ngOnInit() {
-    this.store.dispatch(new MeasurementActions.GetAll());
+    this.store.dispatch(new MeasurementActions.GetDevices());
+
+    this.subscription.add(
+      this.devices$.subscribe((devices) => {
+        devices.forEach((device) => {
+          this.store.dispatch(new MeasurementActions.GetAll(1, device.id));
+        });
+      }),
+    );
+
     this.subscription.add(
       this.measurements$.subscribe((measurements) => {
         Object.keys(measurements).forEach((key) => {

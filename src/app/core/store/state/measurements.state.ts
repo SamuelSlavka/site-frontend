@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Measurement, ParsedMeasurements } from '../models/measurement.model';
 import { MeasurementActions } from '../actions/measurement.actions';
 import { MeasurementService } from '@app/core/services/measurement.service';
+import { DevicesService } from '@app/core/services/devices.service';
 
 export interface MeasurementStateModel {
   devices: SimpleDevice[];
@@ -26,7 +27,11 @@ export interface MeasurementStateModel {
 })
 @Injectable()
 export class MeasurementState {
-  constructor(private toastr: ToastrService, private measurementService: MeasurementService) {}
+  constructor(
+    private toastr: ToastrService,
+    private measurementService: MeasurementService,
+    private devicesService: DevicesService,
+  ) {}
 
   @Action(MeasurementActions.GetLatest)
   getOneMeasurement(ctx: StateContext<MeasurementStateModel>) {
@@ -43,23 +48,39 @@ export class MeasurementState {
     );
   }
 
-  @Action(MeasurementActions.GetAll)
-  getMeasurements(ctx: StateContext<MeasurementStateModel>) {
+  @Action(MeasurementActions.GetDevices)
+  fetSimpleDevices(ctx: StateContext<MeasurementStateModel>) {
     ctx.patchState({ loading: true });
-    return this.measurementService.getAllMeasurements().pipe(
+    return this.devicesService.getAllSmallDevices().pipe(
       tap((devices) => {
-        const measurements: Record<string, ParsedMeasurements> = {};
-        const simpleDevices: SimpleDevice[] = [];
-        devices.forEach((device) => {
-          const parsed = this.parseDevice(device);
-          if (device.isMain) {
-            ctx.patchState({ latest: device.measurements[0] });
-          }
-          measurements[device.id] = parsed;
-          simpleDevices.push({ ...device, measurements: device.measurements.length });
+        ctx.patchState({ devices, loading: false });
+      }),
+      catchError((error) => {
+        ctx.patchState({ loading: false });
+        this.toastr.error('Get latest failed');
+        return of(error);
+      }),
+    );
+  }
+
+  @Action(MeasurementActions.GetAll)
+  getMeasurements(ctx: StateContext<MeasurementStateModel>, action: MeasurementActions.GetAll) {
+    ctx.patchState({ loading: true });
+    return this.measurementService.getAllMeasurements(action.offset, action.deviceId).pipe(
+      tap((measurements) => {
+        const state = ctx.getState();
+        const parsed: ParsedMeasurements = {
+          device: action.deviceId,
+          humidity: [],
+          temperature: [],
+        };
+
+        measurements.forEach((m) => {
+          parsed.humidity.push([m.measuredAt, m.humidity + 1]);
+          parsed.temperature.push([m.measuredAt, m.temperature]);
         });
 
-        ctx.patchState({ measurements, devices: simpleDevices, loading: false });
+        ctx.patchState({ measurements: { ...state.measurements, [action.deviceId]: parsed }, loading: false });
       }),
       catchError((error) => {
         ctx.patchState({ loading: false });
@@ -67,21 +88,6 @@ export class MeasurementState {
         return of(error);
       }),
     );
-  }
-
-  private parseDevice(device: Device): ParsedMeasurements {
-    const parsed: ParsedMeasurements = {
-      device: device.id,
-      humidity: [],
-      temperature: [],
-    };
-
-    device.measurements.forEach((m) => {
-      parsed.humidity.push([m.measuredAt, m.humidity + 1]);
-      parsed.temperature.push([m.measuredAt, m.temperature]);
-    });
-
-    return parsed;
   }
 
   @Selector()

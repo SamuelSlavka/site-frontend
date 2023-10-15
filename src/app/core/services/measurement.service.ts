@@ -12,8 +12,8 @@ import { Device } from '../store/models/device.model';
 export class MeasurementService {
   constructor(private http: HttpClient) {}
 
-  getAllMeasurements(): Observable<Device[]> {
-    return this.http.get<Device[]>(`${environment.serverUrl}devices`);
+  getAllMeasurements(offset: number, deviceId: string): Observable<Measurement[]> {
+    return this.http.get<Measurement[]>(`${environment.serverUrl}measurements?offset=${offset}&deviceId=${deviceId}`);
   }
 
   getLatestMeasurement(): Observable<Measurement> {

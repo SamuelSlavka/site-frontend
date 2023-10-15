@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DevicesService } from '@app/core/services/devices.service';
-import { Device } from '@app/core/store/models/device.model';
+import { Device, SimpleDevice } from '@app/core/store/models/device.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, take } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Observable, take } from 'rxjs';
 })
 export class AdminComponent implements OnInit {
   form!: FormGroup;
-  devices$!: Observable<Partial<Device>[]>;
+  devices$!: Observable<SimpleDevice[]>;
 
   constructor(
     private toastr: ToastrService,
