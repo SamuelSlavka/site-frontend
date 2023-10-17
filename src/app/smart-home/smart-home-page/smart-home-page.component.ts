@@ -1,16 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 import { SimpleDevice } from '@app/core/store/models/device.model';
-import { Measurement, ParsedMeasurements } from '@app/core/store/models/measurement.model';
+import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
 import { Select, Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
 import { Observable, Subscription } from 'rxjs';
-
-type DataT = {
-  name: string;
-  value: [string, number];
-};
 
 @Component({
   selector: 'app-smart-home-page',
@@ -19,6 +14,7 @@ type DataT = {
 })
 export class SmartHomePageComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  private gridOffset = '35';
 
   public options!: EChartsOption;
   public updateOptions: Record<string, EChartsOption> = {};
@@ -31,6 +27,12 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
 
   setOffset(deviceId: string, offset: number = 0) {
     this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    console.log(window.innerWidth);
+    this.refreshOffset();
   }
 
   ngOnInit() {
@@ -61,20 +63,23 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
       },
       xAxis: {
         type: 'time',
-        name: 'Time',
+      },
+      grid: {
+        right: 40,
+        left: 40,
       },
       tooltip: { trigger: 'axis' },
       yAxis: [
         {
           type: 'value',
-          name: 'Temperature (°C)',
+          name: 'Temp (°C)',
           splitLine: {
             show: false,
           },
         },
         {
           type: 'value',
-          name: 'Humidity (%)',
+          name: 'Hum (%)',
           splitLine: {
             show: false,
           },
@@ -103,6 +108,10 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
 
   private refreshOptions(parsed: ParsedMeasurements, key: string) {
     this.updateOptions[key] = {
+      grid: {
+        right: this.gridOffset,
+        left: this.gridOffset,
+      },
       series: [
         {
           smooth: true,
@@ -120,5 +129,13 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
         },
       ],
     };
+  }
+
+  private refreshOffset() {
+    if (window.innerWidth <= 576) {
+      this.gridOffset = '32';
+    } else {
+      this.gridOffset = '40';
+    }
   }
 }

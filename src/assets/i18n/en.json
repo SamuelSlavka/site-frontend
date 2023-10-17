@@ -15,6 +15,14 @@
     "add": "add",
     "smartHome": "smart home"
   },
+  "devices": {
+    "prague": {
+      "flat": {
+        "room": "praha izba",
+        "outside": "praha vonku"
+      }
+    }
+  },
   "toggle": {
     "setPrivate": "Set as private",
     "setFullyPublic": "Set fully public",

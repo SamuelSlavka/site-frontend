@@ -7,14 +7,22 @@
     *ngIf="{ devices: (devices$ | async), measurements: (measurements$ | async) }; let context"
     class="d-flex flex-column h-100"
   >
-    <div *ngFor="let device of context.devices" class="border-bottom pb-2 mb-2">
-      <div *ngIf="context?.measurements?.[device.id]" class="row m-0 mb-2 justify-content-center">
-        <button class="btn btn-outline-secondary me-2 w-auto" (click)="setOffset(device.id, 1)">today</button>
-        <button class="btn btn-outline-secondary me-2 w-auto" (click)="setOffset(device.id, 7)">week</button>
-        <button class="btn btn-outline-secondary w-auto" (click)="setOffset(device.id, 0)">all</button>
-      </div>
-      <div *ngIf="context?.measurements?.[device.id]">
-        <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+    <div *ngFor="let device of context.devices; index as i">
+      <div
+        *ngIf="context?.measurements?.[device.id] "
+        class="pt-2 my-2"
+        [ngClass]="{ 'border-bottom': i !== (context.devices?.length ?? 1) - 1 }"
+      >
+        <div class="row m-0 mb-2">
+          <span class="me-2 w-auto col h5">{{ device.name | translate }}</span>
+
+          <button class="btn btn-sm btn-outline-primary col-auto me-2" (click)="setOffset(device.id, 1)">today</button>
+          <button class="btn btn-sm btn-outline-primary col-auto me-2" (click)="setOffset(device.id, 7)">week</button>
+          <button class="btn btn-sm btn-outline-primary col-auto" (click)="setOffset(device.id, 0)">all</button>
+        </div>
+        <div>
+          <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+        </div>
       </div>
     </div>
   </div>
