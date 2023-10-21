@@ -5,6 +5,17 @@
   }
 }
 
+.desktop {
+  display: flex;
+
+  .title-contents {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 @media only screen and (max-width: 576px) {
   .article-title {
     order: -1;

@@ -1,3 +1,4 @@
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -20,6 +21,7 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -34,6 +36,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     TranslateModule,
+    TooltipModule.forRoot(),
+    NgbTooltipModule,
     ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
   ],
   declarations: [

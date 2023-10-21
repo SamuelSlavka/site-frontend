@@ -18,3 +18,7 @@ body {
   height: 100%;
   font-family: 'Inter', sans-serif;
 }
+
+.modal-content {
+  border-radius: $border-radius;
+}

@@ -2,27 +2,34 @@
   <div class="col-6 col-sm-4 p-0">
     <app-login></app-login>
   </div>
-  <div *ngIf="title" class="desktop col-4 p-0 article-title text-center fw-bold text-uppercase h5">
-    {{ title }}
+  <div *ngIf="title" class="desktop col-4 p-0 article-title text-center text-uppercase h5 m-0 align-items-center">
+    <span class="title-contents" [ngbTooltip]="title">
+      {{ title }}
+    </span>
   </div>
   <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
     <div *ngIf="showBack" class="col-auto">
-      <button [ngClass]="{ desktop: actionLabel }" class="btn btn-outline-secondary" (click)="back()">
+      <button class="btn btn-outline-secondary" (click)="back()">
         {{ 'button.back' | translate }}
       </button>
     </div>
     <div class="col-auto">
-      <button *ngIf="actionLabel" class="btn btn-primary ms-2" (click)="actionTrigger()">
+      <button
+        [ngClass]="{ desktop: actionLabel && showBack }"
+        *ngIf="actionLabel"
+        class="btn btn-primary ms-2"
+        (click)="actionTrigger()"
+      >
         {{ actionLabel }}
       </button>
     </div>
   </div>
 </div>
 <div class="mobile__flex w-100 row m-0 col-auto">
-  <div *ngIf="title" class="p-0 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-1">
+  <div *ngIf="title" class="py-0 px-2 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-1">
     {{ title }}
   </div>
-  <button *ngIf="actionLabel && showBack" class="ms-auto col-auto btn btn-outline-secondary mb-1" (click)="back()">
-    {{ 'button.back' | translate }}
+  <button *ngIf="actionLabel && showBack" class="btn btn-primary ms-auto mb-1 w-auto" (click)="actionTrigger()">
+    {{ actionLabel }}
   </button>
 </div>

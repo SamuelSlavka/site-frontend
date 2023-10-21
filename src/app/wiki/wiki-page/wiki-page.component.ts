@@ -45,12 +45,12 @@ export class WikiPageComponent implements OnInit {
   create() {
     const sub: Subscription = this.isLoggedIn$.subscribe((logged) => {
       if (logged) {
-        this.bsModalRef = this.modalService.show(ArticleFormComponent);
+        this.bsModalRef = this.modalService.show(ArticleFormComponent, { class: 'modal-dialog-centered' });
         this.bsModalRef.content.onClose.subscribe((res: EditArticle) => {
           this.store.dispatch(new ArticleActions.Create(res));
         });
       } else {
-        this.bsModalRef = this.modalService.show(LoginPromptComponent);
+        this.bsModalRef = this.modalService.show(LoginPromptComponent, { class: 'modal-dialog-centered' });
       }
     });
     sub.unsubscribe();

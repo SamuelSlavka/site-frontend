@@ -9,12 +9,12 @@
   >
     <div *ngFor="let device of context.devices; index as i">
       <div *ngIf="context?.measurements?.[device.id] " class="p-3 my-2 rounded bg-dark">
-        <div class="row m-0 mb-2">
-          <span class="me-2 w-auto col h5">{{ device.name | translate }}</span>
+        <div class="row m-0 mb-2 d-flex align-items-center">
+          <span class="m-0 me-2 w-auto col h5">{{ device.name | translate }}</span>
 
-          <button class="btn btn-outline-primary col-auto me-2" (click)="setOffset(device.id, 1)">today</button>
-          <button class="btn btn-outline-primary col-auto me-2" (click)="setOffset(device.id, 7)">week</button>
-          <button class="btn btn-outline-primary col-auto" (click)="setOffset(device.id, 0)">all</button>
+          <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 1)">today</button>
+          <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 7)">week</button>
+          <button class="btn btn-outline-primary col-auto h-fit" (click)="setOffset(device.id, 0)">all</button>
         </div>
         <div>
           <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
