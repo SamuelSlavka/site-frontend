@@ -32,6 +32,7 @@ export class MeasurementComponent implements OnInit, OnDestroy {
           waitTime += 900000 - difference;
         }
 
+        clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
           this.store.dispatch(new MeasurementActions.GetLatest());
         }, waitTime);

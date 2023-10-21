@@ -1,4 +1,4 @@
-<div class="d-flex row m-0 justify-content-between mb-1">
+<div class="d-flex row m-0 justify-content-between mb-2 p-2 p-sm-3 bg-dark rounded">
   <div class="col-6 col-sm-4 p-0">
     <app-login></app-login>
   </div>
@@ -6,7 +6,7 @@
     {{ title }}
   </div>
   <div class="col-6 col-sm-4 p-0 d-flex justify-content-end">
-    <div class="col-auto">
+    <div *ngIf="showBack" class="col-auto">
       <button [ngClass]="{ desktop: actionLabel }" class="btn btn-outline-secondary" (click)="back()">
         {{ 'button.back' | translate }}
       </button>
@@ -19,10 +19,10 @@
   </div>
 </div>
 <div class="mobile__flex w-100 row m-0 col-auto">
-  <div *ngIf="title" class="p-0 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-0">
+  <div *ngIf="title" class="p-0 col-auto article-title fw-bold text-uppercase h5 mt-2 mb-1">
     {{ title }}
   </div>
-  <button *ngIf="actionLabel" class="ms-auto col-auto btn btn-outline-secondary" (click)="back()">
+  <button *ngIf="actionLabel && showBack" class="ms-auto col-auto btn btn-outline-secondary mb-1" (click)="back()">
     {{ 'button.back' | translate }}
   </button>
 </div>

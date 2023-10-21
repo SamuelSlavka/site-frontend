@@ -12,6 +12,7 @@ export class NavComponent {
   @Input() actionLabel: string | undefined;
   @Input() title: string | undefined;
   @Input() backUrl: string = '';
+  @Input() showBack = true;
 
   constructor(private router: Router) {}
 

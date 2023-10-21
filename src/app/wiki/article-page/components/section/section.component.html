@@ -1,14 +1,14 @@
 <ng-container *ngIf="{ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; let context">
   <div
     class="position-relative rounded"
-    [ngClass]="{ 'border-start rounded p-2 pe-0 my-2 section-item ': context.selected && context.selected.depth > 0 }"
+    [ngClass]="{ 'border-start rounded p-3 pe-0 my-2 section-item ': context.selected && context.selected.depth > 0 }"
   >
     <ng-container *ngIf="context.selected?.title">
       <div class="row m-0 pointer mb-2" (click)="collapse()">
         <div class="col h5 p-0 m-0 section-title">
           {{ context.selected?.title }}
         </div>
-        <div class="col-auto p-0">
+        <div class="col-auto p-0 pe-3">
           <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
           <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
         </div>
@@ -43,9 +43,10 @@
         <button
           *ngIf="context.selected?.depth === 0 && (showActions$ | async)"
           type="button"
-          class="btn btn-sm btn-outline-primary"
+          class="btn btn-outline-primary my-3"
           (click)="add(selected, context.isLoggedIn)"
         >
+          <fa-icon icon="plus" class="me-2"></fa-icon>
           <span *ngIf="context.selected?.subsections">{{ 'action.section.add' | translate }}</span>
           <span *ngIf="!context.selected?.subsections">{{ 'action.section.createFirst' | translate }}</span>
         </button>
