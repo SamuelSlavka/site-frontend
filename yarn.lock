@@ -5280,10 +5280,10 @@ katex@^0.16.0:
   dependencies:
     commander "^8.3.0"
 
-keycloak-angular@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/keycloak-angular/-/keycloak-angular-14.0.0.tgz#bf2672462a19c8781d2e6f29a9cc12531ce0eed7"
-  integrity sha512-MbXdOz0omPkwzTpKTtaLPrbEoWiNM9zY/qi3JnVepV6zGRRFrzPu3uvz/1nsU+fio0lHcjkjPVLmp/06+kBWZg==
+keycloak-angular@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/keycloak-angular/-/keycloak-angular-14.4.0.tgz#36ac20cf1887f13f191ecb17f6bc16c001009d3e"
+  integrity sha512-CuFXbKRZQBmZ4cD21n0f5ZmWFV7axJABiarUOzCXLpYthlcyvrSeuWbezNtPuHX1cSNWK0HzDbp5uNUB0LjS5Q==
   dependencies:
     tslib "^2.3.1"
 
