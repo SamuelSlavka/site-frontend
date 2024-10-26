@@ -16,9 +16,9 @@
     "@abacritt/angularx-social-login": "^2.0.0",
     "@angular/animations": "^18.2.9",
     "@angular/common": "^18.2.9",
-    "@angular/compiler": "^16.2.8",
-    "@angular/core": "^16.2.8",
-    "@angular/forms": "^16.2.8",
+    "@angular/compiler": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/forms": "^17.3.12",
     "@angular/platform-browser": "^18.2.9",
     "@angular/platform-browser-dynamic": "^18.2.9",
     "@angular/router": "^18.2.9",
@@ -53,9 +53,9 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.5",
-    "@angular/cli": "~16.2.5",
-    "@angular/compiler-cli": "^16.2.8",
+    "@angular-devkit/build-angular": "^17.3.11",
+    "@angular/cli": "~17.3.11",
+    "@angular/compiler-cli": "^17.3.12",
     "@angular/localize": "^18.2.9",
     "@types/jasmine": "~4.3.0",
     "@types/marked": "^4.3.0",
@@ -70,6 +70,6 @@
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-recommended-scss": "^12.0.0",
     "stylelint-config-standard": "^32.0.0",
-    "typescript": "~4.9.4"
+    "typescript": "~5.4.5"
   }
 }
