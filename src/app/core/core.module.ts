@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsModule } from '@ngxs/store';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { initializer } from 'src/utils/app-init';
 
@@ -16,6 +16,9 @@ import { ApiLoaderInterceptor } from './interceptors/api-loader.interceptor';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MeasurementState } from './store/state/measurements.state';
+import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,7 +30,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule,
     FontAwesomeModule,
     BsDropdownModule.forRoot(),
     NgxsModule.forRoot([MeasurementState]),
@@ -59,11 +61,19 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true,
     },
     {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      deps: [KeycloakService],
+      provide: HTTP_INTERCEPTORS,
+      useClass: KeycloakBearerInterceptor,
       multi: true,
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      multi: true,
+      deps: [KeycloakService],
+    },
+    provideHttpClient(withInterceptorsFromDi()),
+    provideClientHydration(),
+    provideAnimations(),
   ],
 })
 export class CoreModule {}

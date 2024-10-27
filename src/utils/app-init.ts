@@ -1,7 +1,7 @@
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from 'src/environments/environment';
 
-export function initializer(keycloak: KeycloakService): () => Promise<any> {
+export function initializer(keycloak: KeycloakService) {
   return () =>
     keycloak
       .init({
@@ -12,8 +12,8 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
         },
         loadUserProfileAtStartUp: false,
         initOptions: {
-          messageReceiveTimeout: 1000,
           onLoad: 'check-sso',
+          messageReceiveTimeout: 1000,
           checkLoginIframe: true,
           silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
         },
@@ -21,7 +21,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
         bearerPrefix: 'Bearer',
         bearerExcludedUrls: ['/assets'],
       })
-      .catch(() => {
-        /* error handling */
+      .catch((e) => {
+        console.log('keycloak init failed', e);
       });
 }

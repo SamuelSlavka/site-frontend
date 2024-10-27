@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard extends KeycloakAuthGuard {
-  constructor(protected override readonly router: Router, protected readonly keycloak: KeycloakService) {
+  constructor(
+    protected override readonly router: Router,
+    protected readonly keycloak: KeycloakService,
+    protected readonly sessionService: SessionService,
+  ) {
     super(router, keycloak);
   }
 
@@ -14,9 +19,12 @@ export class AuthGuard extends KeycloakAuthGuard {
     // Force the user to log in if currently unauthenticated.
 
     if (!this.authenticated) {
+      this.sessionService.deleteSession();
       await this.keycloak.login({
         redirectUri: window.location.origin + state.url,
       });
+    } else if (!this.sessionService.hasSession) {
+      this.sessionService.createSession();
     }
 
     // Get the roles required from the route.
