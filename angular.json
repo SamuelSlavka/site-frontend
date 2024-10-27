@@ -15,11 +15,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/site-frontend",
+            "outputPath": {
+              "base": "dist/site-frontend"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -40,8 +41,14 @@
               "node_modules/clipboard/dist/clipboard.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/", "src/assets", "src/styles"]
-            }
+              "includePaths": [
+                "node_modules/",
+                "src/assets",
+                "src/styles",
+                "."
+              ]
+            },
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -66,9 +73,7 @@
               ]
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
