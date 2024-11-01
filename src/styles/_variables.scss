@@ -29,3 +29,5 @@ $theme-colors: (
 $body-bg-dark: $body-bg;
 
 $border-radius: 1rem;
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
