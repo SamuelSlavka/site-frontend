@@ -39,4 +39,5 @@ jobs:
             cd /site-frontend
             rm -rf build
             tar -xvf deploy.tar
+            rm -rf deploy.tar
             
