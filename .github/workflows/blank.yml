@@ -37,9 +37,9 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /site-frontend
-            ls -al
             rm -rf build
             tar -xvf deploy.tar
             rm -rf deploy.tar
-            ls -al
+            cd ~/site
+            docker-compose restart nginx
             
