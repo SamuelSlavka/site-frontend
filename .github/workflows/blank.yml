@@ -17,7 +17,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           mkdir ../build
-          cp -TR ./dist/site-frontend ../build
+          cp -TR ./dist/site-frontend/browser ../build
           tar -cvf deploy.tar ../build/
 
       - name: copy file via ssh key
