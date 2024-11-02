@@ -1,3 +1,9 @@
+@import '/src/styles/variables';
+
 :host {
   margin-top: 1rem;
+}
+
+.measurements {
+  background-color: $dark;
 }

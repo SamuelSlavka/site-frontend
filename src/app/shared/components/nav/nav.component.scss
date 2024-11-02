@@ -1,3 +1,5 @@
+@import '/src/styles/variables';
+
 .mobile {
   display: none;
   &__flex {
@@ -34,4 +36,8 @@
     display: none;
     width: fit-content;
   }
+}
+
+.nav-component {
+  background-color: $dark;
 }
