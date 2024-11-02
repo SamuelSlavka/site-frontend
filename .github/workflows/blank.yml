@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install yarn
         run: npm install -g yarn
       - name: Build App
@@ -35,8 +35,8 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          path: site
           script: |
             cd /site-frontend
+            rm -rf build
             tar -xvf deploy.tar
             
