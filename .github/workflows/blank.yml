@@ -41,4 +41,5 @@ jobs:
             rm -rf build
             tar -xvf deploy.tar
             rm -rf deploy.tar
+            ls -al
             
