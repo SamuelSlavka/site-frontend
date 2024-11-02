@@ -17,11 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": ["js-sha256"],
             "outputPath": {
               "base": "dist/site-frontend"
             },
             "index": "src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
@@ -41,17 +42,20 @@
               "node_modules/clipboard/dist/clipboard.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules/",
-                "src/assets",
-                "src/styles",
-                "."
-              ]
+              "includePaths": ["node_modules/", "src/assets", "src/styles", "."]
             },
             "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -60,7 +64,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "100kb",
+                  "maximumWarning": "300kb",
                   "maximumError": "500kb"
                 }
               ],
@@ -108,7 +112,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": ["zone.js", "zone.js/testing", "@angular/localize/init"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
