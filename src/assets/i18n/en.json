@@ -70,7 +70,12 @@
     "measurement": {
       "measuredAt": "measured at:",
       "temperature": "temperature:",
-      "humidity": "humidity:"
+      "humidity": "humidity:",
+      "feelsLike": "feels like:"
+    },
+    "scheduled": {
+      "weatherTitle": "Outside weather now:",
+      "conditions": "conditions"
     }
   }
 }

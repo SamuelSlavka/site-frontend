@@ -19,6 +19,7 @@ import { MeasurementState } from './store/state/measurements.state';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { ScheduledState } from './store/state/scheduled.state';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FontAwesomeModule,
     BsDropdownModule.forRoot(),
     NgxsModule.forRoot([MeasurementState]),
+    NgxsModule.forFeature([ScheduledState]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,0 +1,24 @@
+<div *ngIf="{ weather: (weather$ | async), forecast: (forecast$ | async) }; let context">
+  <div *ngIf="context.weather">
+    <span class="text-muted p-0">{{ 'label.scheduled.weatherTitle' | translate }}</span>
+    <div class="row m-0 p-0 mt-2">
+      <span class="text-muted p-0">{{ 'label.measurement.temperature' | translate }}</span>
+    </div>
+    <div class="row m-0 p-0">
+      <span class="h3 m-0 p-0">{{ context.weather.main.temp }} °C</span>
+    </div>
+    <div class="row m-0 p-0 mt-2">
+      <span class="text-muted p-0">{{ 'label.measurement.feelsLike' | translate }}</span>
+    </div>
+    <div class="row m-0 p-0">
+      <span class="h3 m-0 p-0">{{ context.weather.main.feels_like }} °C</span>
+    </div>
+    <div class="row m-0 p-0 mt-2">
+      <span class="text-muted p-0">{{ 'label.scheduled.conditions' | translate }}</span>
+    </div>
+    <div class="row m-0 p-0">
+      <span class="h3 m-0 p-0">{{ context.weather.weather[0].main }}</span>
+    </div>
+  </div>
+  <div *ngIf="context.forecast"></div>
+</div>

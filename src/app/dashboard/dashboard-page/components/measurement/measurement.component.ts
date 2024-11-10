@@ -18,16 +18,17 @@ export class MeasurementComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
+    this.store.dispatch(new MeasurementActions.GetLatest());
     this.subscription.add(
       this.latest$.pipe(filter((latest) => !!latest)).subscribe((latest) => {
-        let waitTime = 5000;
+        let waitTime = 20000;
 
         const measuredAt = new Date(latest.measuredAt);
         const now = new Date();
         const difference = now.getTime() - measuredAt.getTime();
         // 15 minute time 900000 in ms
         // wait 5s plus rest of timeout
-        // otherwise wait 5s and call
+        // otherwise wait 20s and call
         if (difference < 900000) {
           waitTime += 900000 - difference;
         }

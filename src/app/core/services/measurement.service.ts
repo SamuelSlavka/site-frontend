@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { Measurement } from '../store/models/measurement.model';
-import { Device } from '../store/models/device.model';
 
 @Injectable({
   providedIn: 'root',

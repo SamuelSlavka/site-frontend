@@ -4,14 +4,30 @@
 
 <ng-template #contentTemplate>
   <div class="d-flex flex-column h-100 pt-2">
-    <div class="rounded p-3 bg-dark">
-      <app-measurement></app-measurement>
+    <div class="d-flex flex-wrap h-100 pt-2 overflow-auto mb-2 rounded align-content-start">
+      <div class="row w-100 m-0">
+        <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
+          <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column">
+            <app-measurement></app-measurement>
 
-      <div class="mt-3">
-        <button class="btn btn-outline-primary" (click)="goTo('smart')">
-          {{ 'button.smartHome' | translate }}
-        </button>
+            <div class="mt-auto pt-2">
+              <button class="btn btn-outline-primary" (click)="goTo('smart')">
+                {{ 'button.smartHome' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-12 mb-3 h-fit px-0">
+          <div class="rounded p-3 bg-dark ms-sm-2 ms-0">
+            <app-weather></app-weather>
+          </div>
+        </div>
       </div>
+      <!--
+      <div class="col-sm-6 col-12 mb-3 h-fit">
+        <div class="rounded p-3 bg-dark me-sm-2 me-0">yooo</div>
+      </div> -->
     </div>
 
     <div class="mt-auto">
