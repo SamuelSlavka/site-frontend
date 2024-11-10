@@ -13,7 +13,6 @@ export class ScheduledService {
   constructor(private http: HttpClient) {}
 
   getWeather(): Observable<Weather> {
-    console.log(`${environment.serverUrl}scheduled/weather`);
     return this.http.get<Weather>(`${environment.serverUrl}scheduled/weather`);
   }
 

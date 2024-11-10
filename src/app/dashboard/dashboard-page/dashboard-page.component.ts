@@ -23,7 +23,6 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new MeasurementActions.GetLatest());
-    console.log(this.keycloakService.isLoggedIn());
   }
 
   logout() {

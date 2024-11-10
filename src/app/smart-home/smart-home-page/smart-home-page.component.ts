@@ -31,7 +31,6 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    console.log(window.innerWidth);
     this.refreshOffset();
   }
 
