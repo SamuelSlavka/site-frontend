@@ -68,14 +68,16 @@
       "notFound": "no articles found..."
     },
     "measurement": {
+      "title": "Prague flat now:",
       "measuredAt": "measured at:",
       "temperature": "temperature:",
       "humidity": "humidity:",
       "feelsLike": "feels like:"
     },
     "scheduled": {
-      "weatherTitle": "Outside weather now:",
-      "conditions": "conditions"
+      "weatherTitle": "Prague weather now:",
+      "conditions": "conditions:",
+      "forecastTitle": "Forecast Prague:"
     }
   }
 }

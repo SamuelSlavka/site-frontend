@@ -73,6 +73,7 @@ export class MeasurementState {
           device: action.deviceId,
           humidity: [],
           temperature: [],
+          pop: [],
         };
 
         measurements.forEach((m) => {

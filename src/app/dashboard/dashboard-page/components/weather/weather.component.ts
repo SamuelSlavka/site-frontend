@@ -12,12 +12,10 @@ import { Observable } from 'rxjs';
 })
 export class WeatherComponent implements OnInit {
   @Select(ScheduledState.weather) weather$!: Observable<Weather>;
-  @Select(ScheduledState.forecast) forecast$!: Observable<Forecast>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(new ScheduledActions.GetLatestWeather());
-    this.store.dispatch(new ScheduledActions.GetLatestForecast());
   }
 }

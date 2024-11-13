@@ -4,14 +4,14 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, of, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { DevicesService } from '@app/core/services/devices.service';
 import { Forecast, Stocks, Weather } from '../models/scheduled.model';
 import { ScheduledService } from '@app/core/services/scheduled.service';
 import { ScheduledActions } from '../actions/scheduled.actions';
+import { ParsedMeasurements } from '../models/measurement.model';
 
 export interface ScheduledStateModel {
   weather: Weather | null;
-  forecast: Forecast | null;
+  forecast: ParsedMeasurements | null;
   stocks: Stocks | null;
   loading: boolean;
 }
@@ -48,8 +48,19 @@ export class ScheduledState {
   getForecast(ctx: StateContext<ScheduledStateModel>) {
     ctx.patchState({ loading: true });
     return this.scheduledService.getForecast().pipe(
-      tap((forecast) => {
-        ctx.patchState({ forecast, loading: false });
+      tap((forecast: Forecast) => {
+        const parsed: ParsedMeasurements = {
+          device: '',
+          humidity: [],
+          temperature: [],
+          pop: [],
+        };
+        forecast.list.forEach((m) => {
+          const date = new Date(m.dt_txt).toISOString();
+          parsed.temperature.push([date, m.main.temp]);
+          parsed.pop.push([date, m.pop]);
+        });
+        ctx.patchState({ forecast: parsed, loading: false });
       }),
       catchError((error) => {
         ctx.patchState({ loading: false });

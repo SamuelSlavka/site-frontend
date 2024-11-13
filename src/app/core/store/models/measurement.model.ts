@@ -9,4 +9,5 @@ export interface ParsedMeasurements {
   device: string;
   humidity: [string, number][];
   temperature: [string, number][];
+  pop: [string, number][];
 }

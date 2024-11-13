@@ -22,11 +22,12 @@ export interface Weather {
     },
   ];
   dt_txt: string;
+  pop: number;
 }
 
 export interface Forecast {
   id: string;
-  weather: Weather[];
+  list: Weather[];
 }
 
 export interface Stocks {

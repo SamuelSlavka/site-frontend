@@ -1,4 +1,5 @@
 <div *ngIf="latest$ | async; let latest">
+  <span class="text-muted p-0">{{ 'label.measurement.title' | translate }}</span>
   <div class="row m-0 p-0">
     <span class="text-muted p-0">{{ 'label.measurement.temperature' | translate }}</span>
   </div>
@@ -15,7 +16,7 @@
     <span class="h3 m-0 p-0">{{ latest?.humidity }} %</span>
   </div>
 
-  <div class="row m-0 p-0 mt-2">
+  <div class="row m-0 p-0 mt-1">
     <span class="text-muted p-0 measuredAt">
       {{ 'label.measurement.measuredAt' | translate }} {{ latest?.measuredAt | customDate }}
     </span>
