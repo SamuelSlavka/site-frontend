@@ -33,18 +33,12 @@ export class ForecastComponent implements OnInit, OnDestroy {
     this.options = {
       xAxis: {
         type: 'time',
-        axisLabel: {
-          formatter: function (value): string {
-            const date = new Date(value);
-            return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
-          },
-        },
       },
       grid: {
         top: 30,
         bottom: 30,
-        right: 40,
-        left: 40,
+        right: 30,
+        left: 30,
       },
       tooltip: {
         trigger: 'axis',
