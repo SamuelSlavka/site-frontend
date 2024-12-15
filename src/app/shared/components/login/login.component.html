@@ -2,18 +2,18 @@
   {{ 'button.login' | translate }}
 </button>
 <ng-template #profile>
-  <div dropdown class="d-inline-block btn-group dropdown-wrapper">
+  <div dropdown class="d-inline-block btn-group dropdown-wrapper" container="body">
     <button
       type="button"
       class="btn btn-outline-primary dropdown-toggle"
       id="button-basic"
       aria-labelledby="actions"
-      aria-controls="dropdown-basic"
+      aria-controls="profile-dorpdown"
       dropdownToggle
     >
       {{ (profile$ | async)?.email }}
     </button>
-    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="profile-dorpdown">
       <li role="menuitem">
         <button class="dropdown-item" href="#" (click)="toggleShowActions()" aria-labelledby="togge-edit">
           <span *ngIf="showActions$ | async; else enable">{{ 'action.login.hide' | translate }}</span>

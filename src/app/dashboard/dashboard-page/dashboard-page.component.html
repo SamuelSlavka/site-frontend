@@ -4,10 +4,10 @@
 
 <ng-template #contentTemplate>
   <div class="d-flex flex-column h-100">
-    <div class="d-flex flex-wrap h-100 pt-2 overflow-auto mb-2 rounded align-content-start">
-      <div class="row w-100 m-0">
+    <div class="d-flex flex-wrap h-100 p-1 align-content-start rounded overflow-auto">
+      <div class="row w-100 m-0 rounded">
         <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
-          <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column">
+          <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column dash-widget">
             <app-measurement></app-measurement>
 
             <div class="mt-auto pt-2">
@@ -19,13 +19,13 @@
         </div>
 
         <div class="col-sm-6 col-12 mb-3 h-fit px-0">
-          <div class="rounded p-3 bg-dark ms-sm-2 ms-0">
+          <div class="rounded p-3 bg-dark ms-sm-2 ms-0 dash-widget">
             <app-weather></app-weather>
           </div>
         </div>
       </div>
 
-      <div class="row w-100 rounded m-0">
+      <div class="row w-100 rounded m-0 dash-widget">
         <div class="p-3 bg-dark rounded"><app-forecast></app-forecast></div>
       </div>
     </div>
