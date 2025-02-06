@@ -7,7 +7,7 @@
     <div class="d-flex flex-wrap h-100 p-1 align-content-start rounded overflow-auto">
       <div class="row w-100 m-0 rounded">
         <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
-          <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column dash-widget">
+          <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 dash-widget">
             <app-measurement></app-measurement>
 
             <div class="mt-auto pt-2">
@@ -19,7 +19,21 @@
         </div>
 
         <div class="col-sm-6 col-12 mb-3 h-fit px-0">
-          <div class="rounded p-3 bg-dark ms-sm-2 ms-0 dash-widget">
+          <div class="rounded bg-dark ms-sm-2 ms-0 d-flex flex-column dash-widget">
+            <app-picture [imgnum]="1"></app-picture>
+          </div>
+        </div>
+      </div>
+
+      <div class="row w-100 rounded m-0">
+        <div class="col-sm-6 col-12 px-0 pb-3 h-fit d-none d-sm-block">
+          <div class="rounded bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column dash-widget">
+            <app-picture [imgnum]="2"></app-picture>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-12 h-fit px-0 pb-3 h-sm-100">
+          <div class="rounded p-3 bg-dark ms-sm-2 ms-0 h-100 dash-widget">
             <app-weather></app-weather>
           </div>
         </div>

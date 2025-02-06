@@ -7,9 +7,10 @@ import { MeasurementComponent } from './dashboard-page/components/measurement/me
 import { WeatherComponent } from './dashboard-page/components/weather/weather.component';
 import { ForecastComponent } from './dashboard-page/components/forecast/forecast.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { PictureComponent } from './dashboard-page/components/picture/picture.component';
 
 @NgModule({
-  declarations: [DashboardPageComponent, MeasurementComponent, WeatherComponent, ForecastComponent],
+  declarations: [DashboardPageComponent, MeasurementComponent, WeatherComponent, ForecastComponent, PictureComponent],
   imports: [
     SharedModule,
     CommonModule,
