@@ -7,7 +7,11 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class PictureComponent implements OnInit {
   ngOnInit(): void {
-    this.background = 'url(../../../../../assets/pics/img' + this.imgnum + '.jpeg)';
+    const img = new Image();
+    img.src = `assets/pics/img${this.imgnum}.jpeg`;
+    img.onload = () => {
+      this.background = `url(${img.src})`;
+    };
   }
   @Input() imgnum: number = 1;
 
