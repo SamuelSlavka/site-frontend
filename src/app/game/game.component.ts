@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, viewChild } from '@angular/core';
-import Phaser from 'phaser';
+import Phaser, { Scene } from 'phaser';
 import { EventBus } from './phaser-game/event-bus';
 import { PhaserGame } from './phaser-game/phaser-game.component';
-import { MainMenu } from './phaser-game/scenes/MainMenu';
+import { MainMenu } from './phaser-game/scenes/main-menu';
 import { RouterModule, Routes } from '@angular/router';
+import { SceneEnum } from './phaser-game/enums/scene.enum';
 
 @Component({
   selector: 'app-game',
@@ -23,7 +24,7 @@ export class GameComponent {
   constructor() {
     // You can now safely set up your EventBus subscriptions here
     EventBus.on('current-scene-ready', (scene: Phaser.Scene) => {
-      this.canMoveSprite = scene.scene.key !== 'MainMenu';
+      this.canMoveSprite = scene.scene.key !== SceneEnum.MainMenu;
     });
   }
 

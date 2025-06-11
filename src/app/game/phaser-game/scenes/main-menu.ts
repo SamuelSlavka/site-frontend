@@ -1,15 +1,16 @@
 import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../event-bus';
+import { SceneEnum } from '../enums/scene.enum';
 
 export class MainMenu extends Scene {
-  background: GameObjects.Image | undefined;
-  logo: GameObjects.Image | undefined;
-  title: GameObjects.Text | undefined;
-  logoTween: Phaser.Tweens.Tween | null | undefined;
+  background?: GameObjects.Image;
+  logo?: GameObjects.Image;
+  title?: GameObjects.Text;
+  logoTween?: Phaser.Tweens.Tween | null;
 
   constructor() {
-    super('MainMenu');
+    super(SceneEnum.MainMenu);
   }
 
   create() {

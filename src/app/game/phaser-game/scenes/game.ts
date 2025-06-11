@@ -1,13 +1,14 @@
+import { SceneEnum } from '../enums/scene.enum';
 import { EventBus } from '../event-bus';
 import { Scene } from 'phaser';
 
 export class Game extends Scene {
-  camera: Phaser.Cameras.Scene2D.Camera | undefined;
-  background: Phaser.GameObjects.Image | undefined;
-  gameText: Phaser.GameObjects.Text | undefined;
+  camera?: Phaser.Cameras.Scene2D.Camera;
+  background?: Phaser.GameObjects.Image;
+  gameText?: Phaser.GameObjects.Text;
 
   constructor() {
-    super('Game');
+    super(SceneEnum.Game);
   }
 
   create() {
