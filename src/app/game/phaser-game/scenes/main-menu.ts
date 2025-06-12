@@ -4,67 +4,38 @@ import { EventBus } from '../event-bus';
 import { SceneEnum } from '../enums/scene.enum';
 
 export class MainMenu extends Scene {
-  background?: GameObjects.Image;
-  logo?: GameObjects.Image;
+  private camera!: Phaser.Cameras.Scene2D.Camera;
   title?: GameObjects.Text;
-  logoTween?: Phaser.Tweens.Tween | null;
+  playButton?: GameObjects.Text;
 
   constructor() {
     super(SceneEnum.MainMenu);
   }
 
   create() {
-    this.background = this.add.image(512, 384, 'background');
+    this.camera = this.cameras.main;
+    this.camera.setBackgroundColor(0x1c1b22);
 
-    this.logo = this.add.image(512, 300, 'logo').setDepth(100);
-
-    this.title = this.add
-      .text(512, 460, 'Main Menu', {
-        fontFamily: 'Arial Black',
-        fontSize: 38,
-        color: '#ffffff',
-        stroke: '#000000',
-        strokeThickness: 8,
+    this.playButton = this.add
+      .text(window.innerWidth / 2, window.innerHeight / 2, 'Play Game', {
+        fontFamily: 'Arial',
+        fontSize: 32,
+        color: '#ccccf0',
+        stroke: '#a1a6f5',
+        strokeThickness: 1,
         align: 'center',
+        padding: { x: 10, y: 5 },
       })
       .setOrigin(0.5)
-      .setDepth(100);
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () => this.changeScene())
+      .on('pointerover', () => this.playButton!.setStyle({ color: '#a1a6f5' }))
+      .on('pointerout', () => this.playButton!.setStyle({ color: '#ccccf0' }));
 
     EventBus.emit('current-scene-ready', this);
   }
 
   changeScene() {
-    if (this.logoTween) {
-      this.logoTween.stop();
-      this.logoTween = null;
-    }
-
     this.scene.start('Game');
-  }
-
-  moveLogo(vueCallback: ({ x, y }: { x: number; y: number }) => void) {
-    if (this.logoTween) {
-      if (this.logoTween.isPlaying()) {
-        this.logoTween.pause();
-      } else {
-        this.logoTween.play();
-      }
-    } else {
-      this.logoTween = this.tweens.add({
-        targets: this.logo,
-        x: { value: 750, duration: 3000, ease: 'Back.easeInOut' },
-        y: { value: 80, duration: 1500, ease: 'Sine.easeOut' },
-        yoyo: true,
-        repeat: -1,
-        onUpdate: () => {
-          if (vueCallback) {
-            vueCallback({
-              x: Math.floor(this.logo ? this.logo.x : 0),
-              y: Math.floor(this.logo ? this.logo.y : 0),
-            });
-          }
-        },
-      });
-    }
   }
 }

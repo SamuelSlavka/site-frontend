@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import Phaser from 'phaser';
 import StartGame from './main';
 import { EventBus } from './event-bus';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'phaser-game',
@@ -13,6 +14,8 @@ export class PhaserGame implements OnInit, OnDestroy {
   game?: Phaser.Game;
   sceneCallback: ((scene: Phaser.Scene) => void) | undefined;
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     this.game = StartGame('game-container');
 
@@ -22,6 +25,10 @@ export class PhaserGame implements OnInit, OnDestroy {
       if (this.sceneCallback) {
         this.sceneCallback(scene);
       }
+    });
+
+    EventBus.on('exit-clicked', () => {
+      this.router.navigate(['']);
     });
   }
 
