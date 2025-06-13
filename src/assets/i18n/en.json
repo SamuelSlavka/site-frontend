@@ -13,7 +13,8 @@
     "delete": "delete",
     "getBack": "Get back",
     "add": "add",
-    "smartHome": "smart home"
+    "smartHome": "smart home",
+    "game": "play a game"
   },
   "devices": {
     "prague": {

@@ -1,3 +1,4 @@
+import { Game } from 'phaser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
@@ -31,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'smart',
-        canActivate: [],
+        canActivate: [AuthGuard],
         loadChildren: () => import('./smart-home/smart-home.module').then((m) => m.SmartHomeModule),
         data: { roles: ['ADMIN'] },
       },
@@ -45,6 +46,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
         data: { roles: ['ADMIN'] },
+      },
+      {
+        path: 'game',
+        canActivate: [],
+        loadComponent: () => import('./game/game.component').then((m) => m.GameComponent),
       },
     ],
   },

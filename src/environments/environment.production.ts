@@ -1,6 +1,7 @@
 export const environment = {
   appName: 'site-frontend',
   serverUrl: 'https://api.samsla.org/api/v1/',
+  wsUrl: 'ws://api.samsla.org/game',
   production: true,
   i18nPrefix: '',
   defaultLanguage: 'en',
