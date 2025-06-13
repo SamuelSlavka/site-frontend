@@ -9,10 +9,15 @@ import { Preloader } from './scenes/preloader';
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
 const config: Phaser.Types.Core.GameConfig = {
   type: AUTO,
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: 1920,
+  height: 1080,
+  scale: {
+    mode: Phaser.Scale.ENVELOP,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+
   parent: 'game-container',
-  backgroundColor: '#028af8',
+  backgroundColor: '#1c1b22',
   scene: [Boot, Preloader, MainMenu, MainGame, GameOver],
   physics: {
     default: 'arcade',

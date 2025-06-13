@@ -13,6 +13,7 @@ import { MeasurementActions } from '@app/core/store/actions/measurement.actions'
 })
 export class DashboardPageComponent implements OnInit {
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
+  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
 
   constructor(
     private keycloakService: KeycloakService,

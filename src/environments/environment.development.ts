@@ -1,6 +1,7 @@
 export const environment = {
   appName: 'site-frontend',
   serverUrl: 'http://localhost:8090/api/v1/',
+  wsUrl: 'ws://localhost:8090/game',
   production: false,
   i18nPrefix: '',
   defaultLanguage: 'en',

@@ -17,25 +17,11 @@ export class GameOver extends Scene {
     this.camera = this.cameras.main;
     this.camera.setBackgroundColor(0x1c1b22);
 
-    this.gameOverText = this.add
-      .text(window.innerWidth / 2, window.innerHeight / 2 - 160, 'Game Over', {
-        fontFamily: 'Arial Black',
-        fontSize: 64,
-        color: '#ccccf0',
-        stroke: '#a1a6f5',
-        strokeThickness: 1,
-        align: 'center',
-      })
-      .setOrigin(0.5)
-      .setDepth(100);
-
     this.playButton = this.add
-      .text(window.innerWidth / 2, window.innerHeight / 2 - 80, 'Play Again', {
-        fontFamily: 'Arial',
-        fontSize: 32,
+      .text(960, 540 - 80, 'again', {
+        fontFamily: 'Droid Sans',
+        fontSize: 24,
         color: '#ccccf0',
-        stroke: '#a1a6f5',
-        strokeThickness: 1,
         align: 'center',
         padding: { x: 10, y: 5 },
       })
@@ -46,12 +32,10 @@ export class GameOver extends Scene {
       .on('pointerout', () => this.playButton!.setStyle({ color: '#ccccf0' }));
 
     this.exitButton = this.add
-      .text(window.innerWidth / 2, window.innerHeight / 2, 'Exit', {
-        fontFamily: 'Arial',
-        fontSize: 32,
+      .text(960, 540, 'exit', {
+        fontFamily: 'Droid Sans',
+        fontSize: 24,
         color: '#ccccf0',
-        stroke: '#a1a6f5',
-        strokeThickness: 1,
         align: 'center',
         padding: { x: 10, y: 5 },
       })

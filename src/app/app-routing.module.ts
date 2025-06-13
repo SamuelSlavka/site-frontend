@@ -32,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'smart',
-        canActivate: [],
+        canActivate: [AuthGuard],
         loadChildren: () => import('./smart-home/smart-home.module').then((m) => m.SmartHomeModule),
         data: { roles: ['ADMIN'] },
       },
