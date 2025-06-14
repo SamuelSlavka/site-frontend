@@ -13,9 +13,9 @@ export class MainMenu extends Scene {
 
   create() {
     this.playButton = this.add
-      .text(960, 540, 'play', {
+      .text(960, 500, 'play', {
         fontFamily: 'Droid Sans',
-        fontSize: 24,
+        fontSize: 26,
         color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },
@@ -26,6 +26,15 @@ export class MainMenu extends Scene {
       .on('pointerover', () => this.playButton!.setStyle({ color: '#a1a6f5' }))
       .on('pointerout', () => this.playButton!.setStyle({ color: '#ccccf0' }));
 
+    this.add
+      .text(960, 540 + 100, 'fyi: this is wip', {
+        fontFamily: 'Droid Sans',
+        fontSize: 14,
+        color: '#ccccf0',
+        align: 'center',
+        padding: { x: 10, y: 5 },
+      })
+      .setOrigin(0.5);
     EventBus.emit('current-scene-ready', this);
   }
 

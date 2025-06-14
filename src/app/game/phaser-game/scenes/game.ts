@@ -81,6 +81,14 @@ export class Game extends Scene {
 
       body.velocity.normalize().scale(speed);
       this.sendPlayerMovement(this.state.player.x, this.state.player.y);
+
+      this.state.otherPlayers.forEach((player: Phaser.GameObjects.Sprite, key: string) => {
+        const target = this.state.otherPlayerTargets.get(key);
+        if (target) {
+          player.x = Phaser.Math.Linear(player.x, target.x, 0.1);
+          player.y = Phaser.Math.Linear(player.y, target.y, 0.1);
+        }
+      });
     }
   }
 

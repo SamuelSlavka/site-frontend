@@ -36,17 +36,17 @@ export class GameSocket {
           if (data.id != state.sessionId) this.updateOtherPlayer(state, data.id, data.x, data.y, addPlayer);
           break;
         case 'player-disconnected':
-          state.otherPlayers[data.id]?.destroy();
-          delete state.otherPlayers[data.id];
+          state.otherPlayers.get(data.id)?.destroy();
+          state.otherPlayers.delete(data.id);
           break;
         case 'player-connected':
           state.sessionId = data.id;
           break;
         case 'player-dead':
-          if (state.otherPlayers[data.id] && data.id != state.sessionId) {
+          if (state.otherPlayers.get(data.id) && data.id != state.sessionId) {
             console.log('player-dead');
-            state.otherPlayers[data.id].destroy();
-            delete state.otherPlayers[data.id];
+            state.otherPlayers.get(data.id)?.destroy();
+            state.otherPlayers.delete(data.id);
           }
           break;
         case 'existing-players':
@@ -68,16 +68,15 @@ export class GameSocket {
     y: number,
     addPlayer: (x: number, y: number) => Phaser.Physics.Arcade.Sprite,
   ) {
-    if (state.otherPlayers[id] && !state.otherPlayers[id]?.active) {
-      state.otherPlayers[id].destroy();
-      delete state.otherPlayers[id];
+    if (state.otherPlayers.get(id) && !state.otherPlayers.get(id)?.active) {
+      state.otherPlayers.get(id)?.destroy();
+      state.otherPlayers.delete(id);
     }
 
-    if (!state.otherPlayers[id]) {
-      state.otherPlayers[id] = addPlayer(x, y);
+    if (!state.otherPlayers.get(id)) {
+      state.otherPlayers.set(id, addPlayer(x, y));
     } else {
-      state.otherPlayers[id].x = x;
-      state.otherPlayers[id].y = y;
+      state.otherPlayerTargets.set(id, { x, y });
     }
   }
 }

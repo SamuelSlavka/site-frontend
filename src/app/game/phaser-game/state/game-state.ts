@@ -1,6 +1,7 @@
 export class GameState {
   public player!: Phaser.Physics.Arcade.Sprite;
-  public otherPlayers: { [id: string]: Phaser.GameObjects.Sprite } = {};
+  public otherPlayers: Map<string, Phaser.GameObjects.Sprite> = new Map();
+  public otherPlayerTargets: Map<string, { x: number; y: number }> = new Map();
   public sessionId!: String;
   public socket!: WebSocket;
 }
