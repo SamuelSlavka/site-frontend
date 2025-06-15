@@ -4,8 +4,6 @@ import { GameObjects, Scene } from 'phaser';
 
 export class GameOver extends Scene {
   camera!: Phaser.Cameras.Scene2D.Camera;
-  background!: Phaser.GameObjects.Image;
-  gameOverText!: Phaser.GameObjects.Text;
   playButton!: GameObjects.Text;
   exitButton!: GameObjects.Text;
 
@@ -15,7 +13,6 @@ export class GameOver extends Scene {
 
   create() {
     this.camera = this.cameras.main;
-    this.camera.setBackgroundColor(0x1c1b22);
 
     this.playButton = this.add
       .text(960, 540 - 80, 'again', {

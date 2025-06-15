@@ -4,7 +4,6 @@ import { EventBus } from '../event-bus';
 import { SceneEnum } from '../enums/scene.enum';
 
 export class MainMenu extends Scene {
-  private title!: GameObjects.Text;
   private playButton!: GameObjects.Text;
 
   constructor() {
