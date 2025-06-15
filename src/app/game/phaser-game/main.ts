@@ -4,6 +4,7 @@ import { Game as MainGame } from './scenes/game';
 import { MainMenu } from './scenes/main-menu';
 import { AUTO, Game } from 'phaser';
 import { Preloader } from './scenes/preloader';
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
 // Find out more information about the Game Config at:
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -15,10 +16,15 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.ENVELOP,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-
   parent: 'game-container',
   backgroundColor: '#1c1b22',
-  scene: [Boot, Preloader, MainMenu, MainGame, GameOver],
+  scene: [Boot, Preloader, MainMenu, MainGame, GameOver], plugins: {
+    global: [{
+      key: 'rexVirtualJoystick',
+      plugin: VirtualJoystickPlugin,
+      start: true,
+    }],
+  },
   physics: {
     default: 'arcade',
     arcade: {

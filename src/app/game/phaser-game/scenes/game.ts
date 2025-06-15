@@ -3,9 +3,12 @@ import { GameState } from '../state/game-state';
 import { EventBus } from '../event-bus';
 import { Scene } from 'phaser';
 import { GameSocket } from '../utils/game-socket';
+import VirtualJoyStickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin';
+import VirtualJoyStick from 'phaser3-rex-plugins/plugins/input/virtualjoystick/VirtualJoyStick';
 
 export class Game extends Scene {
   public wasd!: any;
+  public joystick!: VirtualJoyStick;
   public state!: GameState;
   private gameSocket!: GameSocket;
   private playersGroup!: Phaser.Physics.Arcade.Group;
@@ -16,6 +19,7 @@ export class Game extends Scene {
 
   create() {
     this.state = new GameState();
+    this.state.scene = this.scene;
     this.gameSocket = new GameSocket(this.state, this.addPlayer.bind(this));
 
     this.playersGroup = this.physics.add.group();
@@ -27,7 +31,6 @@ export class Game extends Scene {
 
     this.physics.world.gravity.y = 0;
 
-    console.log(this.state.otherPlayers)
     // Create player
     this.state.player = this.addPlayerWithTint(2000, 1000, 0xa1a6f5);
 
@@ -62,6 +65,25 @@ export class Game extends Scene {
       right: 'D',
     });
 
+    if (this.sys.game.device.input.touch) {
+      console.log("joy")
+      this.joystick = (this.plugins.get('rexVirtualJoystick') as VirtualJoyStickPlugin).add(this, {
+        x: this.cameras.main.width / 2,
+        y: this.cameras.main.height * 0.75,
+        radius: 60,
+        base: this.add.circle(0, 0, 60, 0x888888),
+        thumb: this.add.circle(0, 0, 30, 0xcccccc),
+        dir: '8dir', // or '360'
+        forceMin: 16,
+        enable: true,
+        fixed: true
+      });
+
+      console.log(this.joystick.enable)
+      this.joystick.setScrollFactor(0);
+    }
+
+
     // Camera follow player
     this.cameras.main.startFollow(this.state.player);
     this.cameras.main.setBounds(200, 0, 3600, 2000);
@@ -71,24 +93,36 @@ export class Game extends Scene {
   override update(): void {
     const speed = 600;
     const body = this.state.player.body as Phaser.Physics.Arcade.Body;
+
     if (body) {
-      body.setVelocity(0);
+      // controls
+      if (this.joystick && this.joystick.force > 0) {
+        // joystick
+        const rad = Phaser.Math.DegToRad(this.joystick.angle);
+        const vx = Math.cos(rad) * speed;
+        const vy = Math.sin(rad) * speed;
+        body.setVelocity(vx, vy);
+      } else {
+        //wasd
+        body.setVelocity(0);
 
-      if (this.wasd.left.isDown) {
-        body.setVelocityX(-speed);
-      } else if (this.wasd.right.isDown) {
-        body.setVelocityX(speed);
+        if (this.wasd.left.isDown) {
+          body.setVelocityX(-speed);
+        } else if (this.wasd.right.isDown) {
+          body.setVelocityX(speed);
+        }
+
+        if (this.wasd.up.isDown) {
+          body.setVelocityY(-speed);
+        } else if (this.wasd.down.isDown) {
+          body.setVelocityY(speed);
+        }
+
+        body.velocity.normalize().scale(speed);
+        this.sendPlayerMovement(this.state.player.x, this.state.player.y);
       }
 
-      if (this.wasd.up.isDown) {
-        body.setVelocityY(-speed);
-      } else if (this.wasd.down.isDown) {
-        body.setVelocityY(speed);
-      }
-
-      body.velocity.normalize().scale(speed);
-      this.sendPlayerMovement(this.state.player.x, this.state.player.y);
-
+      // other players
       this.state.otherPlayers.forEach((player: Phaser.GameObjects.Sprite, key: string) => {
         const target = this.state.otherPlayerTargets.get(key);
         if (target) {
@@ -136,7 +170,7 @@ export class Game extends Scene {
     this.state.socket.close();
     this.gameSocket.socketOpen = false;
     // Clear session ID
-    this.scene.start(SceneEnum.GameOver);
+    this.state.scene.start(SceneEnum.GameOver);
   };
 
   private sendPlayerMovement(x: number, y: number) {
@@ -150,7 +184,6 @@ export class Game extends Scene {
   }
 
   public addPlayerWithTint(x: number, y: number, tint: number): Phaser.Physics.Arcade.Sprite {
-
     const player = this.physics.add
       .sprite(x, y, '')
       .setMass(5)
@@ -162,5 +195,4 @@ export class Game extends Scene {
     this.playersGroup.add(player);
     return player;
   }
-
 }

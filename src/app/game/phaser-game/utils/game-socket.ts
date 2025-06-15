@@ -1,6 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { EventBus } from '../event-bus';
 import { GameState } from '../state/game-state';
+import { SceneEnum } from '@app/game/phaser-game/enums/scene.enum';
 
 export class GameSocket {
   public socketOpen = false;
@@ -27,6 +28,7 @@ export class GameSocket {
         state.player.destroy();
       }
       state.sessionId = '';
+      state.scene.start(SceneEnum.GameOver);
     };
 
     socket.onmessage = (event) => {
@@ -50,7 +52,6 @@ export class GameSocket {
           }
           break;
         case 'existing-players':
-          console.log(data, state.sessionId);
           data.players.forEach((player: any) => {
             if (player.sessionId !== state.sessionId) {
               this.updateOtherPlayer(state, player.sessionId, player.x, player.y, addPlayer);
