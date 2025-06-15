@@ -20,7 +20,7 @@ export class GameOver extends Scene {
     this.playButton = this.add
       .text(960, 540 - 80, 'again', {
         fontFamily: 'Droid Sans',
-        fontSize: 24,
+        fontSize: 32,
         color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },
@@ -34,7 +34,7 @@ export class GameOver extends Scene {
     this.exitButton = this.add
       .text(960, 540, 'exit', {
         fontFamily: 'Droid Sans',
-        fontSize: 24,
+        fontSize: 32,
         color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },

@@ -64,28 +64,27 @@ export class Game extends Scene {
       left: 'A',
       right: 'D',
     });
-
+    let cameraOffset = -100;
     if (this.sys.game.device.input.touch) {
-      console.log("joy")
+      console.log('joy');
       this.joystick = (this.plugins.get('rexVirtualJoystick') as VirtualJoyStickPlugin).add(this, {
         x: this.cameras.main.width / 2,
-        y: this.cameras.main.height * 0.75,
+        y: this.cameras.main.height * 0.80,
         radius: 60,
         base: this.add.circle(0, 0, 60, 0x888888),
         thumb: this.add.circle(0, 0, 30, 0xcccccc),
         dir: '8dir', // or '360'
         forceMin: 16,
         enable: true,
-        fixed: true
+        fixed: true,
       });
 
-      console.log(this.joystick.enable)
       this.joystick.setScrollFactor(0);
+      cameraOffset = - this.cameras.main.height * 0.18;
     }
 
-
     // Camera follow player
-    this.cameras.main.startFollow(this.state.player);
+    this.cameras.main.startFollow(this.state.player, true, 1, 1, 0, cameraOffset);
     this.cameras.main.setBounds(200, 0, 3600, 2000);
     EventBus.emit('current-scene-ready', this);
   }

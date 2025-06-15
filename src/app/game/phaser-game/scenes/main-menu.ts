@@ -15,7 +15,7 @@ export class MainMenu extends Scene {
     this.playButton = this.add
       .text(960, 500, 'play', {
         fontFamily: 'Droid Sans',
-        fontSize: 26,
+        fontSize: 36,
         color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },
