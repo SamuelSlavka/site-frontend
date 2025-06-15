@@ -8,6 +8,7 @@ export class Game extends Scene {
   public wasd!: any;
   public state!: GameState;
   private gameSocket!: GameSocket;
+  private playersGroup!: Phaser.Physics.Arcade.Group;
 
   constructor() {
     super(SceneEnum.Game);
@@ -17,20 +18,26 @@ export class Game extends Scene {
     this.state = new GameState();
     this.gameSocket = new GameSocket(this.state, this.addPlayer.bind(this));
 
+    this.playersGroup = this.physics.add.group();
+    this.physics.add.collider(this.playersGroup, this.playersGroup);
+
     const worldWidth = 4000;
     const worldHeight = 2000;
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
 
     this.physics.world.gravity.y = 0;
 
+    console.log(this.state.otherPlayers)
     // Create player
-    this.state.player = this.addPlayer(2000, 1000);
+    this.state.player = this.addPlayerWithTint(2000, 1000, 0xa1a6f5);
 
     // Obstacles: red boxes
     const obstacles = this.physics.add.staticGroup();
 
-    obstacles.create(2000, 700, '').setDisplaySize(40, 40).setTint(0xff0000).refreshBody();
-    obstacles.create(1700, 1000, '').setDisplaySize(60, 60).setTint(0xff0000).refreshBody();
+    obstacles.create(2000, 700, '').setDisplaySize(120, 20).setTint(0xff0000).refreshBody();
+    obstacles.create(2000, 1300, '').setDisplaySize(120, 20).setTint(0xff0000).refreshBody();
+    obstacles.create(1700, 1000, '').setDisplaySize(20, 200).setTint(0xff0000).refreshBody();
+    obstacles.create(2300, 1000, '').setDisplaySize(20, 200).setTint(0xff0000).refreshBody();
     obstacles.create(2000, 200, '').setDisplaySize(worldWidth, 10).setVisible(false).refreshBody();
     obstacles.create(2000, 1800, '').setDisplaySize(worldWidth, 10).setVisible(false).refreshBody();
     obstacles.create(1000, 1000, '').setDisplaySize(10, worldHeight).setVisible(false).refreshBody();
@@ -62,7 +69,7 @@ export class Game extends Scene {
   }
 
   override update(): void {
-    const speed = 500;
+    const speed = 600;
     const body = this.state.player.body as Phaser.Physics.Arcade.Body;
     if (body) {
       body.setVelocity(0);
@@ -85,8 +92,37 @@ export class Game extends Scene {
       this.state.otherPlayers.forEach((player: Phaser.GameObjects.Sprite, key: string) => {
         const target = this.state.otherPlayerTargets.get(key);
         if (target) {
-          player.x = Phaser.Math.Linear(player.x, target.x, 0.1);
-          player.y = Phaser.Math.Linear(player.y, target.y, 0.1);
+          const body = player.body as Phaser.Physics.Arcade.Body;
+          if (!body) return;
+
+          // Compute distance vector
+          const dx = target.x - player.x;
+          const dy = target.y - player.y;
+
+          const dist = Math.hypot(dx, dy);
+          if (dist < 6) {
+            player.x = Phaser.Math.Linear(player.x, target.x, 0.1);
+            player.y = Phaser.Math.Linear(player.y, target.y, 0.1);
+            body.setVelocity(0, 0);
+            return;
+          }
+
+          let speed;
+          if (dist > 200) {
+            speed = 800;
+          } else if (dist > 80) {
+            speed = 500;
+          } else {
+            speed = 300;
+          }
+
+          // Calculate velocity towards the target
+          const angle = Math.atan2(dy, dx);
+          const vx = Math.cos(angle) * speed;
+          const vy = Math.sin(angle) * speed;
+
+          // Set the velocity
+          body.setVelocity(vx, vy);
         }
       });
     }
@@ -110,11 +146,21 @@ export class Game extends Scene {
   }
 
   public addPlayer(x: number, y: number): Phaser.Physics.Arcade.Sprite {
-    return this.physics.add
-      .sprite(x, y, '')
-      .setDisplaySize(32, 32)
-      .setTint(0x00ff00)
-      .setBounce(0.1)
-      .setCollideWorldBounds(true);
+    return this.addPlayerWithTint(x, y, 0xe63946);
   }
+
+  public addPlayerWithTint(x: number, y: number, tint: number): Phaser.Physics.Arcade.Sprite {
+
+    const player = this.physics.add
+      .sprite(x, y, '')
+      .setMass(5)
+      .setDisplaySize(32, 32)
+      .setTintFill(tint)
+      .setBounce(0)
+      .setDrag(1)
+      .setCollideWorldBounds(true);
+    this.playersGroup.add(player);
+    return player;
+  }
+
 }
