@@ -16,7 +16,7 @@ export class MainMenu extends Scene {
       .text(960, 500, 'play', {
         fontFamily: 'Droid Sans',
         fontSize: 36,
-        color: '#ccccf0',
+        color: '#271b2c',
         align: 'center',
         padding: { x: 10, y: 5 },
       })

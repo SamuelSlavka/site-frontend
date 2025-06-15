@@ -17,7 +17,7 @@ const config: Phaser.Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   parent: 'game-container',
-  backgroundColor: '#1c1b22',
+  backgroundColor: '#f1faee',
   scene: [Boot, Preloader, MainMenu, MainGame, GameOver], plugins: {
     global: [{
       key: 'rexVirtualJoystick',
