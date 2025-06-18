@@ -37,10 +37,10 @@ export class Game extends Scene {
     // Obstacles: red boxes
     const obstacles = this.physics.add.staticGroup();
 
-    obstacles.create(2000, 700, '').setDisplaySize(120, 20).setTint(0xff0000).refreshBody();
-    obstacles.create(2000, 1300, '').setDisplaySize(120, 20).setTint(0xff0000).refreshBody();
-    obstacles.create(1700, 1000, '').setDisplaySize(20, 200).setTint(0xff0000).refreshBody();
-    obstacles.create(2300, 1000, '').setDisplaySize(20, 200).setTint(0xff0000).refreshBody();
+    obstacles.create(2000, 700, '').setDisplaySize(120, 20).setTint(0x70a9a1).refreshBody();
+    obstacles.create(2000, 1300, '').setDisplaySize(120, 20).setTint(0x70a9a1).refreshBody();
+    obstacles.create(1700, 1000, '').setDisplaySize(20, 200).setTint(0x70a9a1).refreshBody();
+    obstacles.create(2300, 1000, '').setDisplaySize(20, 200).setTint(0x70a9a1).refreshBody();
     obstacles.create(2000, 200, '').setDisplaySize(worldWidth, 10).setVisible(false).refreshBody();
     obstacles.create(2000, 1800, '').setDisplaySize(worldWidth, 10).setVisible(false).refreshBody();
     obstacles.create(1000, 1000, '').setDisplaySize(10, worldHeight).setVisible(false).refreshBody();
@@ -90,7 +90,7 @@ export class Game extends Scene {
   }
 
   override update(): void {
-    const speed = 600;
+    const speed = 400;
     const body = this.state.player.body as Phaser.Physics.Arcade.Body;
 
     if (body) {

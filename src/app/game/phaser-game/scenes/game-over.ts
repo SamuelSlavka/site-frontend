@@ -18,7 +18,7 @@ export class GameOver extends Scene {
       .text(960, 540 - 80, 'again', {
         fontFamily: 'Droid Sans',
         fontSize: 32,
-        color: '#271b2c',
+        color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },
       })
@@ -32,7 +32,7 @@ export class GameOver extends Scene {
       .text(960, 540, 'exit', {
         fontFamily: 'Droid Sans',
         fontSize: 32,
-        color: '#271b2c',
+        color: '#ccccf0',
         align: 'center',
         padding: { x: 10, y: 5 },
       })
