@@ -101,6 +101,7 @@ export class Game extends Scene {
         const vx = Math.cos(rad) * speed;
         const vy = Math.sin(rad) * speed;
         body.setVelocity(vx, vy);
+        this.sendPlayerMovement(this.state.player.x, this.state.player.y);
       } else {
         //wasd
         body.setVelocity(0);
