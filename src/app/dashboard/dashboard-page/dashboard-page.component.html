@@ -6,19 +6,18 @@
   <div class="d-flex flex-column h-100">
     <div class="d-flex flex-wrap h-100 p-1 align-content-start rounded overflow-auto">
       @if (isAdmin$ | async) {
-        <div class="row w-100 dash-widget m-0 mb-3">
-          <div class="bg-dark rounded w-100 d-flex justify-content-center">
-            <button class="btn btn-outline-secondary p-2 my-2 w-100" (click)="goTo('game')">
-              {{ 'button.game' | translate }}
-            </button>
+        <div class="row w-100 m-0 mb-3">
+          <!-- play -->
+          <div class="col-sm-6 col-12 px-0 h-fit h-sm-100">
+            <div class="rounded bg-dark p-3 me-sm-2 me-0 h-100 dash-widget d-flex justify-content-center">
+              <button class="btn btn-outline-secondary p-2 my-2 w-100" (click)="goTo('game')">
+                {{ 'button.game' | translate }}
+              </button>
+            </div>
           </div>
-        </div>
-      }
-
-      <div class="row w-100 m-0 rounded">
-        @if (isAdmin$ | async) {
-          <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
-            <div class="rounded p-3 bg-dark me-sm-2 me-0 h-fit h-sm-100 dash-widget">
+          <!-- smart home -->
+          <div class="col-sm-6 col-12 px-0 h-fit h-sm-100 pt-3 pt-sm-0">
+            <div class="rounded bg-dark ms-sm-2 ms-0 d-flex flex-column p-3 h-fit h-sm-100  dash-widget">
               <app-measurement></app-measurement>
 
               <div class="mt-auto pt-2">
@@ -28,14 +27,18 @@
               </div>
             </div>
           </div>
-        } @else {
-          <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
-            <div class="rounded p-3 bg-dark ms-sm-2 ms-0 h-100 dash-widget">
-              <app-weather></app-weather>
-            </div>
-          </div>
-        }
+        </div>
+      }
 
+      <div class="row w-100 m-0 rounded m-0">
+        <!-- weather -->
+        <div class="col-sm-6 col-12 pb-3 px-0 h-fit h-sm-100">
+          <div class="rounded bg-dark p-3 me-sm-2 me-0 h-100 dash-widget">
+            <app-weather></app-weather>
+          </div>
+        </div>
+
+        <!-- picture 1 -->
         <div class="col-sm-6 col-12 mb-3 h-fit px-0">
           <div class="rounded bg-dark ms-sm-2 ms-0 d-flex flex-column dash-widget">
             <app-picture [imgnum]="1"></app-picture>
@@ -44,43 +47,28 @@
       </div>
 
       <div class="row w-100 rounded m-0">
-        <div class="col-sm-6 col-12 px-0 pb-3 h-fit d-none d-sm-block">
+        <!-- picture 2 -->
+        <div class="col-sm-6 col-12 px-0 pb-3 px-0 d-none d-sm-block">
           <div class="rounded bg-dark me-sm-2 me-0 h-fit h-sm-100 d-flex flex-column dash-widget">
             <app-picture [imgnum]="2"></app-picture>
           </div>
         </div>
 
-        @if (isAdmin$ | async) {
-          <div class="col-sm-6 col-12 h-fit px-0 pb-3 h-sm-100">
-            <div class="rounded p-3 bg-dark ms-sm-2 ms-0 h-100 dash-widget">
-              <app-weather></app-weather>
-            </div>
-          </div>
-        } @else {
-          <div class="col-sm-6 col-12 h-fit px-0 pb-3 h-sm-100">
-            <div class="p-3 bg-dark rounded dash-widget">
-              <app-forecast></app-forecast>
-            </div>
-          </div>
-
-        }
-      </div>
-
-      @if (isAdmin$ | async) {
-        <div class="row w-100 rounded m-0 dash-widget">
-          <div class="p-3 bg-dark rounded">
+        <!-- forecast -->
+        <div class="col-sm-6 col-12 px-0 pb-3 ">
+          <div class="p-3 bg-dark ms-sm-2 ms-0 rounded dash-widget h-fit h-sm-100">
             <app-forecast></app-forecast>
           </div>
         </div>
-      }
+      </div>
     </div>
 
     <div class="mt-auto">
-      <div class="row m-0 mt-2 p-0 d-flex">
-        <button class="btn btn-outline-dark me-2 w-auto" (click)="goTo('privacy')">
+      <div class="row m-0 p-0 d-flex">
+        <button class="btn btn-outline me-2 w-auto" (click)="goTo('privacy')">
           {{ 'button.privacy' | translate }}
         </button>
-        <button class="btn btn-outline-dark w-auto ms-auto" (click)="openGit()">
+        <button class="btn btn-outline w-auto ms-auto" (click)="openGit()">
           {{ 'button.git' | translate }}
         </button>
       </div>
