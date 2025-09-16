@@ -5,6 +5,7 @@ import { Scene } from 'phaser';
 import { GameSocket } from '../utils/game-socket';
 import VirtualJoyStickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin';
 import VirtualJoyStick from 'phaser3-rex-plugins/plugins/input/virtualjoystick/VirtualJoyStick';
+import { handleJoystick, handleOtherPlayer, handleWasd } from '@app/game/phaser-game/services/movement-service';
 
 export class Game extends Scene {
   public wasd!: any;
@@ -65,11 +66,21 @@ export class Game extends Scene {
       right: 'D',
     });
     let cameraOffset = -100;
+
+    this.state.ping = this.add
+      .text(this.cameras.main.width - 20, 20, 'ping', {
+        fontFamily: 'Droid Sans',
+        fontSize: 10,
+        color: '#ccccf0',
+      })
+      .setOrigin(1, 0)
+      .setScrollFactor(0);
+
+    // joystick
     if (this.sys.game.device.input.touch) {
-      console.log('joy');
       this.joystick = (this.plugins.get('rexVirtualJoystick') as VirtualJoyStickPlugin).add(this, {
         x: this.cameras.main.width / 2,
-        y: this.cameras.main.height * 0.80,
+        y: this.cameras.main.height * 0.8,
         radius: 60,
         base: this.add.circle(0, 0, 60, 0x888888),
         thumb: this.add.circle(0, 0, 30, 0xcccccc),
@@ -80,7 +91,7 @@ export class Game extends Scene {
       });
 
       this.joystick.setScrollFactor(0);
-      cameraOffset = - this.cameras.main.height * 0.18;
+      cameraOffset = -this.cameras.main.height * 0.18;
     }
 
     // Camera follow player
@@ -96,67 +107,17 @@ export class Game extends Scene {
     if (body) {
       // controls
       if (this.joystick && this.joystick.force > 0) {
-        // joystick
-        const rad = Phaser.Math.DegToRad(this.joystick.angle);
-        const vx = Math.cos(rad) * speed;
-        const vy = Math.sin(rad) * speed;
-        body.setVelocity(vx, vy);
-        this.sendPlayerMovement(this.state.player.x, this.state.player.y);
+        handleJoystick(speed, this.joystick, body);
       } else {
-        //wasd
-        body.setVelocity(0);
-
-        if (this.wasd.left.isDown) {
-          body.setVelocityX(-speed);
-        } else if (this.wasd.right.isDown) {
-          body.setVelocityX(speed);
-        }
-
-        if (this.wasd.up.isDown) {
-          body.setVelocityY(-speed);
-        } else if (this.wasd.down.isDown) {
-          body.setVelocityY(speed);
-        }
-
-        body.velocity.normalize().scale(speed);
-        this.sendPlayerMovement(this.state.player.x, this.state.player.y);
+        handleWasd(speed, body, this.wasd);
       }
+      this.sendPlayerMovement(this.state.player.x, this.state.player.y);
 
       // other players
       this.state.otherPlayers.forEach((player: Phaser.GameObjects.Sprite, key: string) => {
         const target = this.state.otherPlayerTargets.get(key);
         if (target) {
-          const body = player.body as Phaser.Physics.Arcade.Body;
-          if (!body) return;
-
-          // Compute distance vector
-          const dx = target.x - player.x;
-          const dy = target.y - player.y;
-
-          const dist = Math.hypot(dx, dy);
-          if (dist < 6) {
-            player.x = Phaser.Math.Linear(player.x, target.x, 0.1);
-            player.y = Phaser.Math.Linear(player.y, target.y, 0.1);
-            body.setVelocity(0, 0);
-            return;
-          }
-
-          let speed;
-          if (dist > 200) {
-            speed = 800;
-          } else if (dist > 80) {
-            speed = 500;
-          } else {
-            speed = 300;
-          }
-
-          // Calculate velocity towards the target
-          const angle = Math.atan2(dy, dx);
-          const vx = Math.cos(angle) * speed;
-          const vy = Math.sin(angle) * speed;
-
-          // Set the velocity
-          body.setVelocity(vx, vy);
+          handleOtherPlayer(player, target);
         }
       });
     }

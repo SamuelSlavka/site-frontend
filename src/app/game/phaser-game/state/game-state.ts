@@ -4,5 +4,6 @@ export class GameState {
   public otherPlayerTargets: Map<string, { x: number; y: number }> = new Map();
   public sessionId!: String;
   public socket!: WebSocket;
-  public scene!: Phaser.Scenes.ScenePlugin
+  public scene!: Phaser.Scenes.ScenePlugin;
+  public ping!: Phaser.GameObjects.Text;
 }

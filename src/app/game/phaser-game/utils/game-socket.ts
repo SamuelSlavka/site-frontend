@@ -14,12 +14,21 @@ export class GameSocket {
     state.socket = new WebSocket(environment.wsUrl);
     const socket = state.socket;
 
+    let pingInterval = 5000; // every 5 seconds
+    let lastPingTime = 0;
+
     socket.onopen = () => {
       console.log('Connected to game server');
       this.socketOpen = true;
       socket.send(JSON.stringify({ type: 'player-start', id: state.sessionId }));
       socket.send(JSON.stringify({ type: 'request-existing-players' }));
       EventBus.emit('current-scene-ready', this);
+
+      // Start pinging the server
+      setInterval(() => {
+        lastPingTime = Date.now();
+        socket.send(JSON.stringify({ type: 'ping', timestamp: lastPingTime }));
+      }, pingInterval);
     };
 
     socket.onclose = () => {
@@ -57,6 +66,11 @@ export class GameSocket {
               this.updateOtherPlayer(state, player.sessionId, player.x, player.y, addPlayer);
             }
           });
+          break;
+        case 'pong':
+          const now = Date.now();
+          const ping = now - data.timestamp;
+          state.ping.setText(ping.toString());
           break;
       }
     };
