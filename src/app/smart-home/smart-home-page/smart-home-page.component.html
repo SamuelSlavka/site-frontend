@@ -3,25 +3,31 @@
 </ng-template>
 
 <ng-template #contentTemplate>
-  <div
-    *ngIf="{ devices: (devices$ | async), measurements: (measurements$ | async) }; let context"
-    class="d-flex flex-column h-100"
-  >
-    <div *ngFor="let device of context.devices; index as i">
-      <div *ngIf="context?.measurements?.[device.id] " class="p-3 my-2 rounded bg-dark">
-        <div class="row m-0 mb-2 d-flex align-items-center">
-          <span class="m-0 me-2 w-auto col h5">{{ device.name | translate }}</span>
-
-          <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 1)">today</button>
-          <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 7)">week</button>
-          <button class="btn btn-outline-primary col-auto h-fit" (click)="setOffset(device.id, 0)">all</button>
-        </div>
+  @if ({ devices: (devices$ | async), measurements: (measurements$ | async) }; as context) {
+    <div class="d-flex flex-column h-100">
+      @for (device of context.devices; track device; let i = $index) {
         <div>
-          <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+          @if (context?.measurements?.[device.id]) {
+            <div class="p-3 my-2 rounded bg-dark">
+              <div class="row m-0 mb-2 d-flex align-items-center">
+                <span class="m-0 me-2 w-auto col h5">{{ device.name | translate }}</span>
+                <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 1)">
+                  today
+                </button>
+                <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 7)">
+                  week
+                </button>
+                <button class="btn btn-outline-primary col-auto h-fit" (click)="setOffset(device.id, 0)">all</button>
+              </div>
+              <div>
+                <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+              </div>
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
-  </div>
+  }
 </ng-template>
 
 <app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>

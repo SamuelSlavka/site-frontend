@@ -1,5 +1,5 @@
 import { KeycloakService } from 'keycloak-angular';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
 export function initializer(keycloak: KeycloakService) {
   return () =>

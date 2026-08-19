@@ -8,13 +8,12 @@ describe('DashboardPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardPageComponent ]
+      imports: [DashboardPageComponent],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(DashboardPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

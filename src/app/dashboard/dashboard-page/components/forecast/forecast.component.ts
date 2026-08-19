@@ -1,15 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ScheduledActions } from '@app/core/store/actions/scheduled.actions';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { ScheduledState } from '@app/core/store/state/scheduled.state';
 import { Select, Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
 import { Observable, Subscription, filter } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxEchartsDirective } from 'ngx-echarts';
 
 @Component({
   selector: 'app-forecast',
   templateUrl: './forecast.component.html',
   styleUrl: './forecast.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true,
+  imports: [CommonModule, TranslateModule, NgxEchartsDirective],
 })
 export class ForecastComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();

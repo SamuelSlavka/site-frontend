@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -9,14 +10,19 @@ import { ArticleListItem, CreateArticle, EditArticle } from '../store/models/art
 import { ArticleState } from '../store/state/article.state';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
 import { KeycloakProfile } from 'keycloak-js';
-import { SessionService } from '../services/session.service';
+import { SessionService } from '@app/core/services/session.service';
 import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
+import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
+import { NavComponent } from '@app/shared/components/nav/nav.component';
+import { ArticleListComponent } from './components/article-list/article-list.component';
 
 @Component({
   selector: 'app-wiki-page',
   templateUrl: './wiki-page.component.html',
   styleUrls: ['./wiki-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, BasePageComponent, NavComponent, ArticleListComponent],
 })
 export class WikiPageComponent implements OnInit {
   private page: number = 0;

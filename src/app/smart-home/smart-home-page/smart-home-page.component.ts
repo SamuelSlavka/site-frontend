@@ -1,16 +1,24 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 import { SimpleDevice } from '@app/core/store/models/device.model';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
+import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
+import { NavComponent } from '@app/shared/components/nav/nav.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
+import { NgxEchartsDirective } from 'ngx-echarts';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-smart-home-page',
   templateUrl: './smart-home-page.component.html',
   styleUrls: ['./smart-home-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true,
+  imports: [CommonModule, TranslateModule, NgxEchartsDirective, BasePageComponent, NavComponent],
 })
 export class SmartHomePageComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
@@ -29,7 +37,7 @@ export class SmartHomePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     this.refreshOffset();
   }

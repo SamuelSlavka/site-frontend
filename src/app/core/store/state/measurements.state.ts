@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, of, tap } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '@core/services/toast.service';
 import { Measurement, ParsedMeasurements } from '../models/measurement.model';
 import { MeasurementActions } from '../actions/measurement.actions';
 import { MeasurementService } from '@app/core/services/measurement.service';
@@ -28,7 +28,7 @@ export interface MeasurementStateModel {
 @Injectable()
 export class MeasurementState {
   constructor(
-    private toastr: ToastrService,
+    private toastr: ToastService,
     private measurementService: MeasurementService,
     private devicesService: DevicesService,
   ) {}

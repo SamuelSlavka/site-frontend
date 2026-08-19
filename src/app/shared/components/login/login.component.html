@@ -1,35 +1,41 @@
-<button *ngIf="!(isLoggedIn$ | async); else profile" class="btn btn-primary" aria-labelledby="login" (click)="login()">
-  {{ 'button.login' | translate }}
-</button>
-<ng-template #profile>
+@if (!(isLoggedIn$ | async)) {
+  <button type="button" class="btn btn-primary" [attr.aria-label]="'button.login' | translate" (click)="login()">
+    {{ 'button.login' | translate }}
+  </button>
+} @else {
   <div dropdown class="d-inline-block btn-group dropdown-wrapper" container="body">
     <button
       type="button"
       class="btn btn-outline-primary dropdown-toggle"
-      id="button-basic"
-      aria-labelledby="actions"
-      aria-controls="profile-dorpdown"
+      id="profile-dropdown-toggle"
+      aria-controls="profile-dropdown-menu"
+      aria-haspopup="menu"
       dropdownToggle
     >
       {{ (profile$ | async)?.email }}
     </button>
-    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="profile-dorpdown">
+    <ul id="profile-dropdown-menu" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="profile-dropdown-toggle">
       <li role="menuitem">
-        <button class="dropdown-item" href="#" (click)="toggleShowActions()" aria-labelledby="togge-edit">
-          <span *ngIf="showActions$ | async; else enable">{{ 'action.login.hide' | translate }}</span>
-          <ng-template #enable>
-            <span *ngIf="!(showActions$ | async)">{{ 'action.login.show' | translate }}</span>
-          </ng-template>
+        <button type="button" class="dropdown-item" (click)="toggleShowActions()">
+          @if (showActions$ | async) {
+            <span>{{ 'action.login.hide' | translate }}</span>
+          } @else {
+            @if (!(showActions$ | async)) {
+              <span>{{ 'action.login.show' | translate }}</span>
+            }
+          }
         </button>
-        <button *ngIf="isAdmin$ | async" class="dropdown-item" (click)="goToAdmin()" aria-labelledby="admin-page">
-          <span>{{ 'action.login.admin' | translate }}</span>
-        </button>
+        @if (isAdmin$ | async) {
+          <button type="button" class="dropdown-item" (click)="goToAdmin()">
+            <span>{{ 'action.login.admin' | translate }}</span>
+          </button>
+        }
       </li>
       <li role="menuitem">
-        <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">
+        <button type="button" class="dropdown-item" (click)="logout()">
           {{ 'button.logout' | translate }}
         </button>
       </li>
     </ul>
   </div>
-</ng-template>
+}

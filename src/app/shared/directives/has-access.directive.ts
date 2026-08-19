@@ -1,9 +1,10 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { SessionService } from '@app/wiki/services/session.service';
+import { SessionService } from '@app/core/services/session.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
 @Directive({
   selector: '[appHasAccess]',
+  standalone: true,
 })
 export class HasAccessDirective {
   @Input() isPublic: boolean = false;

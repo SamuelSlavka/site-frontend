@@ -5,7 +5,7 @@ import { ArticleActions } from '../actions/article.actions';
 
 import { catchError, of, tap } from 'rxjs';
 import { ArticleService } from '@app/wiki/services/article.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '@core/services/toast.service';
 
 export interface ArticleStateModel {
   articles: ArticleListItem[];
@@ -19,7 +19,7 @@ export interface ArticleStateModel {
 })
 @Injectable()
 export class ArticleState {
-  constructor(private toastr: ToastrService, private articleService: ArticleService) {}
+  constructor(private toastr: ToastService, private articleService: ArticleService) {}
 
   @Action(ArticleActions.GetOne)
   getOneArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.GetOne) {

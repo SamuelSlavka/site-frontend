@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SectionService } from '@app/wiki/services/section.service';
 import { SectionDto } from '@app/wiki/store/models/section.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '@core/services/toast.service';
 import { catchError, of, tap } from 'rxjs';
 
 import { SectionActions } from '../actions/section.actions';
@@ -19,7 +19,7 @@ export interface SectionStateModel {
 })
 @Injectable()
 export class SectionState {
-  constructor(private toastr: ToastrService, private sectionService: SectionService) {}
+  constructor(private toastr: ToastService, private sectionService: SectionService) {}
 
   @Action(SectionActions.GetOne)
   fetchSection(ctx: StateContext<SectionStateModel>, action: SectionActions.GetOne) {

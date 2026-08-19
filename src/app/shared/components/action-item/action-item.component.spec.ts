@@ -8,13 +8,12 @@ describe('ActionItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActionItemComponent ]
+      imports: [ActionItemComponent],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ActionItemComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

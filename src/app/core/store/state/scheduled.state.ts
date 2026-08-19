@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, of, tap } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from '@core/services/toast.service';
 import { Forecast, Stocks, Weather } from '../models/scheduled.model';
 import { ScheduledService } from '@app/core/services/scheduled.service';
 import { ScheduledActions } from '../actions/scheduled.actions';
@@ -27,7 +27,7 @@ export interface ScheduledStateModel {
 })
 @Injectable()
 export class ScheduledState {
-  constructor(private toastr: ToastrService, private scheduledService: ScheduledService) {}
+  constructor(private toastr: ToastService, private scheduledService: ScheduledService) {}
 
   @Action(ScheduledActions.GetLatestWeather)
   getWeather(ctx: StateContext<ScheduledStateModel>) {

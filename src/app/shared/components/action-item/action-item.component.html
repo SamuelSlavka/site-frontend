@@ -1,6 +1,8 @@
 <button
+  type="button"
   class="btn btn-link text-muted text-decoration-none quick-action rounded pointer p-0 pe-2 m-0 mb-2"
   [ngClass]="{ 'p-2': size === 'bg' }"
+  [attr.aria-label]="text || 'action'"
   (click)="trigger($event)"
 >
   <fa-icon [icon]="icon"></fa-icon>

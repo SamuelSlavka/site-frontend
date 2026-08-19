@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import Phaser from 'phaser';
 import StartGame from './main';
 import { EventBus } from './event-bus';
@@ -9,6 +9,7 @@ import { Game } from './scenes/game';
 @Component({
   selector: 'phaser-game',
   template: '<div id="game-container"></div>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class PhaserGame implements OnInit, OnDestroy {
@@ -36,13 +37,13 @@ export class PhaserGame implements OnInit, OnDestroy {
     });
 
     EventBus.on('exit-clicked', () => {
-      this.socket.close();
+      this.socket?.close();
       this.router.navigate(['']);
     });
   }
 
   ngOnDestroy() {
-    this.socket.close();
+    this.socket?.close();
     this.game?.destroy(true);
   }
 }

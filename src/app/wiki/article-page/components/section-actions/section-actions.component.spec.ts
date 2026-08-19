@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -9,9 +9,9 @@ describe('SectionActionsComponent', () => {
   let component: SectionActionsComponent;
   let fixture: ComponentFixture<SectionActionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SectionActionsComponent ]
+      imports: [SectionActionsComponent],
     })
     .compileComponents();
   }));
@@ -19,7 +19,6 @@ describe('SectionActionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SectionActionsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

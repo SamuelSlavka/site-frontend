@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DevicesService } from '@app/core/services/devices.service';
 import { Device, SimpleDevice } from '@app/core/store/models/device.model';
-import { ToastrService } from 'ngx-toastr';
+import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
+import { NavComponent } from '@app/shared/components/nav/nav.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ToastService } from '@core/services/toast.service';
 import { Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule, BasePageComponent, NavComponent],
 })
 export class AdminComponent implements OnInit {
   form!: FormGroup;
   devices$!: Observable<SimpleDevice[]>;
 
   constructor(
-    private toastr: ToastrService,
+    private toastr: ToastService,
     private router: Router,
     private fb: FormBuilder,
     private devicesService: DevicesService,

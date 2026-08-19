@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { SessionService } from '@app/wiki/services/session.service';
+import { SessionService } from '@app/core/services/session.service';
+import { TranslateModule } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
@@ -10,6 +13,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, BsDropdownModule, TranslateModule],
 })
 export class LoginComponent {
   constructor(

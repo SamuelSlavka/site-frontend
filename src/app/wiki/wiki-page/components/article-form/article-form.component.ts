@@ -1,6 +1,11 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CreateArticle, EditArticle } from '@app/wiki/store/models/article.model';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject, Subscription } from 'rxjs';
 
@@ -9,6 +14,8 @@ import { Subject, Subscription } from 'rxjs';
   templateUrl: './article-form.component.html',
   styleUrls: ['./article-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgbTooltipModule, TranslateModule],
 })
 export class ArticleFormComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;

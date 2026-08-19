@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 import { EventBus } from '../event-bus';
 import { GameState } from '../state/game-state';
 import { SceneEnum } from '@app/game/phaser-game/enums/scene.enum';
