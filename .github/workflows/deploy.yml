@@ -1,0 +1,87 @@
+name: CI / Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Lint, Test & Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint:ts
+
+      - name: Test
+        run: npm run test:ci
+
+      - name: Build
+        run: npm run build:prod
+
+      - name: Package build
+        run: |
+          mkdir build-output
+          cp -TR ./dist/site-frontend/browser build-output/
+          tar -czf deploy.tar.gz build-output/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-archive
+          path: deploy.tar.gz
+          retention-days: 1
+
+  deploy:
+    name: Deploy to server
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: deploy-archive
+
+      - name: Copy archive to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "deploy.tar.gz"
+          target: "/site-frontend"
+
+      - name: Unpack and restart
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /site-frontend
+            rm -rf build-output
+            tar -xzf deploy.tar.gz
+            rm -f deploy.tar.gz
+            cd ~/site
+            docker compose restart nginx
+
