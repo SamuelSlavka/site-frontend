@@ -1,9 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ActionItemComponent } from '@app/shared/components/action-item/action-item.component';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
-import { ArticleActions } from '@app/wiki/store/actions/article.actions';
-import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
-import { ArticleState } from '@app/wiki/store/state/article.state';
+import { HasAccessDirective } from '@app/shared/directives/has-access.directive';
+import { PlaceholderComponent } from '@app/shared/components/placeholder/placeholder.component';
+import { ArticleActions } from '@app/wiki/store/actions';
+import { ArticleListItem, CreateArticle } from '@app/wiki/store/models';
+import { ArticleState } from '@app/wiki/store/state';
+import { TranslateModule } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { filter, Observable } from 'rxjs';
@@ -15,6 +20,8 @@ import { ArticleFormComponent } from '../article-form/article-form.component';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, TranslateModule, HasAccessDirective, ActionItemComponent, PlaceholderComponent],
 })
 export class ArticleListComponent {
   @Input() articles!: ArticleListItem[];

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SessionService } from '@app/wiki/services/session.service';
+import { SessionService } from '@app/core/services/session.service';
+import { MarkdownModule } from 'ngx-markdown';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -7,6 +8,8 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './revision.component.html',
   styleUrls: ['./revision.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class RevisionComponent {
   @Input() text!: string | undefined;

@@ -1,19 +1,21 @@
-import { Device, SimpleDevice } from '@app/core/store/models/device.model';
+import { Device, SimpleDevice } from '../models';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { catchError, of, tap } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { Forecast, Stocks, Weather } from '../models/scheduled.model';
+import { tap } from 'rxjs';
+import { ToastService } from '@core/services/toast.service';
+import { Forecast, Stocks, Weather } from '../models';
 import { ScheduledService } from '@app/core/services/scheduled.service';
-import { ScheduledActions } from '../actions/scheduled.actions';
-import { ParsedMeasurements } from '../models/measurement.model';
+import { ScheduledActions } from '../actions';
+import { ParsedMeasurements } from '../models';
+import { BaseState } from '../base.state';
 
 export interface ScheduledStateModel {
   weather: Weather | null;
   forecast: ParsedMeasurements | null;
   stocks: Stocks | null;
   loading: boolean;
+  error: string | null;
 }
 
 @State<ScheduledStateModel>({
@@ -23,31 +25,35 @@ export interface ScheduledStateModel {
     forecast: null,
     stocks: null,
     loading: false,
+    error: null,
   },
 })
 @Injectable()
-export class ScheduledState {
-  constructor(private toastr: ToastrService, private scheduledService: ScheduledService) {}
+export class ScheduledState extends BaseState<ScheduledStateModel> {
+  constructor(protected toastr: ToastService, private scheduledService: ScheduledService) {
+    super();
+  }
 
   @Action(ScheduledActions.GetLatestWeather)
   getWeather(ctx: StateContext<ScheduledStateModel>) {
-    ctx.patchState({ loading: true });
-    return this.scheduledService.getWeather().pipe(
+    return this.handleAsyncAction(
+      ctx,
+      () => this.scheduledService.getWeather(),
+      'Failed to get weather',
+    ).pipe(
       tap((weather) => {
-        ctx.patchState({ weather, loading: false });
-      }),
-      catchError((error) => {
-        ctx.patchState({ loading: false });
-        this.toastr.error('Get weather failed');
-        return of(error);
+        ctx.patchState({ weather });
       }),
     );
   }
 
   @Action(ScheduledActions.GetLatestForecast)
   getForecast(ctx: StateContext<ScheduledStateModel>) {
-    ctx.patchState({ loading: true });
-    return this.scheduledService.getForecast().pipe(
+    return this.handleAsyncAction(
+      ctx,
+      () => this.scheduledService.getForecast(),
+      'Failed to get forecast',
+    ).pipe(
       tap((forecast: Forecast) => {
         const parsed: ParsedMeasurements = {
           device: '',
@@ -60,27 +66,20 @@ export class ScheduledState {
           parsed.temperature.push([date, m.main.temp]);
           parsed.pop.push([date, m.pop]);
         });
-        ctx.patchState({ forecast: parsed, loading: false });
-      }),
-      catchError((error) => {
-        ctx.patchState({ loading: false });
-        this.toastr.error('Get forecast failed');
-        return of(error);
+        ctx.patchState({ forecast: parsed });
       }),
     );
   }
 
   @Action(ScheduledActions.GetLatestStocks)
   getStocks(ctx: StateContext<ScheduledStateModel>) {
-    ctx.patchState({ loading: true });
-    return this.scheduledService.getStocks().pipe(
+    return this.handleAsyncAction(
+      ctx,
+      () => this.scheduledService.getStocks(),
+      'Failed to get stocks',
+    ).pipe(
       tap((stocks) => {
-        ctx.patchState({ stocks, loading: false });
-      }),
-      catchError((error) => {
-        ctx.patchState({ loading: false });
-        this.toastr.error('Get stocks failed');
-        return of(error);
+        ctx.patchState({ stocks });
       }),
     );
   }
@@ -88,6 +87,11 @@ export class ScheduledState {
   @Selector()
   static loading(state: ScheduledStateModel) {
     return state.loading;
+  }
+
+  @Selector()
+  static error(state: ScheduledStateModel) {
+    return state.error;
   }
 
   @Selector()

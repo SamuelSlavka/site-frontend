@@ -8,7 +8,7 @@ describe('PrivacyComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PrivacyComponent],
+      imports: [PrivacyComponent],
     }).compileComponents();
   });
 

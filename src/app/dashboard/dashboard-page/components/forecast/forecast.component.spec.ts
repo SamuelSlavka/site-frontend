@@ -8,13 +8,12 @@ describe('ForecastComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ForecastComponent]
+      imports: [ForecastComponent],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ForecastComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

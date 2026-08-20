@@ -1,6 +1,7 @@
-import { CreateArticle } from '../models/article.model';
+import { CreateArticle, ArticleFilter } from '../models';
 
 export namespace ArticleActions {
+  // Data Actions
   export class Get {
     static readonly type = '[Articles] Get all';
     constructor(public page: number) {}
@@ -20,5 +21,26 @@ export namespace ArticleActions {
   export class Delete {
     static readonly type = '[Articles] Delete';
     constructor(public id: string) {}
+  }
+
+  // UI State Actions
+  export class SetPage {
+    static readonly type = '[Articles UI] Set page';
+    constructor(public page: number) {}
+  }
+  export class SetPageSize {
+    static readonly type = '[Articles UI] Set page size';
+    constructor(public pageSize: number) {}
+  }
+  export class SetSort {
+    static readonly type = '[Articles UI] Set sort';
+    constructor(public sortBy: 'title' | 'date' | 'author', public sortDirection: 'asc' | 'desc') {}
+  }
+  export class SetFilters {
+    static readonly type = '[Articles UI] Set filters';
+    constructor(public filters: ArticleFilter[]) {}
+  }
+  export class ClearFilters {
+    static readonly type = '[Articles UI] Clear filters';
   }
 }

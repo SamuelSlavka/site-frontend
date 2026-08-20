@@ -1,7 +1,8 @@
-<p *ngIf="loading | async" class="placeholder-glow">
-  <span
-    *ngFor="let _ of [].constructor(count)"
-    class="placeholder col-12 rounded bg-dark mb-1"
-    [ngStyle]="{ height: height + 'rem' }"
-  ></span>
-</p>
+@if (loading | async) {
+  <div class="placeholder-glow" role="status" aria-live="polite" aria-label="Loading content">
+    <span class="visually-hidden">Loading content</span>
+    @for (_ of [].constructor(count); track _) {
+      <span class="placeholder col-12 rounded bg-dark mb-1" [ngStyle]="{ height: height + 'rem' }"></span>
+    }
+  </div>
+}

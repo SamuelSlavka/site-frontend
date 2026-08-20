@@ -1,28 +1,28 @@
-<app-placeholder
-  *ngIf="!articles || articles.length === 0"
-  [loading]="loading$"
-  [count]="4"
-  [height]="3.5"
-></app-placeholder>
+@if (!articles || articles.length === 0) {
+  <app-placeholder [loading]="loading$" [count]="4" [height]="3.5"></app-placeholder>
+}
 
-<div *ngIf="articles.length === 0 && !(loading$ | async)" class="text-center">
-  <span class="h6 m-0 p-0 mx-3">{{ 'label.article.notFound' | translate }}</span>
-</div>
+@if (articles.length === 0 && !(loading$ | async)) {
+  <div class="text-center">
+    <span class="h6 m-0 p-0 mx-3">{{ 'label.article.notFound' | translate }}</span>
+  </div>
+}
 
 <ul class="w-100 p-0">
-  <li
-    class="pointer mx-0 mt-1 p-2 row article-item rounded bg-dark d-flex align-items-center"
-    *ngFor="let article of articles"
-    (click)="viewArticle(article)"
-  >
-    <div class="col my-2">
-      {{ article.title }}
-    </div>
-    <ng-template [appHasAccess]="article.createdBy">
-      <div class="col-auto my-2 ms-auto">
-        <app-action-item [text]="'delete'" icon="trash-can" (action)="delete(article)" size="bg"></app-action-item>
-        <app-action-item [text]="'edit'" icon="pen" (action)="edit(article)" size="bg"></app-action-item>
+  @for (article of articles; track article) {
+    <li
+      class="pointer mx-0 mt-1 p-2 row article-item rounded bg-dark d-flex align-items-center"
+      (click)="viewArticle(article)"
+    >
+      <div class="col my-2">
+        {{ article.title }}
       </div>
-    </ng-template>
-  </li>
+      <ng-template [appHasAccess]="article.createdBy">
+        <div class="col-auto my-2 ms-auto">
+          <app-action-item [text]="'delete'" icon="trash-can" (action)="delete(article)" size="bg"></app-action-item>
+          <app-action-item [text]="'edit'" icon="pen" (action)="edit(article)" size="bg"></app-action-item>
+        </div>
+      </ng-template>
+    </li>
+  }
 </ul>

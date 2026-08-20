@@ -1,14 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { Measurement } from '@app/core/store/models/measurement.model';
-import { MeasurementState } from '@app/core/store/state/measurements.state';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MeasurementActions } from '@app/core/store/actions';
+import { Measurement } from '@app/core/store/models';
+import { MeasurementState } from '@app/core/store/state';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription, filter } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { CustomDatePipe } from '@app/shared/pipes/custom-date.pipe';
 
 @Component({
   selector: 'app-measurement',
   templateUrl: './measurement.component.html',
   styleUrls: ['./measurement.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true,
+  imports: [CommonModule, TranslateModule, CustomDatePipe],
 })
 export class MeasurementComponent implements OnInit, OnDestroy {
   @Select(MeasurementState.latestMeasurement) latest$!: Observable<Measurement>;

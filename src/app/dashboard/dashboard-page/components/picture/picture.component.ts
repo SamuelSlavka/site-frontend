@@ -1,9 +1,11 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-picture',
   templateUrl: './picture.component.html',
   styleUrl: './picture.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true,
 })
 export class PictureComponent implements OnInit {
   ngOnInit(): void {

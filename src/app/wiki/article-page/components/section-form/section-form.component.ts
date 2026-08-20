@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
@@ -9,6 +12,8 @@ import { Subject } from 'rxjs';
   templateUrl: './section-form.component.html',
   styleUrls: ['./section-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
 })
 export class SectionFormComponent implements OnInit {
   isEdit: boolean = false;

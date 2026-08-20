@@ -1,58 +1,68 @@
-<ng-container *ngIf="{ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; let context">
+@if ({ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; as context) {
   <div
     class="position-relative rounded bg-dark"
     [ngClass]="{
-      'border-start rounded p-3 pe-0 my-2 section-item bg-dark': context.selected && context.selected.depth > 0
+      'border-start rounded p-3 pe-0 my-2 section-item bg-dark': context.selected && context.selected.depth > 0,
     }"
   >
-    <ng-container *ngIf="context.selected?.title">
+    @if (context.selected?.title) {
       <div class="row m-0 pointer mb-2" (click)="collapse()">
         <div class="col h5 p-0 m-0 section-title">
           {{ context.selected?.title }}
         </div>
         <div class="col-auto p-0 pe-3">
-          <fa-icon *ngIf="isCollapsed" icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
-          <fa-icon *ngIf="!isCollapsed" icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
+          @if (isCollapsed) {
+            <fa-icon icon="angle-down" size="xs" style="opacity: 0.5"></fa-icon>
+          }
+          @if (!isCollapsed) {
+            <fa-icon icon="angle-up" size="xs" style="opacity: 0.5"></fa-icon>
+          }
         </div>
       </div>
-    </ng-container>
-
+    }
     <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
-      <ng-container *ngIf="context.selected?.text">
-        <app-revision [text]="context.selected?.text" [title]="context.selected?.title"></app-revision>
-      </ng-container>
-
-      <ng-container *ngIf="showActions$ | async">
+      @if (context.selected?.text) {
+        <app-revision
+          [text]="$safeNavigationMigration(context.selected?.text)"
+          [title]="$safeNavigationMigration(context.selected?.title)"
+        ></app-revision>
+      }
+      @if (showActions$ | async) {
         <app-section-actions
           [selected]="selected"
           [isPublic]="isPublic"
           [section]="context.selected"
           (addSection)="add(selected, context.isLoggedIn)"
-          (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
-          (deleteSection)="delete(selected, context.selected?.superSection)"
+          (editSection)="
+            edit(
+              selected,
+              $safeNavigationMigration(context.selected?.title),
+              $safeNavigationMigration(context.selected?.text)
+            )
+          "
+          (deleteSection)="delete(selected, $safeNavigationMigration(context.selected?.superSection))"
         ></app-section-actions>
-      </ng-container>
-
-      <div class="subsections" *ngIf="context.selected">
-        <app-section
-          *ngFor="let section of context.selected.subsections"
-          [selected]="section"
-          [isPublic]="isPublic"
-        ></app-section>
-      </div>
-
-      <ng-template [isPublic]="isPublic" [appHasAccess]="context.selected?.createdBy">
-        <button
-          *ngIf="context.selected?.depth === 0 && (showActions$ | async)"
-          type="button"
-          class="btn btn-outline-primary my-3"
-          (click)="add(selected, context.isLoggedIn)"
-        >
-          <fa-icon icon="plus" class="me-2"></fa-icon>
-          <span *ngIf="context.selected?.subsections">{{ 'action.section.add' | translate }}</span>
-          <span *ngIf="!context.selected?.subsections">{{ 'action.section.createFirst' | translate }}</span>
-        </button>
+      }
+      @if (context.selected) {
+        <div class="subsections">
+          @for (section of context.selected.subsections; track section) {
+            <app-section [selected]="section" [isPublic]="isPublic"></app-section>
+          }
+        </div>
+      }
+      <ng-template [isPublic]="isPublic" [appHasAccess]="$safeNavigationMigration(context.selected?.createdBy)">
+        @if (context.selected?.depth === 0 && (showActions$ | async)) {
+          <button type="button" class="btn btn-outline-primary my-3" (click)="add(selected, context.isLoggedIn)">
+            <fa-icon icon="plus" class="me-2"></fa-icon>
+            @if (context.selected?.subsections) {
+              <span>{{ 'action.section.add' | translate }}</span>
+            }
+            @if (!context.selected?.subsections) {
+              <span>{{ 'action.section.createFirst' | translate }}</span>
+            }
+          </button>
+        }
       </ng-template>
     </div>
   </div>
-</ng-container>
+}

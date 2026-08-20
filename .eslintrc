@@ -5,8 +5,7 @@
     "node": true
   },
   "extends": [
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -16,8 +15,7 @@
   "plugins": [
     "eslint-plugin-import",
     "@angular-eslint/eslint-plugin",
-    "@typescript-eslint",
-    "@typescript-eslint/tslint"
+    "@typescript-eslint"
   ],
   "rules": {
     "@angular-eslint/directive-selector": [
@@ -64,17 +62,9 @@
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/no-unused-expressions": "warn",
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/quotes": [
+    "quotes": [
       "error",
-      "double"
-    ],
-    "@typescript-eslint/tslint/config": [
-      "error",
-      {
-        "rules": {
-          "whitespace": true
-        }
-      }
+      "single"
     ],
     "@typescript-eslint/unified-signatures": "error",
     "arrow-body-style": "error",

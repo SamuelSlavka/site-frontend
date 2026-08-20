@@ -1,9 +1,9 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
+import { Injectable } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { KeycloakProfile } from 'keycloak-js';
-import { BehaviorSubject, from, Subject, Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { UserRoles } from '../enums/user-roles.enum';
+import { environment } from '@env/environment';
+import { UserRoles } from '@app/core/enums/user-roles.enum';
 
 @Injectable({
   providedIn: 'root',

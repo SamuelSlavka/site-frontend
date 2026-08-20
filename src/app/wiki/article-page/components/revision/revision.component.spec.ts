@@ -1,5 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { RevisionComponent } from './revision.component';
 
@@ -7,16 +8,15 @@ describe('RevisionComponent', () => {
   let component: RevisionComponent;
   let fixture: ComponentFixture<RevisionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [RevisionComponent],
+      imports: [RevisionComponent, MarkdownModule.forRoot()],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RevisionComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

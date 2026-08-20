@@ -1,4 +1,4 @@
-@import 'variables';
+@use '/src/styles/variables' as *;
 
 .w-fit {
   width: fit-content;

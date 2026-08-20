@@ -1,15 +1,22 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
-import { SessionService } from '@app/wiki/services/session.service';
-import { SectionActions } from '@app/wiki/store/actions/section.actions';
-import { RevisionDto } from '@app/wiki/store/models/revision.model';
-import { SectionDto } from '@app/wiki/store/models/section.model';
-import { SectionState } from '@app/wiki/store/state/section.state';
+import { HasAccessDirective } from '@app/shared/directives/has-access.directive';
+import { SessionService } from '@app/core/services/session.service';
+import { SectionActions } from '@app/wiki/store/actions';
+import { RevisionDto } from '@app/wiki/store/models';
+import { SectionDto } from '@app/wiki/store/models';
+import { SectionState } from '@app/wiki/store/state';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
+import { RevisionComponent } from '../revision/revision.component';
+import { SectionActionsComponent } from '../section-actions/section-actions.component';
 import { SectionFormComponent } from '../section-form/section-form.component';
 
 @Component({
@@ -17,6 +24,17 @@ import { SectionFormComponent } from '../section-form/section-form.component';
   templateUrl: './section.component.html',
   styleUrls: ['./section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CollapseModule,
+    FontAwesomeModule,
+    HasAccessDirective,
+    RevisionComponent,
+    SectionActionsComponent,
+    forwardRef(() => SectionComponent),
+  ],
 })
 export class SectionComponent implements OnInit {
   isCollapsed: boolean = false;

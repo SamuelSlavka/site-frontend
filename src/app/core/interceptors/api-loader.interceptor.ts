@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
-import { SessionService } from '@app/wiki/services/session.service';
+import { SessionService } from '@app/core/services/session.service';
 
 @Injectable()
 export class ApiLoaderInterceptor implements HttpInterceptor {
