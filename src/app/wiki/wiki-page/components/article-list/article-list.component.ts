@@ -5,9 +5,9 @@ import { ActionItemComponent } from '@app/shared/components/action-item/action-i
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 import { HasAccessDirective } from '@app/shared/directives/has-access.directive';
 import { PlaceholderComponent } from '@app/shared/components/placeholder/placeholder.component';
-import { ArticleActions } from '@app/wiki/store/actions/article.actions';
-import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
-import { ArticleState } from '@app/wiki/store/state/article.state';
+import { ArticleActions } from '@app/wiki/store/actions';
+import { ArticleListItem, CreateArticle } from '@app/wiki/store/models';
+import { ArticleState } from '@app/wiki/store/state';
 import { TranslateModule } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';

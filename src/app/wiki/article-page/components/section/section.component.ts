@@ -4,10 +4,10 @@ import { ConfirmationModalComponent } from '@app/shared/components/confirmation-
 import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
 import { HasAccessDirective } from '@app/shared/directives/has-access.directive';
 import { SessionService } from '@app/core/services/session.service';
-import { SectionActions } from '@app/wiki/store/actions/section.actions';
-import { RevisionDto } from '@app/wiki/store/models/revision.model';
-import { SectionDto } from '@app/wiki/store/models/section.model';
-import { SectionState } from '@app/wiki/store/state/section.state';
+import { SectionActions } from '@app/wiki/store/actions';
+import { RevisionDto } from '@app/wiki/store/models';
+import { SectionDto } from '@app/wiki/store/models';
+import { SectionState } from '@app/wiki/store/state';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';

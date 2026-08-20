@@ -5,7 +5,7 @@ import { SessionService } from '@app/core/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
+import { MeasurementActions } from '@app/core/store/actions';
 import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
 import { NavComponent } from '@app/shared/components/nav/nav.component';
 import { TranslateModule } from '@ngx-translate/core';

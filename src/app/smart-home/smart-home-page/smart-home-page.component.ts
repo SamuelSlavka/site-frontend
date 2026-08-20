@@ -1,9 +1,8 @@
 import { Component, HostListener, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { SimpleDevice } from '@app/core/store/models/device.model';
-import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
-import { MeasurementState } from '@app/core/store/state/measurements.state';
+import { MeasurementActions } from '@app/core/store/actions';
+import { SimpleDevice, ParsedMeasurements } from '@app/core/store/models';
+import { MeasurementState } from '@app/core/store/state';
 import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
 import { NavComponent } from '@app/shared/components/nav/nav.component';
 import { TranslateModule } from '@ngx-translate/core';

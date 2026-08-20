@@ -28,11 +28,12 @@ import { provideRouter, withComponentInputBinding, withViewTransitions } from '@
 
 import { appRoutes } from './app.routes';
 import { initializer } from '@utils/app-init';
-import { MeasurementState } from './core/store/state/measurements.state';
-import { ScheduledState } from './core/store/state/scheduled.state';
+import { MeasurementState } from './core/store/state';
 import { ApiLoaderInterceptor } from './core/interceptors/api-loader.interceptor';
 import { ApiPrefixInterceptor } from './core/interceptors/api-prefix.interceptor';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
+import { CoreStoreModule } from './core/store/core-store.module';
+import { WikiStoreModule } from './wiki/store/wiki-store.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -45,7 +46,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       KeycloakAngularModule,
       NgxsModule.forRoot([MeasurementState]),
-      NgxsModule.forFeature([ScheduledState]),
+      CoreStoreModule,
+      WikiStoreModule,
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

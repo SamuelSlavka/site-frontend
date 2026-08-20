@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DevicesService } from '@app/core/services/devices.service';
-import { Device, SimpleDevice } from '@app/core/store/models/device.model';
+import { Device, SimpleDevice } from '@app/core/store/models';
 import { BasePageComponent } from '@app/shared/components/base-page/base-page.component';
 import { NavComponent } from '@app/shared/components/nav/nav.component';
 import { TranslateModule } from '@ngx-translate/core';

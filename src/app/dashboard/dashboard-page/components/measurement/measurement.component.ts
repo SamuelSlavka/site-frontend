@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { Measurement } from '@app/core/store/models/measurement.model';
-import { MeasurementState } from '@app/core/store/state/measurements.state';
+import { MeasurementActions } from '@app/core/store/actions';
+import { Measurement } from '@app/core/store/models';
+import { MeasurementState } from '@app/core/store/state';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription, filter } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';

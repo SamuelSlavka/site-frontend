@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScheduledActions } from '@app/core/store/actions/scheduled.actions';
-import { Forecast, Weather } from '@app/core/store/models/scheduled.model';
-import { ScheduledState } from '@app/core/store/state/scheduled.state';
+import { ScheduledActions } from '@app/core/store/actions';
+import { Forecast, Weather } from '@app/core/store/models';
+import { ScheduledState } from '@app/core/store/state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
