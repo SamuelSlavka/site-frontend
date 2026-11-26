@@ -4,25 +4,28 @@ import { ConfirmationModalComponent } from '@app/shared/components/confirmation-
 import { ArticleActions } from '@app/wiki/store/actions/article.actions';
 import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
 import { ArticleState } from '@app/wiki/store/state/article.state';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { filter, Observable } from 'rxjs';
 
 import { ArticleFormComponent } from '../article-form/article-form.component';
 
 @Component({
-  selector: 'app-article-list',
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-list',
+    templateUrl: './article-list.component.html',
+    styleUrls: ['./article-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticleListComponent {
   @Input() articles!: ArticleListItem[];
-  @Select(ArticleState.loading) loading$!: Observable<boolean>;
+  loading$ = this.store.select(ArticleState.loading);
 
   bsModalRef?: BsModalRef;
 
   constructor(private router: Router, private store: Store, private modalService: BsModalService) {}
+
+  ngOnInit() {}
 
   viewArticle(article: ArticleListItem) {
     this.router.navigate([

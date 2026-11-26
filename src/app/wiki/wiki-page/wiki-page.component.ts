@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, Subscription } from 'rxjs';
 
@@ -13,10 +13,11 @@ import { SessionService } from '../services/session.service';
 import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
 
 @Component({
-  selector: 'app-wiki-page',
-  templateUrl: './wiki-page.component.html',
-  styleUrls: ['./wiki-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-wiki-page',
+    templateUrl: './wiki-page.component.html',
+    styleUrls: ['./wiki-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class WikiPageComponent implements OnInit {
   private page: number = 0;
@@ -25,7 +26,7 @@ export class WikiPageComponent implements OnInit {
   isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
   profile$: Observable<KeycloakProfile | undefined> = this.sessionService.profile$;
 
-  @Select(ArticleState.articles) articles$!: Observable<ArticleListItem[]>;
+  articles$ = this.store.select(ArticleState.articles);
 
   constructor(
     private sessionService: SessionService,

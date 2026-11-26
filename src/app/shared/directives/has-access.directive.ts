@@ -3,7 +3,8 @@ import { SessionService } from '@app/wiki/services/session.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
 @Directive({
-  selector: '[appHasAccess]',
+    selector: '[appHasAccess]',
+    standalone: false
 })
 export class HasAccessDirective {
   @Input() isPublic: boolean = false;

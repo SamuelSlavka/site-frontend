@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -67,12 +67,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: KeycloakBearerInterceptor,
       multi: true,
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      multi: true,
-      deps: [KeycloakService],
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (initializer)(inject(KeycloakService));
+        return initializerFn();
+      }),
     provideHttpClient(withInterceptorsFromDi()),
     provideClientHydration(),
     provideAnimations(),

@@ -5,10 +5,11 @@ import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-article-form',
-  templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-form',
+    templateUrl: './article-form.component.html',
+    styleUrls: ['./article-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticleFormComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;

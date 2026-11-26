@@ -1,4 +1,6 @@
-<div *ngIf="{ forecast: (forecast$ | async) }; let context">
-  <span class="text-muted p-0 mb-2">{{ 'label.scheduled.forecastTitle' | translate }}</span>
-  <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
-</div>
+@if ({ forecast: (forecast$ | async) }; as context) {
+  <div>
+    <span class="text-muted p-0 mb-2">{{ 'label.scheduled.forecastTitle' | translate }}</span>
+    <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+  </div>
+}

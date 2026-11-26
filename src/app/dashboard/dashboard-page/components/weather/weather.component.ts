@@ -1,19 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScheduledActions } from '@app/core/store/actions/scheduled.actions';
-import { Forecast, Weather } from '@app/core/store/models/scheduled.model';
-import { ScheduledState } from '@app/core/store/state/scheduled.state';
-import { Select, Store } from '@ngxs/store';
+import { Weather } from '@app/core/store/models/scheduled.model';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { ScheduledState } from '@app/core/store/state/scheduled.state';
 
 @Component({
-  selector: 'app-weather',
-  templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css'],
+    selector: 'app-weather',
+    templateUrl: './weather.component.html',
+    styleUrls: ['./weather.component.css'],
+    standalone: false
 })
 export class WeatherComponent implements OnInit {
-  @Select(ScheduledState.weather) weather$!: Observable<Weather>;
+  weather$!: Observable<Weather | null>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.weather$ = this.store.select(ScheduledState.weather);
+  }
 
   ngOnInit(): void {
     this.store.dispatch(new ScheduledActions.GetLatestWeather());

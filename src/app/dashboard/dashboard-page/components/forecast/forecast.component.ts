@@ -2,18 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ScheduledActions } from '@app/core/store/actions/scheduled.actions';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { ScheduledState } from '@app/core/store/state/scheduled.state';
-import { Select, Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
 import { Observable, Subscription, filter } from 'rxjs';
+import { Store } from '@ngxs/store';
 
 @Component({
-  selector: 'app-forecast',
-  templateUrl: './forecast.component.html',
-  styleUrl: './forecast.component.scss',
+    selector: 'app-forecast',
+    templateUrl: './forecast.component.html',
+    styleUrl: './forecast.component.scss',
+    standalone: false
 })
 export class ForecastComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  @Select(ScheduledState.forecast) forecast$!: Observable<ParsedMeasurements>;
+  forecast$ = this.store.select(ScheduledState.forecast);
 
   public options!: EChartsOption;
   public updateOptions: EChartsOption = {};

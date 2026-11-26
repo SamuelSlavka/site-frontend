@@ -6,17 +6,18 @@ import { SectionActions } from '@app/wiki/store/actions/section.actions';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { SectionDto } from '@app/wiki/store/models/section.model';
 import { SectionState } from '@app/wiki/store/state/section.state';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 import { SectionFormComponent } from '../section-form/section-form.component';
 
 @Component({
-  selector: 'app-section',
-  templateUrl: './section.component.html',
-  styleUrls: ['./section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-section',
+    templateUrl: './section.component.html',
+    styleUrls: ['./section.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SectionComponent implements OnInit {
   isCollapsed: boolean = false;
@@ -24,7 +25,7 @@ export class SectionComponent implements OnInit {
 
   @Input() selected!: string;
   @Input() isPublic: boolean = false;
-  @Select(SectionState.selectSections) sections$!: Observable<Record<string, SectionDto>>;
+  sections$!: Observable<Record<string, SectionDto>>;
 
   selected$!: Observable<SectionDto | null>;
   isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
@@ -32,6 +33,7 @@ export class SectionComponent implements OnInit {
 
   constructor(private sessionService: SessionService, private store: Store, private modalService: BsModalService) {}
   ngOnInit(): void {
+    this.sections$ = this.store.select(SectionState.selectSections);
     this.selected$ = this.sections$.pipe(map((sections) => sections[this.selected]));
   }
 

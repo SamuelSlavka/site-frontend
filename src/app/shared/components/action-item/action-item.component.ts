@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
-  selector: 'app-action-item',
-  templateUrl: './action-item.component.html',
-  styleUrls: ['./action-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-action-item',
+    templateUrl: './action-item.component.html',
+    styleUrls: ['./action-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ActionItemComponent {
   @Output() action: EventEmitter<void> = new EventEmitter<void>();

@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular
 import { NavComponent } from '../nav/nav.component';
 
 @Component({
-  selector: 'app-base-page',
-  templateUrl: './base-page.component.html',
-  styleUrls: ['./base-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-base-page',
+    templateUrl: './base-page.component.html',
+    styleUrls: ['./base-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BasePageComponent {
   @Input() showContent: string | null = null;

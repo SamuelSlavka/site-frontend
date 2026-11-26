@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-access-denied',
-  templateUrl: './access-denied.component.html',
-  styleUrls: ['./access-denied.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-access-denied',
+    templateUrl: './access-denied.component.html',
+    styleUrls: ['./access-denied.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AccessDeniedComponent implements OnInit {
   message = 'message';

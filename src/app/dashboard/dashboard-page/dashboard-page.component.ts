@@ -7,9 +7,10 @@ import { Store } from '@ngxs/store';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 
 @Component({
-  selector: 'app-dashboard-page',
-  templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.scss'],
+    selector: 'app-dashboard-page',
+    templateUrl: './dashboard-page.component.html',
+    styleUrls: ['./dashboard-page.component.scss'],
+    standalone: false
 })
 export class DashboardPageComponent implements OnInit {
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
