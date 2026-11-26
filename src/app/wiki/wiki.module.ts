@@ -40,10 +40,10 @@ import { WikiRoutingModule } from './wiki-routing.module';
     WikiRoutingModule,
     NgxsModule.forFeature([ArticleState]),
     NgxsModule.forFeature([SectionState]),
-    BsDropdownModule.forRoot(),
+    BsDropdownModule,
     MarkdownModule.forRoot(),
-    CollapseModule.forRoot(),
-    TooltipModule.forRoot(),
+    CollapseModule,
+    TooltipModule,
   ],
 })
 export class WikiModule {

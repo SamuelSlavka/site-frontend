@@ -32,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     CommonModule,
     FontAwesomeModule,
-    BsDropdownModule.forRoot(),
+    BsDropdownModule,
     NgxsModule.forRoot([MeasurementState]),
     NgxsModule.forFeature([ScheduledState]),
     TranslateModule.forRoot({
