@@ -7,9 +7,9 @@
     "build": "ng build",
     "build:prod": "ng build --configuration production --aot --output-hashing=all",
     "watch": "ng build --watch --configuration development",
-    "lint:ts": "eslint --color -c .eslintrc --ext .ts .",
+    "lint": "ng lint",
     "lint:html": "npx htmlhint \"src\" --config .htmlhintrc",
-    "test": "ng test"
+    "test": "ng test --watch=false"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +53,7 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "21.4.0",
     "@angular/build": "^21.2.31",
     "@angular/cli": "~21.2.31",
     "@angular/compiler-cli": "^21.2.26",
@@ -62,17 +63,16 @@
     "@babel/parser": "7.28.5",
     "@babel/traverse": "7.28.5",
     "@babel/types": "7.28.5",
-    "@types/jasmine": "~4.3.0",
+    "@eslint/js": "^10.0.1",
     "@types/marked": "^4.3.0",
+    "angular-eslint": "21.4.0",
+    "eslint": "^10.3.0",
     "htmlhint": "^1.1.4",
-    "jasmine-core": "~4.5.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
+    "jsdom": "^31.0.1",
     "stylelint": "15.4.0",
     "stylelint-config-standard": "^32.0.0",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "typescript-eslint": "8.59.2",
+    "vitest": "^4"
   }
 }

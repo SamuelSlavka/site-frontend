@@ -1,7 +1,5 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { WikiModule } from 'src/app/wiki/wiki.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticlePageComponent } from './article-page.component';
 
@@ -9,12 +7,12 @@ describe('ArticlePageComponent', () => {
   let component: ArticlePageComponent;
   let fixture: ComponentFixture<ArticlePageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ArticlePageComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [WikiModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticlePageComponent);

@@ -16,7 +16,6 @@ import { ApiLoaderInterceptor } from './interceptors/api-loader.interceptor';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MeasurementState } from './store/state/measurements.state';
-import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ScheduledState } from './store/state/scheduled.state';

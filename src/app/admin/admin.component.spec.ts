@@ -1,3 +1,4 @@
+import { AdminModule } from 'src/app/admin/admin.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminComponent } from './admin.component';
 
@@ -7,7 +8,7 @@ describe('AdminComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminComponent],
+      imports: [AdminModule],
     }).compileComponents();
   });
 

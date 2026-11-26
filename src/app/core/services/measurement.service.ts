@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,7 +9,7 @@ import { Measurement } from '../store/models/measurement.model';
   providedIn: 'root',
 })
 export class MeasurementService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getAllMeasurements(offset: number, deviceId: string): Observable<Measurement[]> {
     return this.http.get<Measurement[]>(`${environment.serverUrl}measurements?offset=${offset}&deviceId=${deviceId}`);

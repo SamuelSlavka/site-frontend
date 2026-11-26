@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { SessionService } from '@app/wiki/services/session.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 
@@ -7,7 +7,11 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
     standalone: false
 })
 export class HasAccessDirective {
-  @Input() isPublic: boolean = false;
+  private templateRef = inject<TemplateRef<Element>>(TemplateRef);
+  private viewContainerRef = inject(ViewContainerRef);
+  private sessionService = inject(SessionService);
+
+  @Input() isPublic = false;
 
   @Input() set appHasAccess(creatorId: string | undefined) {
     combineLatest([this.isAdmin$, this.sessionService.profile$]).subscribe(([admin, profile]) => {
@@ -21,10 +25,4 @@ export class HasAccessDirective {
   }
 
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
-
-  constructor(
-    private templateRef: TemplateRef<Element>,
-    private viewContainerRef: ViewContainerRef,
-    private sessionService: SessionService,
-  ) {}
 }

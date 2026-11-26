@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '@app/wiki/services/session.service';
 import { KeycloakService } from 'keycloak-angular';
@@ -13,16 +13,15 @@ import { BehaviorSubject, Subject } from 'rxjs';
     standalone: false
 })
 export class LoginComponent {
-  constructor(
-    private keycloakService: KeycloakService,
-    private sessionService: SessionService,
-    private router: Router,
-  ) {}
+  private keycloakService = inject(KeycloakService);
+  private sessionService = inject(SessionService);
+  private router = inject(Router);
+
   isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
   isLoggedIn$: BehaviorSubject<boolean> = this.sessionService.isLoggedIn$;
   showActions$: BehaviorSubject<boolean> = this.sessionService.showActions$;
   profile$: Subject<KeycloakProfile | undefined> = this.sessionService.profile$;
-  email: string = '';
+  email = '';
 
   toggleShowActions() {
     const show = this.showActions$.getValue();

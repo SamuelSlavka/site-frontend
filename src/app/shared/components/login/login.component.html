@@ -1,4 +1,4 @@
-@if (!(isLoggedIn$ | async)) {
+@if ((isLoggedIn$ | async) !== true) {
   <button class="btn btn-primary" aria-labelledby="login" (click)="login()">
     {{ 'button.login' | translate }}
   </button>
@@ -20,7 +20,7 @@
           @if (showActions$ | async) {
             <span>{{ 'action.login.hide' | translate }}</span>
           } @else {
-            @if (!(showActions$ | async)) {
+            @if ((showActions$ | async) !== true) {
               <span>{{ 'action.login.show' | translate }}</span>
             }
           }

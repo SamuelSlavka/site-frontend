@@ -6,5 +6,4 @@ import { environment } from 'src/environments/environment';
 })
 export class EnvironmentUrlService {
   public url: string = environment.serverUrl;
-  constructor() {}
 }

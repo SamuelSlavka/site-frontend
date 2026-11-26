@@ -11,5 +11,5 @@ import { NavComponent } from '../nav/nav.component';
 export class BasePageComponent {
   @Input() showContent: string | null = null;
   @Input() navTemplate: TemplateRef<NavComponent> | null = null;
-  @Input() contentTemplate: TemplateRef<any> | null = null;
+  @Input() contentTemplate: TemplateRef<unknown> | null = null;
 }

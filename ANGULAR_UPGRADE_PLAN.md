@@ -9,16 +9,15 @@ Target: Angular **22.3.0** (latest). Branch: `angular22-upgrade`. Package manage
 | Angular 18 → 19 → 20 | Done (`9f78187`) |
 | Angular 21 ecosystem libs (ng-bootstrap 20, ngxs 21, keycloak-angular 21, ngx-markdown 21, ngx-echarts 21, angular-fontawesome 4) | Done (`523ebba`) |
 | Angular 21 core (21.2.26), CLI/build 21.2.31, TypeScript 5.9.3 | Done (Phase A) — dev + prod build pass |
-| Phase B cleanup | Next |
+| Phase B step 0: test/lint tooling, build warnings | Done |
+| Phase B cleanup (deps) | Next |
 | Angular 22 | Not started |
 
-### Pre-existing gaps (not caused by the upgrade)
+### Tooling (Phase B step 0)
 
-- **Unit tests do not compile**: 18 of 39 specs import the removed `async` from `@angular/core/testing` (use `waitForAsync`), and the `test` target in `angular.json` lacks `stylePreprocessorOptions.includePaths`, so global SCSS imports fail. No Chrome/Chromium is installed for `ChromeHeadless`. A stray `jest.config.js` also exists.
-- **`yarn lint:ts` cannot run**: `eslint` is not in `devDependencies`.
-- **`yarn lint:html`**: 11 errors, identical on the Angular 18 baseline.
-
-Environment: Node 24.18.0 (satisfies Angular 22 `^22.22.3 \|\| ^24.15.0 \|\| >=26`).
+- Unit tests: Karma/Jasmine/Jest replaced by the `@angular/build:unit-test` builder with Vitest + jsdom (no browser needed). Shared test providers live in `src/test-providers.ts`; it must not import app code (see comment there). All 39 spec files / 40 tests pass; none were removed.
+- Lint: `angular-eslint` 21 flat config (`eslint.config.js`), run with `yarn lint`. `prefer-standalone` is off until the standalone migration; `no-namespace` is off for NGXS action files. The `inject()` migration was applied. `yarn lint:html` (htmlhint) is clean.
+- Build warnings: SCSS moved from `@import` to `@use`; Bootstrap is now compiled once with the theme variables (it was imported four times, which left derived values such as `--bs-*-rgb`, focus rings and `.table-*` on Bootstrap's default palette). Unused ngx-bootstrap datepicker CSS removed. Dev and prod builds have no warnings.
 
 ### Known issues
 
@@ -46,7 +45,7 @@ Environment: Node 24.18.0 (satisfies Angular 22 `^22.22.3 \|\| ^24.15.0 \|\| >=2
 
 ### B. Cleanup on 21 (version-neutral changes)
 
-0. Restore the validation tooling: add `eslint` (+ Angular ESLint config), fix specs (`async` → `waitForAsync`, add `stylePreprocessorOptions` to the `test` target), make ChromeHeadless available (or switch to Vitest), and remove `jest.config.js` if unused.
+0. ~~Restore the validation tooling~~ — done (see Tooling above).
 1. Remove unused dependencies listed above, building after each.
 2. Upgrade packages compatible with both 21 and 22:
    - `@ngx-translate/core` / `@ngx-translate/http-loader` → 18.1.0 (check `TranslateModule.forRoot` loader config)
@@ -80,9 +79,9 @@ Run the validation matrix and manual checks, update this file, merge to `main`.
 After every phase / package group:
 
 - `yarn install --frozen-lockfile`
-- `yarn lint:ts` and `yarn lint:html`
+- `yarn lint` and `yarn lint:html`
 - `yarn build` and `yarn build:prod`
-- `yarn test --watch=false --browsers=ChromeHeadless`
+- `yarn test`
 - `git diff --check`
 
 Manual checks:
@@ -97,7 +96,6 @@ Manual checks:
 
 - Standalone conversion (`ng g @angular/core:standalone`) — 29 files still use `standalone: false`
 - Control-flow / signal input migrations, zoneless change detection
-- Karma → Vitest
 
 ## Rollback policy
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class NotFoundComponent {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   back() {
     this.router.navigate(['']);

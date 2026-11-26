@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -14,13 +14,15 @@ import { SectionState } from '../store/state/section.state';
     standalone: false
 })
 export class ArticlePageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private store = inject(Store);
+  private router = inject(Router);
+
   public title!: string;
-  public isPublic: boolean = false;
+  public isPublic = false;
 
   selected$!: Observable<string | null>;
   loading$!: Observable<boolean>;
-
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title') ?? '';

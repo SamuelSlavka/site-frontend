@@ -1,26 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles. Theme variables live in styles/_variables.scss. */
+@use 'variables' as vars;
 
-/* Importing Bootstrap SCSS file. */
-@import 'node_modules/bootstrap/scss/bootstrap';
+@use 'styles/app';
 
-/* Importing Datepicker SCSS file. */
-@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-/* Importing Bootstrap SCSS file. */
-@import './node_modules/bootstrap/scss/bootstrap';
-
-/* Importing Datepicker SCSS file. */
-@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-@import 'styles/app.scss';
-
-@import 'styles/variables';
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: vars.$primary,
+  $secondary: vars.$secondary,
+  $success: vars.$success,
+  $info: vars.$info,
+  $warning: vars.$warning,
+  $danger: vars.$danger,
+  $light: vars.$light,
+  $dark: vars.$dark,
+  $theme-colors: vars.$theme-colors,
+  $body-bg: vars.$body-bg,
+  $body-bg-dark: vars.$body-bg-dark,
+  $border-radius: vars.$border-radius
+);

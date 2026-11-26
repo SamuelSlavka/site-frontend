@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 import { LoginPromptComponent } from '@app/shared/components/login-prompt/login-prompt.component';
 import { SessionService } from '@app/wiki/services/session.service';
@@ -20,18 +20,20 @@ import { SectionFormComponent } from '../section-form/section-form.component';
     standalone: false
 })
 export class SectionComponent implements OnInit {
-  isCollapsed: boolean = false;
+  private sessionService = inject(SessionService);
+  private store = inject(Store);
+  private modalService = inject(BsModalService);
+
+  isCollapsed = false;
   bsModalRef?: BsModalRef;
 
   @Input() selected!: string;
-  @Input() isPublic: boolean = false;
+  @Input() isPublic = false;
   sections$!: Observable<Record<string, SectionDto>>;
 
   selected$!: Observable<SectionDto | null>;
   isLoggedIn$: Observable<boolean> = this.sessionService.isLoggedIn$;
   showActions$: BehaviorSubject<boolean> = this.sessionService.showActions$;
-
-  constructor(private sessionService: SessionService, private store: Store, private modalService: BsModalService) {}
   ngOnInit(): void {
     this.sections$ = this.store.select(SectionState.selectSections);
     this.selected$ = this.sections$.pipe(map((sections) => sections[this.selected]));

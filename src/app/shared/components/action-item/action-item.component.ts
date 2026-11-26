@@ -13,7 +13,7 @@ export class ActionItemComponent {
 
   @Input() icon: IconProp = 'plus';
   @Input() text: string | undefined;
-  @Input() size: string = 'sm';
+  @Input() size = 'sm';
 
   trigger(event: Event) {
     event.stopPropagation();

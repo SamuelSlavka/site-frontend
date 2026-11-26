@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,7 +8,9 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class AppComponent {
-  constructor(translate: TranslateService) {
+  constructor() {
+    const translate = inject(TranslateService);
+
     translate.reloadLang('en');
     translate.addLangs(['en']);
     translate.setDefaultLang('en');

@@ -17,15 +17,23 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "allowedCommonJsDependencies": ["js-sha256"],
+            "allowedCommonJsDependencies": [
+              "js-sha256"
+            ],
             "outputPath": {
               "base": "dist/site-frontend"
             },
             "index": "src/index.html",
-            "polyfills": ["zone.js", "@angular/localize/init"],
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
@@ -42,7 +50,12 @@
               "node_modules/clipboard/dist/clipboard.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/", "src/assets", "src/styles", "."]
+              "includePaths": [
+                "node_modules/",
+                "src/assets",
+                "src/styles",
+                "."
+              ]
             },
             "browser": "src/main.ts"
           },
@@ -110,21 +123,31 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing", "@angular/localize/init"],
+            "buildTarget": "::development",
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "runner": "vitest",
+            "providersFile": "src/test-providers.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "schematics": {
     "@schematics/angular:component": {

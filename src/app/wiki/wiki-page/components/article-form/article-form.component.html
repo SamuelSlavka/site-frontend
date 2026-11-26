@@ -1,13 +1,13 @@
 <div class="modal-header pb-0 border-0">
   @if (!isEdit) {
-    <label class="input fw-bold h5 mb-0">
+    <span class="input fw-bold h5 mb-0">
       {{ 'label.article.create' | translate }}
-    </label>
+    </span>
   }
   @if (isEdit) {
-    <label class="input fw-bold h5 mb-0">
+    <span class="input fw-bold h5 mb-0">
       {{ 'label.article.edit' | translate }}
-    </label>
+    </span>
   }
 </div>
 <form class="modal-body" [formGroup]="form">
@@ -17,11 +17,11 @@
   <input name="text-input" class="w-100" formControlName="title" />
   <div class="row m-0">
     <div class="form-check mt-3 col">
-      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="isPrivate" />
+      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="is-private" />
       <label
         class="form-check-label pointer"
         [ngClass]="{ 'text-muted': form.value.isPubliclyEditable }"
-        for="isPrivate"
+        for="is-private"
         >
         {{ 'toggle.setPrivate' | translate }}
       </label>
@@ -36,12 +36,12 @@
         type="checkbox"
         class="form-check-input pointer"
         formControlName="isPubliclyEditable"
-        id="isPubliclyEditable"
+        id="is-publicly-editable"
         />
       <label
         class="form-check-label pointer"
         [ngClass]="{ 'text-muted': form.value.isPrivate }"
-        for="isPubliclyEditable"
+        for="is-publicly-editable"
         >
         {{ 'toggle.setFullyPublic' | translate }}
       </label>

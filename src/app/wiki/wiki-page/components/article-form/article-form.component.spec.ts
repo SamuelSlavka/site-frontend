@@ -1,7 +1,5 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { WikiModule } from 'src/app/wiki/wiki.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticleFormComponent } from './article-form.component';
 
@@ -9,11 +7,11 @@ describe('ArticleFormComponent', () => {
   let component: ArticleFormComponent;
   let fixture: ComponentFixture<ArticleFormComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ArticleFormComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [WikiModule],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleFormComponent);

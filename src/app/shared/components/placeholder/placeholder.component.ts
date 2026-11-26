@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-placeholder',
@@ -9,6 +9,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlaceholderComponent {
   @Input() loading!: Observable<boolean>;
-  @Input() count: number = 4;
-  @Input() height: number = 3.5;
+  @Input() count = 4;
+  @Input() height = 3.5;
 }

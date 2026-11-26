@@ -1,4 +1,4 @@
-@import '/src/styles/variables';
+@use 'variables' as *;
 
 .section-item {
   &:hover {
@@ -12,4 +12,8 @@
   &:hover {
     color: $primary;
   }
+}
+
+.toggle-icon {
+  opacity: 0.5;
 }

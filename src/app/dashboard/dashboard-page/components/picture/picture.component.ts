@@ -14,8 +14,8 @@ export class PictureComponent implements OnInit {
       this.background = `url(${img.src})`;
     };
   }
-  @Input() imgnum: number = 1;
+  @Input() imgnum = 1;
 
   @HostBinding('style.background-image')
-  background: string = '';
+  background = '';
 }

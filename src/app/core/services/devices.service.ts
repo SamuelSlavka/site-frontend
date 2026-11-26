@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Device, SimpleDevice } from '../store/models/device.model';
@@ -8,7 +8,7 @@ import { Device, SimpleDevice } from '../store/models/device.model';
   providedIn: 'root',
 })
 export class DevicesService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   createDevice(form: { name: string; isMain: boolean }): Observable<Device> {
     return this.http.post<Device>(`${environment.serverUrl}devices`, form);

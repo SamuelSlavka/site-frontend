@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
@@ -12,12 +12,14 @@ import { Subject } from 'rxjs';
     standalone: false
 })
 export class SectionFormComponent implements OnInit {
-  isEdit: boolean = false;
+  options = inject(ModalOptions);
+  private bsModalRef = inject(BsModalRef);
+  private fb = inject(FormBuilder);
+
+  isEdit = false;
   initData!: RevisionDto;
   form!: FormGroup;
-  public onClose: Subject<string> = new Subject();
-
-  constructor(public options: ModalOptions, private bsModalRef: BsModalRef, private fb: FormBuilder) {}
+  public onClose = new Subject<string>();
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -33,5 +35,10 @@ export class SectionFormComponent implements OnInit {
 
   cancel() {
     this.bsModalRef.hide();
+  }
+
+  autoResize(textArea: HTMLTextAreaElement) {
+    textArea.style.height = '';
+    textArea.style.height = `${textArea.scrollHeight + 3}px`;
   }
 }

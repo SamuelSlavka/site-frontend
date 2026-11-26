@@ -6,7 +6,7 @@
   ></app-placeholder>
 }
 
-@if (articles.length === 0 && !(loading$ | async)) {
+@if (articles.length === 0 && (loading$ | async) !== true) {
   <div class="text-center">
     <span class="h6 m-0 p-0 mx-3">{{ 'label.article.notFound' | translate }}</span>
   </div>
@@ -16,7 +16,9 @@
   @for (article of articles; track article) {
     <li
       class="pointer mx-0 mt-1 p-2 row article-item rounded bg-dark d-flex align-items-center"
+      tabindex="0"
       (click)="viewArticle(article)"
+      (keydown.enter)="viewArticle(article)"
       >
       <div class="col my-2">
         {{ article.title }}

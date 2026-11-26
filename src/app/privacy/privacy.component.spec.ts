@@ -1,3 +1,4 @@
+import { PrivacyModule } from 'src/app/privacy/privacy.module';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrivacyComponent } from './privacy.component';
@@ -8,7 +9,7 @@ describe('PrivacyComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PrivacyComponent],
+      imports: [PrivacyModule],
     }).compileComponents();
   });
 

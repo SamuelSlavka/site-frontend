@@ -1,11 +1,10 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { SimpleDevice } from '@app/core/store/models/device.model';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
 import { Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-smart-home-page',
@@ -14,19 +13,19 @@ import { Observable, Subscription } from 'rxjs';
     standalone: false
 })
 export class SmartHomePageComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
+
   private subscription: Subscription = new Subscription();
   private gridOffset = '35';
 
   public options!: EChartsOption;
   public updateOptions: Record<string, EChartsOption> = {};
 
-  constructor(private readonly store: Store) {}
-
   loading$ = this.store.select(MeasurementState.loading);
   measurements$ = this.store.select(MeasurementState.allMeasurements);
   devices$ = this.store.select(MeasurementState.allDevices);
 
-  setOffset(deviceId: string, offset: number = 0) {
+  setOffset(deviceId: string, offset = 0) {
     this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
   }
 
