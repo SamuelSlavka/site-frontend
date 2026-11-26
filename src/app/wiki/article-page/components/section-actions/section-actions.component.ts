@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SectionDto } from '@app/wiki/store/models/section.model';
 
 @Component({
-  selector: 'app-section-actions',
-  templateUrl: './section-actions.component.html',
-  styleUrls: ['./section-actions.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-section-actions',
+    templateUrl: './section-actions.component.html',
+    styleUrls: ['./section-actions.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SectionActionsComponent {
   @Input() section: SectionDto | null = null;

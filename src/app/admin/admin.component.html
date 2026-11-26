@@ -12,8 +12,8 @@
       </div>
       <div class="row m-0">
         <div class="form-check mt-3 col">
-          <input type="checkbox" class="form-check-input pointer" formControlName="isMain" id="isMain" />
-          <label class="form-check-label pointer" for="isMain">
+          <input type="checkbox" class="form-check-input pointer" formControlName="isMain" id="is-main" />
+          <label class="form-check-label pointer" for="is-main">
             {{ 'toggle.isMain' | translate }}
           </label>
         </div>
@@ -25,16 +25,18 @@
     </button>
   </div>
   <div class="border-bottom border-top py-3 my-3">
-    <div *ngFor="let device of this.devices$ | async" class="row m-0">
-      <div class="row m-0 mb-2 rounded p-1" [ngClass]="{ 'bg-primary': device.isMain }">
-        <div class="col-2 text-break">{{ device.name }}</div>
-        <div class="col text-break">{{ device.id }}</div>
-        <div class="col-auto">{{ device.isMain }}</div>
-        <div class="col-auto">
-          <button class="btn btn-sm btn-danger" (click)="deleteDevice(device.id)">delete</button>
+    @for (device of this.devices$ | async; track device) {
+      <div class="row m-0">
+        <div class="row m-0 mb-2 rounded p-1" [ngClass]="{ 'bg-primary': device.isMain }">
+          <div class="col-2 text-break">{{ device.name }}</div>
+          <div class="col text-break">{{ device.id }}</div>
+          <div class="col-auto">{{ device.isMain }}</div>
+          <div class="col-auto">
+            <button class="btn btn-sm btn-danger" (click)="deleteDevice(device.id)">delete</button>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 </ng-template>
 

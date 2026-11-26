@@ -28,4 +28,4 @@ export interface CreateArticle {
   isPubliclyEditable: boolean;
 }
 
-export interface EditArticle extends CreateArticle {}
+export type EditArticle = CreateArticle;

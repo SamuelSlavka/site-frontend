@@ -1,7 +1,5 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlaceholderComponent } from './placeholder.component';
 
@@ -9,12 +7,12 @@ describe('PlaceholderComponent', () => {
   let component: PlaceholderComponent;
   let fixture: ComponentFixture<PlaceholderComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PlaceholderComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SharedModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlaceholderComponent);

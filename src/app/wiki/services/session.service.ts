@@ -1,7 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
+import { Injectable, inject } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
-import { BehaviorSubject, from, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserRoles } from '../enums/user-roles.enum';
 
@@ -9,15 +9,17 @@ import { UserRoles } from '../enums/user-roles.enum';
   providedIn: 'root',
 })
 export class SessionService {
+  private keycloakService = inject(KeycloakService);
+
   public hasSession = false;
-  isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  userId$: Subject<string | undefined> = new Subject();
+  isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  userId$ = new Subject<string | undefined>();
   profile$: Subject<KeycloakProfile | undefined> = new BehaviorSubject<KeycloakProfile | undefined>(undefined);
-  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  showActions$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  isAdmin$ = new BehaviorSubject<boolean>(false);
+  showActions$ = new BehaviorSubject<boolean>(true);
   isProd = environment.production;
 
-  constructor(private keycloakService: KeycloakService) {
+  constructor() {
     this.profile$.next(undefined);
     this.userId$.next(undefined);
     this.isAdmin$.next(this.isProd ? false : true);

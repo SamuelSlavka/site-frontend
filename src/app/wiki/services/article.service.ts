@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Article, ArticleListItem, CreateArticle } from '../store/models/article.model';
@@ -8,9 +8,9 @@ import { Article, ArticleListItem, CreateArticle } from '../store/models/article
   providedIn: 'root',
 })
 export class ArticleService {
-  static offset = 10;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  static offset = 10;
 
   getArticles(page: number): Observable<ArticleListItem[]> {
     return this.http.get<ArticleListItem[]>(

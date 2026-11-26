@@ -1,25 +1,28 @@
-import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateArticle, EditArticle } from '@app/wiki/store/models/article.model';
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-article-form',
-  templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-form',
+    templateUrl: './article-form.component.html',
+    styleUrls: ['./article-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticleFormComponent implements OnInit, OnDestroy {
-  isEdit: boolean = false;
+  options = inject(ModalOptions);
+  private bsModalRef = inject(BsModalRef);
+  private fb = inject(FormBuilder);
+
+  isEdit = false;
   initData!: EditArticle;
 
   form!: FormGroup;
 
   subscription: Subscription = new Subscription();
-  public onClose: Subject<CreateArticle> = new Subject();
-
-  constructor(public options: ModalOptions, private bsModalRef: BsModalRef, private fb: FormBuilder) {}
+  public onClose = new Subject<CreateArticle>();
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

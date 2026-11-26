@@ -1,7 +1,8 @@
-<button *ngIf="!(isLoggedIn$ | async); else profile" class="btn btn-primary" aria-labelledby="login" (click)="login()">
-  {{ 'button.login' | translate }}
-</button>
-<ng-template #profile>
+@if ((isLoggedIn$ | async) !== true) {
+  <button class="btn btn-primary" aria-labelledby="login" (click)="login()">
+    {{ 'button.login' | translate }}
+  </button>
+} @else {
   <div dropdown class="d-inline-block btn-group dropdown-wrapper" container="body">
     <button
       type="button"
@@ -10,20 +11,25 @@
       aria-labelledby="actions"
       aria-controls="profile-dorpdown"
       dropdownToggle
-    >
+      >
       {{ (profile$ | async)?.email }}
     </button>
     <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="profile-dorpdown">
       <li role="menuitem">
         <button class="dropdown-item" href="#" (click)="toggleShowActions()" aria-labelledby="togge-edit">
-          <span *ngIf="showActions$ | async; else enable">{{ 'action.login.hide' | translate }}</span>
-          <ng-template #enable>
-            <span *ngIf="!(showActions$ | async)">{{ 'action.login.show' | translate }}</span>
-          </ng-template>
+          @if (showActions$ | async) {
+            <span>{{ 'action.login.hide' | translate }}</span>
+          } @else {
+            @if ((showActions$ | async) !== true) {
+              <span>{{ 'action.login.show' | translate }}</span>
+            }
+          }
         </button>
-        <button *ngIf="isAdmin$ | async" class="dropdown-item" (click)="goToAdmin()" aria-labelledby="admin-page">
-          <span>{{ 'action.login.admin' | translate }}</span>
-        </button>
+        @if (isAdmin$ | async) {
+          <button class="dropdown-item" (click)="goToAdmin()" aria-labelledby="admin-page">
+            <span>{{ 'action.login.admin' | translate }}</span>
+          </button>
+        }
       </li>
       <li role="menuitem">
         <button class="dropdown-item" href="#" (click)="logout()" aria-labelledby="logout">
@@ -32,4 +38,4 @@
       </li>
     </ul>
   </div>
-</ng-template>
+}

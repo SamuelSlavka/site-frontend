@@ -1,21 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { Measurement } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
-import { Select, Store } from '@ngxs/store';
-import { Observable, Subscription, filter } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { Subscription, filter } from 'rxjs';
 
 @Component({
-  selector: 'app-measurement',
-  templateUrl: './measurement.component.html',
-  styleUrls: ['./measurement.component.css'],
+    selector: 'app-measurement',
+    templateUrl: './measurement.component.html',
+    styleUrls: ['./measurement.component.css'],
+    standalone: false
 })
 export class MeasurementComponent implements OnInit, OnDestroy {
-  @Select(MeasurementState.latestMeasurement) latest$!: Observable<Measurement>;
+  private store = inject(Store);
+
+  latest$ = this.store.select(MeasurementState.latestMeasurement);
   subscription = new Subscription();
   timeout!: ReturnType<typeof setTimeout>;
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(new MeasurementActions.GetLatest());

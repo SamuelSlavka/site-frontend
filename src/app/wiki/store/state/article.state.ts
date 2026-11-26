@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Article, ArticleListItem } from '../models/article.model';
 import { ArticleActions } from '../actions/article.actions';
@@ -19,7 +19,8 @@ export interface ArticleStateModel {
 })
 @Injectable()
 export class ArticleState {
-  constructor(private toastr: ToastrService, private articleService: ArticleService) {}
+  private toastr = inject(ToastrService);
+  private articleService = inject(ArticleService);
 
   @Action(ArticleActions.GetOne)
   getOneArticle(ctx: StateContext<ArticleStateModel>, action: ArticleActions.GetOne) {

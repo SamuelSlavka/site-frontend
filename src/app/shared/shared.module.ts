@@ -18,7 +18,7 @@ import { LoginPromptComponent } from './components/login-prompt/login-prompt.com
 import { ActionItemComponent } from './components/action-item/action-item.component';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,10 +33,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    ModalModule.forRoot(),
-    BsDropdownModule.forRoot(),
+    ModalModule,
+    BsDropdownModule,
     TranslateModule,
-    TooltipModule.forRoot(),
+    TooltipModule,
     NgbTooltipModule,
     ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
   ],

@@ -1,5 +1,4 @@
-import { Device, SimpleDevice } from '@app/core/store/models/device.model';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, of, tap } from 'rxjs';
@@ -27,7 +26,8 @@ export interface ScheduledStateModel {
 })
 @Injectable()
 export class ScheduledState {
-  constructor(private toastr: ToastrService, private scheduledService: ScheduledService) {}
+  private toastr = inject(ToastrService);
+  private scheduledService = inject(ScheduledService);
 
   @Action(ScheduledActions.GetLatestWeather)
   getWeather(ctx: StateContext<ScheduledStateModel>) {

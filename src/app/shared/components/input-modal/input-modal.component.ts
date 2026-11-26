@@ -1,20 +1,22 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-input-modal',
-  templateUrl: './input-modal.component.html',
-  styleUrls: ['./input-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-input-modal',
+    templateUrl: './input-modal.component.html',
+    styleUrls: ['./input-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputModalComponent implements OnInit {
-  public onClose: Subject<string> = new Subject();
-  form!: FormGroup;
-  @Input() label: string = '';
+  private bsModalRef = inject(BsModalRef);
+  private fb = inject(FormBuilder);
 
-  constructor(private bsModalRef: BsModalRef, private fb: FormBuilder) {}
+  public onClose = new Subject<string>();
+  form!: FormGroup;
+  @Input() label = '';
 
   ngOnInit() {
     this.form = this.fb.group({

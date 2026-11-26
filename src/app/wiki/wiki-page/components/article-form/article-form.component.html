@@ -1,10 +1,14 @@
 <div class="modal-header pb-0 border-0">
-  <label *ngIf="!isEdit" class="input fw-bold h5 mb-0">
-    {{ 'label.article.create' | translate }}
-  </label>
-  <label *ngIf="isEdit" class="input fw-bold h5 mb-0">
-    {{ 'label.article.edit' | translate }}
-  </label>
+  @if (!isEdit) {
+    <span class="input fw-bold h5 mb-0">
+      {{ 'label.article.create' | translate }}
+    </span>
+  }
+  @if (isEdit) {
+    <span class="input fw-bold h5 mb-0">
+      {{ 'label.article.edit' | translate }}
+    </span>
+  }
 </div>
 <form class="modal-body" [formGroup]="form">
   <label for="text-input">
@@ -13,12 +17,12 @@
   <input name="text-input" class="w-100" formControlName="title" />
   <div class="row m-0">
     <div class="form-check mt-3 col">
-      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="isPrivate" />
+      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="is-private" />
       <label
         class="form-check-label pointer"
         [ngClass]="{ 'text-muted': form.value.isPubliclyEditable }"
-        for="isPrivate"
-      >
+        for="is-private"
+        >
         {{ 'toggle.setPrivate' | translate }}
       </label>
       <fa-icon
@@ -32,13 +36,13 @@
         type="checkbox"
         class="form-check-input pointer"
         formControlName="isPubliclyEditable"
-        id="isPubliclyEditable"
-      />
+        id="is-publicly-editable"
+        />
       <label
         class="form-check-label pointer"
         [ngClass]="{ 'text-muted': form.value.isPrivate }"
-        for="isPubliclyEditable"
-      >
+        for="is-publicly-editable"
+        >
         {{ 'toggle.setFullyPublic' | translate }}
       </label>
       <fa-icon
@@ -50,12 +54,16 @@
   </div>
   <div class="d-flex flex-row-reverse mt-3">
     <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">
-      <span *ngIf="!isEdit">
-        {{ 'button.create' | translate }}
-      </span>
-      <span *ngIf="isEdit">
-        {{ 'button.edit' | translate }}
-      </span>
+      @if (!isEdit) {
+        <span>
+          {{ 'button.create' | translate }}
+        </span>
+      }
+      @if (isEdit) {
+        <span>
+          {{ 'button.edit' | translate }}
+        </span>
+      }
     </button>
     <button class="btn btn-secondary mx-3" (click)="cancel()">
       {{ 'button.cancel' | translate }}

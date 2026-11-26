@@ -1,7 +1,5 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputModalComponent } from './input-modal.component';
 
@@ -9,12 +7,12 @@ describe('InputModalComponent', () => {
   let component: InputModalComponent;
   let fixture: ComponentFixture<InputModalComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ InputModalComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SharedModule]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(InputModalComponent);

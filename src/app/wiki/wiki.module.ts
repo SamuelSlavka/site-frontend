@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleDown, faAngleUp, faCircleQuestion, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -40,14 +40,16 @@ import { WikiRoutingModule } from './wiki-routing.module';
     WikiRoutingModule,
     NgxsModule.forFeature([ArticleState]),
     NgxsModule.forFeature([SectionState]),
-    BsDropdownModule.forRoot(),
+    BsDropdownModule,
     MarkdownModule.forRoot(),
-    CollapseModule.forRoot(),
-    TooltipModule.forRoot(),
+    CollapseModule,
+    TooltipModule,
   ],
 })
 export class WikiModule {
-  constructor(library: FaIconLibrary) {
+  constructor() {
+    const library = inject(FaIconLibrary);
+
     library.addIcons(faAngleDown, faAngleUp, faCircleQuestion, faPlus, faTrashCan, faPen);
   }
 }

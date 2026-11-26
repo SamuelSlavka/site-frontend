@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SectionService } from '@app/wiki/services/section.service';
 import { SectionDto } from '@app/wiki/store/models/section.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
@@ -19,7 +19,8 @@ export interface SectionStateModel {
 })
 @Injectable()
 export class SectionState {
-  constructor(private toastr: ToastrService, private sectionService: SectionService) {}
+  private toastr = inject(ToastrService);
+  private sectionService = inject(SectionService);
 
   @Action(SectionActions.GetOne)
   fetchSection(ctx: StateContext<SectionStateModel>, action: SectionActions.GetOne) {

@@ -1,35 +1,35 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
-import { SimpleDevice } from '@app/core/store/models/device.model';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { EChartsOption } from 'echarts';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-smart-home-page',
-  templateUrl: './smart-home-page.component.html',
-  styleUrls: ['./smart-home-page.component.css'],
+    selector: 'app-smart-home-page',
+    templateUrl: './smart-home-page.component.html',
+    styleUrls: ['./smart-home-page.component.css'],
+    standalone: false
 })
 export class SmartHomePageComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
+
   private subscription: Subscription = new Subscription();
   private gridOffset = '35';
 
   public options!: EChartsOption;
   public updateOptions: Record<string, EChartsOption> = {};
 
-  constructor(private readonly store: Store) {}
+  loading$ = this.store.select(MeasurementState.loading);
+  measurements$ = this.store.select(MeasurementState.allMeasurements);
+  devices$ = this.store.select(MeasurementState.allDevices);
 
-  @Select(MeasurementState.loading) loading$!: Observable<boolean>;
-  @Select(MeasurementState.allMeasurements) measurements$!: Observable<Record<string, ParsedMeasurements>>;
-  @Select(MeasurementState.allDevices) devices$!: Observable<SimpleDevice[]>;
-
-  setOffset(deviceId: string, offset: number = 0) {
+  setOffset(deviceId: string, offset = 0) {
     this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     this.refreshOffset();
   }

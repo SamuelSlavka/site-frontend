@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DevicesService } from '@app/core/services/devices.service';
-import { Device, SimpleDevice } from '@app/core/store/models/device.model';
+import { SimpleDevice } from '@app/core/store/models/device.model';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, take } from 'rxjs';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css'],
+    standalone: false
 })
 export class AdminComponent implements OnInit {
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private devicesService = inject(DevicesService);
+
   form!: FormGroup;
   devices$!: Observable<SimpleDevice[]>;
-
-  constructor(
-    private toastr: ToastrService,
-    private router: Router,
-    private fb: FormBuilder,
-    private devicesService: DevicesService,
-  ) {}
 
   ngOnInit() {
     this.fetchDevices();

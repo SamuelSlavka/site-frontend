@@ -1,24 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ScheduledActions } from '@app/core/store/actions/scheduled.actions';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { ScheduledState } from '@app/core/store/state/scheduled.state';
-import { Select, Store } from '@ngxs/store';
-import { EChartsOption } from 'echarts';
-import { Observable, Subscription, filter } from 'rxjs';
+import { DefaultLabelFormatterCallbackParams, EChartsOption } from 'echarts';
+import { Subscription, filter } from 'rxjs';
+import { Store } from '@ngxs/store';
 
 @Component({
-  selector: 'app-forecast',
-  templateUrl: './forecast.component.html',
-  styleUrl: './forecast.component.scss',
+    selector: 'app-forecast',
+    templateUrl: './forecast.component.html',
+    styleUrl: './forecast.component.scss',
+    standalone: false
 })
 export class ForecastComponent implements OnInit, OnDestroy {
+  private store = inject(Store);
+
   private subscription: Subscription = new Subscription();
-  @Select(ScheduledState.forecast) forecast$!: Observable<ParsedMeasurements>;
+  forecast$ = this.store.select(ScheduledState.forecast);
 
   public options!: EChartsOption;
   public updateOptions: EChartsOption = {};
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(new ScheduledActions.GetLatestForecast());
@@ -46,8 +47,10 @@ export class ForecastComponent implements OnInit, OnDestroy {
         textStyle: {
           color: '#ccccf0',
         },
-        formatter: function (params: any) {
-          return `${params[0].data[1]} °C </br> ${params[1].data[1]} %`;
+        formatter: (params) => {
+          const [temperature, humidity] = params as DefaultLabelFormatterCallbackParams[];
+          const value = (p: DefaultLabelFormatterCallbackParams) => (p.data as [unknown, number])[1];
+          return `${value(temperature)} °C </br> ${value(humidity)} %`;
         },
       },
       yAxis: [

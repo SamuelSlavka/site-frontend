@@ -1,5 +1,5 @@
-import { Device, SimpleDevice } from '@app/core/store/models/device.model';
-import { Injectable } from '@angular/core';
+import { SimpleDevice } from '@app/core/store/models/device.model';
+import { Injectable, inject } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { catchError, of, tap } from 'rxjs';
@@ -27,11 +27,9 @@ export interface MeasurementStateModel {
 })
 @Injectable()
 export class MeasurementState {
-  constructor(
-    private toastr: ToastrService,
-    private measurementService: MeasurementService,
-    private devicesService: DevicesService,
-  ) {}
+  private toastr = inject(ToastrService);
+  private measurementService = inject(MeasurementService);
+  private devicesService = inject(DevicesService);
 
   @Action(MeasurementActions.GetLatest)
   getOneMeasurement(ctx: StateContext<MeasurementStateModel>) {

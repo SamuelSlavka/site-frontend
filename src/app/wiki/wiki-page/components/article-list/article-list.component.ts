@@ -1,28 +1,31 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
 import { ArticleActions } from '@app/wiki/store/actions/article.actions';
 import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
 import { ArticleState } from '@app/wiki/store/state/article.state';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { filter, Observable } from 'rxjs';
+import { filter } from 'rxjs';
 
 import { ArticleFormComponent } from '../article-form/article-form.component';
 
 @Component({
-  selector: 'app-article-list',
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-list',
+    templateUrl: './article-list.component.html',
+    styleUrls: ['./article-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticleListComponent {
+  private router = inject(Router);
+  private store = inject(Store);
+  private modalService = inject(BsModalService);
+
   @Input() articles!: ArticleListItem[];
-  @Select(ArticleState.loading) loading$!: Observable<boolean>;
+  loading$ = this.store.select(ArticleState.loading);
 
   bsModalRef?: BsModalRef;
-
-  constructor(private router: Router, private store: Store, private modalService: BsModalService) {}
 
   viewArticle(article: ArticleListItem) {
     this.router.navigate([
