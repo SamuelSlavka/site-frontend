@@ -1,6 +1,7 @@
-<ng-template #navTemplate>
-  <app-nav (action)="create()" [actionLabel]="'create article'"></app-nav>
-</ng-template>
-<ng-template #contentTemplate><app-article-list [articles]="(articles$ | async) ?? []"></app-article-list></ng-template>
-
-<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>
+<app-page [title]="'navigation.wiki' | translate" [subtitle]="'label.article.subtitle' | translate">
+  <button pageActions type="button" class="btn btn-primary" (click)="create()">
+    <fa-icon icon="plus"></fa-icon>
+    {{ 'action.article.create' | translate }}
+  </button>
+  <app-article-list [articles]="(articles$ | async) ?? []"></app-article-list>
+</app-page>

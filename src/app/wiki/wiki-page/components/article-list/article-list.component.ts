@@ -1,69 +1,63 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, Input, inject, signal } from '@angular/core';
 import { ConfirmationModalComponent } from '@app/shared/components/confirmation-modal/confirmation-modal.component';
+import { ModalService } from '@app/shared/services/modal.service';
 import { ArticleActions } from '@app/wiki/store/actions/article.actions';
 import { ArticleListItem, CreateArticle } from '@app/wiki/store/models/article.model';
 import { ArticleState } from '@app/wiki/store/state/article.state';
 import { Store } from '@ngxs/store';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { filter } from 'rxjs';
 
 import { ArticleFormComponent } from '../article-form/article-form.component';
 
 @Component({
-    selector: 'app-article-list',
-    templateUrl: './article-list.component.html',
-    styleUrls: ['./article-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-article-list',
+  templateUrl: './article-list.component.html',
+  styleUrls: ['./article-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ArticleListComponent {
-  private router = inject(Router);
   private store = inject(Store);
-  private modalService = inject(BsModalService);
+  private modalService = inject(ModalService);
 
-  @Input() articles!: ArticleListItem[];
+  @Input() articles: ArticleListItem[] = [];
   loading$ = this.store.select(ArticleState.loading);
+  readonly query = signal('');
 
-  bsModalRef?: BsModalRef;
+  get visibleArticles(): ArticleListItem[] {
+    const query = this.query().trim().toLowerCase();
+    return query ? this.articles.filter((article) => article.title.toLowerCase().includes(query)) : this.articles;
+  }
 
-  viewArticle(article: ArticleListItem) {
-    this.router.navigate([
-      `wiki/${article.section}`,
-      { title: article.title, isPubliclyEditable: article.isPubliclyEditable },
-    ]);
+  articleLink(article: ArticleListItem) {
+    return ['/wiki', article.section, { title: article.title, isPubliclyEditable: article.isPubliclyEditable }];
   }
 
   edit(article: ArticleListItem) {
-    this.bsModalRef = this.modalService.show(ArticleFormComponent, {
-      initialState: {
-        isEdit: true,
-        initData: {
-          title: article.title,
-          isPrivate: article.isPrivate,
-          isPubliclyEditable: article.isPubliclyEditable,
+    this.modalService
+      .open(ArticleFormComponent, {
+        initialState: {
+          isEdit: true,
+          initData: {
+            title: article.title,
+            isPrivate: article.isPrivate,
+            isPubliclyEditable: article.isPubliclyEditable,
+          },
         },
-      },
-    });
-    this.bsModalRef.content.onClose.subscribe((res: CreateArticle) => {
-      this.store.dispatch(new ArticleActions.Edit(res, article.id));
-    });
-  }
-
-  stopPropagation(event$: Event) {
-    event$.stopPropagation();
+      })
+      .onClose.subscribe((res: CreateArticle) => {
+        this.store.dispatch(new ArticleActions.Edit(res, article.id));
+      });
   }
 
   delete(article: ArticleListItem) {
-    this.bsModalRef = this.modalService.show(ConfirmationModalComponent, {
-      initialState: { label: 'Do you want to delete this article?' },
-    });
-    this.bsModalRef.content.onClose.pipe(filter((res: boolean) => res)).subscribe(() => {
-      this.store.dispatch(new ArticleActions.Delete(article.id));
-    });
-  }
-
-  dropdown(event: Event) {
-    event.stopPropagation();
+    this.modalService
+      .open(ConfirmationModalComponent, {
+        initialState: { title: 'label.article.deleteTitle', label: 'label.article.deleteText', confirmLabel: 'button.delete', danger: true },
+      })
+      .onClose.pipe(filter((res) => res))
+      .subscribe(() => {
+        this.store.dispatch(new ArticleActions.Delete(article.id));
+      });
   }
 }

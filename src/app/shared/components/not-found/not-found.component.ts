@@ -1,17 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-    selector: 'app-not-found',
-    templateUrl: './not-found.component.html',
-    styleUrls: ['./not-found.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-not-found',
+  template: `
+    <app-page width="narrow">
+      <div class="empty-state py-5 my-md-5">
+        <div class="empty-state-icon"><fa-icon icon="compass"></fa-icon></div>
+        <h1 class="h2">{{ 'label.notFound.title' | translate }}</h1>
+        <p>{{ 'label.notFound.text' | translate }}</p>
+        <a routerLink="/dashboard" class="btn btn-primary mt-2">{{ 'button.getBack' | translate }}</a>
+      </div>
+    </app-page>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class NotFoundComponent {
-  private router = inject(Router);
-
-  back() {
-    this.router.navigate(['']);
-  }
-}
+export class NotFoundComponent {}

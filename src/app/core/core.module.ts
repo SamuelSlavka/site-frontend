@@ -9,14 +9,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsModule } from '@ngxs/store';
 import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ToastrModule } from 'ngx-toastr';
 import { initializer } from 'src/utils/app-init';
 
 import { ApiLoaderInterceptor } from './interceptors/api-loader.interceptor';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MeasurementState } from './store/state/measurements.state';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ScheduledState } from './store/state/scheduled.state';
 
@@ -31,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     CommonModule,
     FontAwesomeModule,
-    BsDropdownModule,
+    ToastrModule.forRoot({ timeOut: 2500, progressBar: true, positionClass: 'toast-bottom-right' }),
     NgxsModule.forRoot([MeasurementState]),
     NgxsModule.forFeature([ScheduledState]),
     TranslateModule.forRoot({
@@ -71,7 +70,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         return initializerFn();
       }),
     provideHttpClient(withInterceptorsFromDi()),
-    provideClientHydration(),
     provideAnimations(),
   ],
 })

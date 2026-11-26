@@ -35,10 +35,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
+              "node_modules/@fontsource-variable/inter/index.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.css"
+              "node_modules/prismjs/plugins/command-line/prism-command-line.css",
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/marked/lib/marked.umd.js",

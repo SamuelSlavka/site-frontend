@@ -4,7 +4,6 @@ import { SectionDto } from '@app/wiki/store/models/section.model';
 @Component({
     selector: 'app-section-actions',
     templateUrl: './section-actions.component.html',
-    styleUrls: ['./section-actions.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })

@@ -6,7 +6,7 @@ import { provideRouter } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxsModule } from '@ngxs/store';
 import { KeycloakService } from 'keycloak-angular';
-import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 /**
@@ -35,8 +35,7 @@ const testProviders = [
     ToastrModule.forRoot(),
   ),
   KeycloakService,
-  BsModalRef,
-  { provide: ModalOptions, useValue: { initialState: {} } },
+  NgbActiveModal,
 ];
 
 export default testProviders;

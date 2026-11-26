@@ -1,72 +1,32 @@
-<div class="modal-header pb-0 border-0">
-  @if (!isEdit) {
-    <span class="input fw-bold h5 mb-0">
-      {{ 'label.article.create' | translate }}
-    </span>
-  }
-  @if (isEdit) {
-    <span class="input fw-bold h5 mb-0">
-      {{ 'label.article.edit' | translate }}
-    </span>
-  }
-</div>
-<form class="modal-body" [formGroup]="form">
-  <label for="text-input">
-    {{ 'label.article.title' | translate }}
-  </label>
-  <input name="text-input" class="w-100" formControlName="title" />
-  <div class="row m-0">
-    <div class="form-check mt-3 col">
-      <input type="checkbox" class="form-check-input pointer" formControlName="isPrivate" id="is-private" />
-      <label
-        class="form-check-label pointer"
-        [ngClass]="{ 'text-muted': form.value.isPubliclyEditable }"
-        for="is-private"
-        >
-        {{ 'toggle.setPrivate' | translate }}
-      </label>
-      <fa-icon
-        ngbTooltip="Only you will be able to see and edit this article"
-        class="ms-2"
-        icon="circle-question"
-      ></fa-icon>
-    </div>
-    <div class="form-check mt-3 col">
-      <input
-        type="checkbox"
-        class="form-check-input pointer"
-        formControlName="isPubliclyEditable"
-        id="is-publicly-editable"
-        />
-      <label
-        class="form-check-label pointer"
-        [ngClass]="{ 'text-muted': form.value.isPrivate }"
-        for="is-publicly-editable"
-        >
-        {{ 'toggle.setFullyPublic' | translate }}
-      </label>
-      <fa-icon
-        class="ms-2"
-        ngbTooltip="Everybody will be able to see this article and add their sections"
-        icon="circle-question"
-      ></fa-icon>
-    </div>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ (isEdit ? 'label.article.edit' : 'label.article.create') | translate }}</h2>
+    <button type="button" class="btn-close" [attr.aria-label]="'button.close' | translate" (click)="cancel()"></button>
   </div>
-  <div class="d-flex flex-row-reverse mt-3">
-    <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">
-      @if (!isEdit) {
-        <span>
-          {{ 'button.create' | translate }}
-        </span>
-      }
-      @if (isEdit) {
-        <span>
-          {{ 'button.edit' | translate }}
-        </span>
-      }
-    </button>
-    <button class="btn btn-secondary mx-3" (click)="cancel()">
-      {{ 'button.cancel' | translate }}
+  <div class="modal-body">
+    <label class="form-label" for="article-title">{{ 'label.article.title' | translate }}</label>
+    <input id="article-title" class="form-control" formControlName="title" autocomplete="off" ngbAutofocus />
+
+    <fieldset class="mt-4">
+      <legend class="form-label">{{ 'label.article.visibility.label' | translate }}</legend>
+      <div class="options">
+        @for (option of visibilityOptions; track option.value) {
+          <label class="option" [class.selected]="form.controls.visibility.value === option.value">
+            <input type="radio" class="visually-hidden" formControlName="visibility" [value]="option.value" />
+            <span class="option-icon"><fa-icon [icon]="option.icon"></fa-icon></span>
+            <span class="option-text">
+              <span class="option-title">{{ option.label | translate }}</span>
+              <span class="option-hint">{{ option.hint | translate }}</span>
+            </span>
+          </label>
+        }
+      </div>
+    </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-ghost" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      {{ (isEdit ? 'button.save' : 'button.create') | translate }}
     </button>
   </div>
 </form>

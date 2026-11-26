@@ -1,0 +1,139 @@
+@use 'variables' as *;
+
+// Typography for rendered Markdown (wiki revisions).
+.prose {
+  color: var(--app-text);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+
+  > :first-child,
+  > markdown > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child,
+  > markdown > :last-child {
+    margin-bottom: 0;
+  }
+
+  p,
+  ul,
+  ol,
+  pre,
+  table,
+  blockquote {
+    margin: 0 0 1em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 1.6em 0 0.6em;
+    color: #fff;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.4em;
+  }
+
+  li + li {
+    margin-top: 0.25em;
+  }
+
+  li::marker {
+    color: var(--app-text-faint);
+  }
+
+  a {
+    color: var(--app-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba($primary, 0.4);
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+    color: #fff;
+  }
+
+  blockquote {
+    padding: 0.25em 1em;
+    color: var(--app-text-muted);
+    border-left: 3px solid var(--app-accent);
+    background: var(--app-accent-soft);
+    border-radius: 0 $radius $radius 0;
+  }
+
+  hr {
+    margin: 2em 0;
+    border-color: var(--app-border-strong);
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: $radius-lg;
+  }
+
+  :not(pre) > code {
+    padding: 0.15em 0.4em;
+    font-size: 0.875em;
+    color: var(--app-text);
+    background: var(--app-surface-3);
+    border-radius: $radius-sm;
+  }
+
+  pre,
+  pre[class*='language-'] {
+    padding: 1rem 1.125rem;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    background: var(--app-code-bg);
+    border: 1px solid var(--app-border);
+    border-radius: $radius-lg;
+    text-shadow: none;
+  }
+
+  code[class*='language-'] {
+    text-shadow: none;
+  }
+
+  table {
+    width: 100%;
+    font-size: 0.875rem;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--app-border);
+      text-align: left;
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--app-text-muted);
+    }
+  }
+}

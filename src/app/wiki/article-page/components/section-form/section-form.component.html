@@ -1,31 +1,25 @@
-<div class="m-3">
-  <form [formGroup]="form">
-    <div class="row m-0 fw-bold h5 mb-3">
-      @if (!isEdit) {
-        <span class="p-0">{{ 'label.section.create' | translate }}</span>
-      }
-      @if (isEdit) {
-        <span class="p-0">{{ 'label.section.edit' | translate }}</span>
-      }
-    </div>
-    <div class="row m-0 mt-3">
-      <label class="p-0" for="inputTitle">{{ 'label.section.title' | translate }}</label>
-      <input name="inputTitle" class="w-100" formControlName="title" />
-    </div>
-    <div class="row m-0 mt-3">
-      <label class="p-0" for="inputText">{{ 'label.section.text' | translate }}</label>
-      <textarea
-        name="inputText"
-        class="w-100 input-text-area"
-        formControlName="text"
-        #textArea
-        (click)="autoResize(textArea)"
-        (input)="autoResize(textArea)"
-      ></textarea>
-    </div>
-    <div class="d-flex flex-row-reverse mt-3">
-      <button [disabled]="!form.valid" class="btn btn-primary" (click)="save()">{{ 'button.save' | translate }}</button>
-      <button class="btn btn-primary mx-3" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
-    </div>
-  </form>
-</div>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ (isEdit ? 'label.section.edit' : 'label.section.create') | translate }}</h2>
+    <button type="button" class="btn-close" [attr.aria-label]="'button.close' | translate" (click)="cancel()"></button>
+  </div>
+  <div class="modal-body">
+    <label class="form-label" for="section-title">{{ 'label.section.title' | translate }}</label>
+    <input id="section-title" class="form-control" formControlName="title" autocomplete="off" ngbAutofocus />
+
+    <label class="form-label mt-3" for="section-text">{{ 'label.section.text' | translate }}</label>
+    <textarea
+      id="section-text"
+      class="form-control section-text"
+      formControlName="text"
+      rows="8"
+      #textArea
+      (input)="autoResize(textArea)"
+    ></textarea>
+    <div class="form-text">{{ 'label.section.markdownHint' | translate }}</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-ghost" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">{{ 'button.save' | translate }}</button>
+  </div>
+</form>

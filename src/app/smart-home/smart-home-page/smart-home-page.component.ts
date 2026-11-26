@@ -1,140 +1,103 @@
-import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 import { ParsedMeasurements } from '@app/core/store/models/measurement.model';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
+import { areaGradient, baseTimeSeriesOptions, chartColors, valueAxis } from '@app/shared/charts/chart-theme';
 import { Store } from '@ngxs/store';
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts';
 import { Subscription } from 'rxjs';
 
+interface Range {
+  /** Days of history requested from the API; 0 means everything. */
+  offset: number;
+  label: string;
+}
+
 @Component({
-    selector: 'app-smart-home-page',
-    templateUrl: './smart-home-page.component.html',
-    styleUrls: ['./smart-home-page.component.css'],
-    standalone: false
+  selector: 'app-smart-home-page',
+  templateUrl: './smart-home-page.component.html',
+  styleUrls: ['./smart-home-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SmartHomePageComponent implements OnInit, OnDestroy {
   private readonly store = inject(Store);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  private subscription: Subscription = new Subscription();
-  private gridOffset = '35';
+  private subscription = new Subscription();
 
-  public options!: EChartsOption;
-  public updateOptions: Record<string, EChartsOption> = {};
+  readonly ranges: Range[] = [
+    { offset: 1, label: 'label.smartHome.today' },
+    { offset: 7, label: 'label.smartHome.week' },
+    { offset: 0, label: 'label.smartHome.all' },
+  ];
+  selectedRange: Record<string, number> = {};
 
-  loading$ = this.store.select(MeasurementState.loading);
+  readonly options: EChartsOption = {
+    ...baseTimeSeriesOptions(),
+    yAxis: [valueAxis('{value}°'), valueAxis('{value}%', false)],
+    series: [
+      {
+        name: 'Temperature',
+        type: 'line',
+        yAxisIndex: 0,
+        smooth: true,
+        showSymbol: false,
+        sampling: 'average',
+        lineStyle: { width: 2, color: chartColors.primary },
+        itemStyle: { color: chartColors.primary },
+        areaStyle: { color: areaGradient(chartColors.primary, 0.22) },
+      },
+      {
+        name: 'Humidity',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        showSymbol: false,
+        sampling: 'average',
+        lineStyle: { width: 1.5, color: chartColors.info, type: 'dashed' },
+        itemStyle: { color: chartColors.info },
+      },
+    ],
+  };
+  updateOptions: Record<string, EChartsOption> = {};
+
   measurements$ = this.store.select(MeasurementState.allMeasurements);
   devices$ = this.store.select(MeasurementState.allDevices);
-
-  setOffset(deviceId: string, offset = 0) {
-    this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.refreshOffset();
-  }
 
   ngOnInit() {
     this.store.dispatch(new MeasurementActions.GetDevices());
 
     this.subscription.add(
       this.devices$.subscribe((devices) => {
-        devices.forEach((device) => {
-          this.store.dispatch(new MeasurementActions.GetAll(1, device.id));
-        });
+        devices.forEach((device) => this.setRange(device.id, this.selectedRange[device.id] ?? 1));
       }),
     );
 
     this.subscription.add(
       this.measurements$.subscribe((measurements) => {
-        Object.keys(measurements).forEach((key) => {
-          this.refreshOptions(measurements[key], key);
-        });
+        Object.entries(measurements).forEach(([deviceId, parsed]) => this.refreshOptions(parsed, deviceId));
+        this.cdr.markForCheck();
       }),
     );
-
-    this.options = {
-      legend: {
-        data: ['Temperature', 'Humidity'],
-        textStyle: {
-          color: '#8ecae6',
-        },
-      },
-      xAxis: {
-        type: 'time',
-      },
-      grid: {
-        right: 40,
-        left: 40,
-      },
-      tooltip: { trigger: 'axis' },
-      yAxis: [
-        {
-          type: 'value',
-          name: 'Temp (°C)',
-          splitLine: {
-            show: false,
-          },
-        },
-        {
-          type: 'value',
-          name: 'Hum (%)',
-          splitLine: {
-            show: false,
-          },
-        },
-      ],
-      series: [
-        {
-          name: 'Temperature',
-          type: 'line',
-          yAxisIndex: 0,
-        },
-        {
-          name: 'Humidity',
-          type: 'line',
-          yAxisIndex: 1,
-        },
-      ],
-      animationEasing: 'elasticOut',
-      animationDelayUpdate: (idx) => idx * 5,
-    };
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  private refreshOptions(parsed: ParsedMeasurements, key: string) {
-    this.updateOptions[key] = {
-      grid: {
-        right: this.gridOffset,
-        left: this.gridOffset,
-      },
-      series: [
-        {
-          smooth: true,
-          sampling: 'average',
-          name: 'Temperature',
-          type: 'line',
-          data: parsed.temperature,
-        },
-        {
-          smooth: true,
-          sampling: 'average',
-          name: 'Humidity',
-          type: 'line',
-          data: parsed.humidity,
-        },
-      ],
-    };
+  setRange(deviceId: string, offset: number) {
+    this.selectedRange[deviceId] = offset;
+    this.store.dispatch(new MeasurementActions.GetAll(offset, deviceId));
   }
 
-  private refreshOffset() {
-    if (window.innerWidth <= 576) {
-      this.gridOffset = '32';
-    } else {
-      this.gridOffset = '40';
-    }
+  latest(parsed: ParsedMeasurements | undefined, key: 'temperature' | 'humidity'): number | undefined {
+    return parsed?.[key].at(-1)?.[1];
+  }
+
+  private refreshOptions(parsed: ParsedMeasurements, deviceId: string) {
+    this.updateOptions[deviceId] = {
+      series: [{ data: parsed.temperature }, { data: parsed.humidity }],
+    };
   }
 }

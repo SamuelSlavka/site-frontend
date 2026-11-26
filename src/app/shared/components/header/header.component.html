@@ -1,0 +1,89 @@
+<header class="app-header">
+  <nav class="container-app header-bar" aria-label="Main">
+    <a class="brand" routerLink="/dashboard">
+      <img src="assets/icons/icon-dark.svg" alt="" width="28" height="28" />
+      <span>Site</span>
+    </a>
+
+    <ul class="nav-links d-none d-md-flex">
+      @for (link of links; track link.path) {
+        @if (!link.adminOnly || (isAdmin$ | async)) {
+          <li>
+            <a class="nav-item-link" [routerLink]="link.path" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <fa-icon [icon]="link.icon" [fixedWidth]="true"></fa-icon>
+              {{ link.label | translate }}
+            </a>
+          </li>
+        }
+      }
+    </ul>
+
+    <div class="header-end">
+      @if ((isLoggedIn$ | async) !== true) {
+        <button type="button" class="btn btn-primary btn-sm" (click)="login()">
+          {{ 'button.login' | translate }}
+        </button>
+      } @else {
+        @let profile = profile$ | async;
+        <div ngbDropdown placement="bottom-end" display="dynamic">
+          <button
+            type="button"
+            class="avatar-button"
+            ngbDropdownToggle
+            [attr.aria-label]="'action.login.account' | translate"
+          >
+            <span class="avatar">{{ initials(profile) }}</span>
+          </button>
+          <div ngbDropdownMenu class="user-menu">
+            <div class="user-menu-header">
+              <span class="eyebrow">{{ 'label.login.signedInAs' | translate }}</span>
+              <span class="user-email" [title]="profile?.email ?? ''">{{ profile?.email }}</span>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button type="button" ngbDropdownItem (click)="toggleShowActions()">
+              <fa-icon [icon]="(showActions$ | async) ? 'eye-slash' : 'pen'" [fixedWidth]="true"></fa-icon>
+              {{ ((showActions$ | async) ? 'action.login.hide' : 'action.login.show') | translate }}
+            </button>
+            @if (isAdmin$ | async) {
+              <a ngbDropdownItem routerLink="/admin">
+                <fa-icon icon="sliders" [fixedWidth]="true"></fa-icon>
+                {{ 'navigation.admin' | translate }}
+              </a>
+            }
+            <div class="dropdown-divider"></div>
+            <button type="button" ngbDropdownItem (click)="logout()">
+              <fa-icon icon="right-from-bracket" [fixedWidth]="true"></fa-icon>
+              {{ 'button.logout' | translate }}
+            </button>
+          </div>
+        </div>
+      }
+
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon d-md-none"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-nav"
+        [attr.aria-label]="'navigation.menu' | translate"
+      >
+        <fa-icon [icon]="menuOpen() ? 'xmark' : 'bars'"></fa-icon>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-nav" class="d-md-none" [ngbCollapse]="!menuOpen()">
+    <ul class="mobile-links container-app">
+      @for (link of links; track link.path) {
+        @if (!link.adminOnly || (isAdmin$ | async)) {
+          <li>
+            <a class="nav-item-link" [routerLink]="link.path" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <fa-icon [icon]="link.icon" [fixedWidth]="true"></fa-icon>
+              {{ link.label | translate }}
+            </a>
+          </li>
+        }
+      }
+    </ul>
+  </div>
+</header>
