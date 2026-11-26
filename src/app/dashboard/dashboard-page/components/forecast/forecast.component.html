@@ -1,6 +1,12 @@
-@if ({ forecast: (forecast$ | async) }; as context) {
-  <div>
-    <span class="text-muted p-0 mb-2">{{ 'label.scheduled.forecastTitle' | translate }}</span>
-    <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+<div class="tile-head">
+  <span class="eyebrow">{{ 'label.scheduled.forecastTitle' | translate }}</span>
+  <div class="chart-legend">
+    <span><i class="legend-line"></i>{{ 'label.measurement.temperature' | translate }}</span>
+    <span><i class="legend-bar"></i>{{ 'label.scheduled.precipitation' | translate }}</span>
   </div>
+</div>
+@if (forecast$ | async) {
+  <div echarts [options]="options" [merge]="updateOptions" class="chart"></div>
+} @else {
+  <span class="skeleton chart"></span>
 }

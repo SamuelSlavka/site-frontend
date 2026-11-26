@@ -1,0 +1,49 @@
+.device-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.device {
+  padding: 1.25rem;
+}
+
+.device-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.device-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.device-readings {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--app-text-muted);
+  font-variant-numeric: tabular-nums;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  fa-icon {
+    color: var(--app-text-faint);
+  }
+}
+
+.chart {
+  height: 18rem;
+}

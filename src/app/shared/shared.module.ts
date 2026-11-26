@@ -1,72 +1,133 @@
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
-import { InputModalComponent } from './components/input-modal/input-modal.component';
+import { NgModule, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { ToastrModule } from 'ngx-toastr';
-import { LoginComponent } from './components/login/login.component';
-import { NavComponent } from './components/nav/nav.component';
-import { HasAccessDirective } from './directives/has-access.directive';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BasePageComponent } from './components/base-page/base-page.component';
-import { LoginPromptComponent } from './components/login-prompt/login-prompt.component';
-import { ActionItemComponent } from './components/action-item/action-item.component';
-import { CustomDatePipe } from './pipes/custom-date.pipe';
-import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { RouterModule } from '@angular/router';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import {
+  faAngleDown,
+  faArrowLeft,
+  faArrowRight,
+  faBars,
+  faBookOpen,
+  faChevronDown,
+  faChevronRight,
+  faCloud,
+  faCloudBolt,
+  faCloudRain,
+  faCloudSun,
+  faCompass,
+  faDroplet,
+  faEyeSlash,
+  faFileLines,
+  faGaugeHigh,
+  faHouseSignal,
+  faLock,
+  faMagnifyingGlass,
+  faPen,
+  faPlus,
+  faRightFromBracket,
+  faShieldHalved,
+  faSliders,
+  faSmog,
+  faSnowflake,
+  faStar,
+  faSun,
+  faTemperatureHalf,
+  faTrashCan,
+  faUsers,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import { NgbCollapseModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginPromptComponent } from './components/login-prompt/login-prompt.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PageComponent } from './components/page/page.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { HasAccessDirective } from './directives/has-access.directive';
+import { CustomDatePipe } from './pipes/custom-date.pipe';
+
+const ngbModules = [NgbCollapseModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     FontAwesomeModule,
-    ModalModule,
-    BsDropdownModule,
     TranslateModule,
-    TooltipModule,
-    NgbTooltipModule,
-    ToastrModule.forRoot({ timeOut: 1500, progressBar: true, positionClass: 'toast-bottom-right' }),
+    ...ngbModules,
   ],
   declarations: [
-    LoginComponent,
-    LoginPromptComponent,
-    ConfirmationModalComponent,
-    InputModalComponent,
-    NotFoundComponent,
-    NavComponent,
     AccessDeniedComponent,
-    HasAccessDirective,
-    BasePageComponent,
-    ActionItemComponent,
+    ConfirmationModalComponent,
     CustomDatePipe,
+    FooterComponent,
+    HasAccessDirective,
+    HeaderComponent,
+    LoginPromptComponent,
+    NotFoundComponent,
+    PageComponent,
     PlaceholderComponent,
   ],
   exports: [
-    FontAwesomeModule,
-    LoginComponent,
-    NavComponent,
-    HasAccessDirective,
-    BasePageComponent,
-    LoginPromptComponent,
-    ActionItemComponent,
-    CustomDatePipe,
-    PlaceholderComponent,
-    TranslateModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
+    FontAwesomeModule,
+    TranslateModule,
+    ...ngbModules,
+    CustomDatePipe,
+    FooterComponent,
+    HasAccessDirective,
+    HeaderComponent,
+    PageComponent,
+    PlaceholderComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor() {
+    inject(FaIconLibrary).addIcons(
+      faAngleDown,
+      faArrowLeft,
+      faArrowRight,
+      faBars,
+      faBookOpen,
+      faChevronDown,
+      faChevronRight,
+      faCloud,
+      faCloudBolt,
+      faCloudRain,
+      faCloudSun,
+      faCompass,
+      faDroplet,
+      faEyeSlash,
+      faFileLines,
+      faGaugeHigh,
+      faGithub,
+      faHouseSignal,
+      faLock,
+      faMagnifyingGlass,
+      faPen,
+      faPlus,
+      faRightFromBracket,
+      faShieldHalved,
+      faSliders,
+      faSmog,
+      faSnowflake,
+      faStar,
+      faSun,
+      faTemperatureHalf,
+      faTrashCan,
+      faUsers,
+      faXmark,
+    );
+  }
+}

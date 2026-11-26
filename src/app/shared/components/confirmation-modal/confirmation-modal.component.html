@@ -1,13 +1,13 @@
-<div>
-  <div class="modal-header">
-    <label for="input font-weight-bold">{{ label }}</label>
-  </div>
-  <form class="modal-body">
-    <div class="d-flex m-0">
-      <button class="btn btn-primary col-auto ms-auto me-2" (click)="cancel()">
-        {{ 'button.cancel' | translate }}
-      </button>
-      <button class="btn btn-primary col-auto" (click)="confirm()">{{ 'button.confirm' | translate }}</button>
-    </div>
-  </form>
+<div class="modal-header">
+  <h2 class="modal-title">{{ title | translate }}</h2>
+  <button type="button" class="btn-close" [attr.aria-label]="'button.close' | translate" (click)="cancel()"></button>
+</div>
+<div class="modal-body text-body-secondary">
+  {{ label | translate }}
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-ghost" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
+  <button type="button" class="btn" [class.btn-danger]="danger" [class.btn-primary]="!danger" ngbAutofocus (click)="confirm()">
+    {{ confirmLabel | translate }}
+  </button>
 </div>

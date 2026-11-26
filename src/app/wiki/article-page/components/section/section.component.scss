@@ -1,19 +1,149 @@
 @use 'variables' as *;
 
-.section-item {
-  &:hover {
-    border-color: $primary !important;
-    -webkit-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+:host {
+  display: block;
+}
+
+.root-text {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.section-list {
+  display: grid;
+  gap: 1rem;
+
+  &.nested {
+    gap: 0.25rem;
+    margin-top: 1rem;
+  }
+}
+
+.section {
+  padding: 0.5rem 0.75rem 0.75rem;
+
+  &.section-nested {
+    padding: 0.25rem 0 0.25rem 1rem;
+    border-left: 2px solid var(--app-border-strong);
+    transition: border-color $duration $ease-out;
+
+    &:hover {
+      border-left-color: rgba($primary, 0.5);
+    }
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+}
+
+.section-heading {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.section-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: $radius;
+
+  &:hover .section-title {
+    color: var(--app-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--app-accent);
+  }
+
+  .section-nested & {
+    padding-left: 0;
+  }
+}
+
+.chevron {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--app-text-faint);
+  transition: transform $duration $ease-out;
+
+  &.collapsed {
+    transform: rotate(-90deg);
   }
 }
 
 .section-title {
-  &:hover {
-    color: $primary;
+  overflow-wrap: anywhere;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #fff;
+  transition: color $duration-fast $ease-out;
+
+  .section-nested & {
+    font-size: 1rem;
   }
 }
 
-.toggle-icon {
-  opacity: 0.5;
+.section-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.125rem;
+
+  @media (hover: hover) {
+    opacity: 0;
+    transition: opacity $duration-fast $ease-out;
+
+    .section-header:hover &,
+    .section-header:focus-within & {
+      opacity: 1;
+    }
+  }
+}
+
+.section-body {
+  padding: 0.25rem 0.5rem 0 calc(0.5rem + 0.75rem + 0.625rem);
+
+  .section-nested & {
+    padding-left: calc(0.75rem + 0.625rem);
+  }
+}
+
+.add-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.875rem;
+  font-weight: 500;
+  color: var(--app-text-muted);
+  background: transparent;
+  border: 1px dashed var(--app-border-strong);
+  border-radius: $radius-lg;
+  transition:
+    color $duration-fast $ease-out,
+    border-color $duration-fast $ease-out,
+    background-color $duration-fast $ease-out;
+
+  &:hover {
+    color: var(--app-accent);
+    background: var(--app-accent-soft);
+    border-color: rgba($primary, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--app-accent);
+    outline-offset: 2px;
+  }
 }

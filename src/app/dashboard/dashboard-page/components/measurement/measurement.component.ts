@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MeasurementActions } from '@app/core/store/actions/measurement.actions';
 import { MeasurementState } from '@app/core/store/state/measurements.state';
 import { Store } from '@ngxs/store';
@@ -7,7 +7,7 @@ import { Subscription, filter } from 'rxjs';
 @Component({
     selector: 'app-measurement',
     templateUrl: './measurement.component.html',
-    styleUrls: ['./measurement.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })
 export class MeasurementComponent implements OnInit, OnDestroy {
