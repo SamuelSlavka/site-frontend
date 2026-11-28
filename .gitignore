@@ -42,7 +42,3 @@ testem.log
 .DS_Store
 Thumbs.db
 deploy.tar
-
-# Playwright
-/e2e/.results
-/e2e/__screenshots__

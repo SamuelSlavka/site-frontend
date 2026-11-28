@@ -1,26 +1,22 @@
-@let latest = latest$ | async;
-<div class="tile-head">
-  <span class="eyebrow">{{ 'label.measurement.title' | translate }}</span>
-  <span class="tile-icon"><fa-icon icon="temperature-half"></fa-icon></span>
-</div>
-@if (latest) {
-  <div class="metric">
-    <span class="metric-value">{{ latest.temperature | number: '1.0-1' }}</span>
-    <span class="metric-unit">°C</span>
-  </div>
-  <div class="tile-caption">
-    {{ 'label.measurement.measuredAt' | translate }} {{ latest.measuredAt | customDate }}
-  </div>
-  <dl class="tile-stats">
-    <div>
-      <dt>{{ 'label.measurement.humidity' | translate }}</dt>
-      <dd>{{ latest.humidity }} %</dd>
+@if (latest$ | async; as latest) {
+  <div>
+    <span class="text-muted p-0">{{ 'label.measurement.title' | translate }}</span>
+    <div class="row m-0 p-0 sub-header">
+      <span class="text-muted p-0">{{ 'label.measurement.temperature' | translate }}</span>
     </div>
-  </dl>
-  <a routerLink="/smart" class="tile-link">
-    {{ 'button.smartHome' | translate }}
-    <fa-icon icon="arrow-right"></fa-icon>
-  </a>
-} @else {
-  <span class="skeleton tile-skeleton"></span>
+    <div class="row m-0 p-0">
+      <span class="h3 m-0 p-0">{{ latest?.temperature }} °C</span>
+    </div>
+    <div class="row m-0 p-0 mt-2 sub-header">
+      <span class="text-muted p-0">{{ 'label.measurement.humidity' | translate }}</span>
+    </div>
+    <div class="row m-0 p-0">
+      <span class="h3 m-0 p-0">{{ latest?.humidity }} %</span>
+    </div>
+    <div class="row m-0 p-0 mt-1">
+      <span class="text-muted p-0 measured-at">
+        {{ 'label.measurement.measuredAt' | translate }} {{ latest?.measuredAt | customDate }}
+      </span>
+    </div>
+  </div>
 }

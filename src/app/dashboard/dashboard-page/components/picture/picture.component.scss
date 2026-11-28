@@ -1,16 +1,6 @@
-@use 'variables' as *;
-
 :host {
-  display: block;
-  overflow: hidden;
-  background-color: var(--app-surface-1);
+  height: 15rem;
+  border-radius: 1rem;
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.4;
-  transition: opacity 600ms $ease-out;
-}
-
-:host(.loaded) {
-  opacity: 1;
 }

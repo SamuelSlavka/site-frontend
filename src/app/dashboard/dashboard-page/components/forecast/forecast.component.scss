@@ -1,32 +1,3 @@
-@use 'variables' as *;
-
-.chart {
-  height: 13rem;
-}
-
-.chart-legend {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.75rem;
-  color: var(--app-text-muted);
-
-  span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-}
-
-.legend-line {
-  width: 0.875rem;
-  height: 2px;
-  background: $primary;
-  border-radius: 1px;
-}
-
-.legend-bar {
-  width: 0.5rem;
-  height: 0.625rem;
-  background: rgba($info, 0.6);
-  border-radius: 2px;
+.demo-chart {
+  max-height: 180px;
 }

@@ -1,55 +1,44 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RevisionDto } from '@app/wiki/store/models/revision.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-section-form',
-  templateUrl: './section-form.component.html',
-  styleUrls: ['./section-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    selector: 'app-section-form',
+    templateUrl: './section-form.component.html',
+    styleUrls: ['./section-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
-export class SectionFormComponent implements OnInit, AfterViewInit {
-  private activeModal = inject(NgbActiveModal);
+export class SectionFormComponent implements OnInit {
+  options = inject(ModalOptions);
+  private bsModalRef = inject(BsModalRef);
   private fb = inject(FormBuilder);
 
-  @ViewChild('textArea') textArea?: ElementRef<HTMLTextAreaElement>;
-
   isEdit = false;
-  initData?: RevisionDto;
-  public onClose = new Subject<RevisionDto>();
-
-  form = this.fb.nonNullable.group({
-    title: ['', Validators.required],
-    text: ['', Validators.required],
-  });
+  initData!: RevisionDto;
+  form!: FormGroup;
+  public onClose = new Subject<string>();
 
   ngOnInit() {
-    this.form.setValue({ title: this.initData?.title ?? '', text: this.initData?.text ?? '' });
-  }
-
-  ngAfterViewInit() {
-    if (this.textArea) {
-      this.autoResize(this.textArea.nativeElement);
-    }
+    this.form = this.fb.group({
+      title: [this.initData?.title, Validators.required],
+      text: [this.initData?.text, Validators.required],
+    });
   }
 
   save() {
-    if (this.form.invalid) {
-      return;
-    }
-    this.onClose.next(this.form.getRawValue());
-    this.activeModal.close();
+    this.onClose.next(this.form.value);
+    this.bsModalRef.hide();
   }
 
   cancel() {
-    this.activeModal.dismiss();
+    this.bsModalRef.hide();
   }
 
   autoResize(textArea: HTMLTextAreaElement) {
     textArea.style.height = '';
-    textArea.style.height = `${textArea.scrollHeight + 2}px`;
+    textArea.style.height = `${textArea.scrollHeight + 3}px`;
   }
 }

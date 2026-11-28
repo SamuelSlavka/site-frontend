@@ -1,28 +1,25 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-confirmation-modal',
-  templateUrl: './confirmation-modal.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    selector: 'app-confirmation-modal',
+    templateUrl: './confirmation-modal.component.html',
+    styleUrls: ['./confirmation-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ConfirmationModalComponent {
-  private activeModal = inject(NgbActiveModal);
+  private bsModalRef = inject(BsModalRef);
 
   public onClose = new Subject<boolean>();
-  title = 'label.confirm.title';
-  label = 'label.confirm.text';
-  confirmLabel = 'button.confirm';
-  danger = false;
+  label = 'Are you sure?';
 
   confirm() {
     this.onClose.next(true);
-    this.activeModal.close(true);
+    this.bsModalRef.hide();
   }
-
   cancel() {
-    this.activeModal.dismiss();
+    this.bsModalRef.hide();
   }
 }

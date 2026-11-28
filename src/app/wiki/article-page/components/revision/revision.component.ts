@@ -1,13 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { SessionService } from '@app/wiki/services/session.service';
+import { BehaviorSubject } from 'rxjs';
 
-/** Renders a section revision's Markdown with the shared prose typography. */
 @Component({
-  selector: 'app-revision',
-  template: '<markdown [data]="text"></markdown>',
-  host: { class: 'prose d-block' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    selector: 'app-revision',
+    templateUrl: './revision.component.html',
+    styleUrls: ['./revision.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RevisionComponent {
-  @Input() text: string | undefined;
+  private sessionService = inject(SessionService);
+
+  @Input() text!: string | undefined;
+  @Input() title!: string | undefined;
+
+  isAdmin$: BehaviorSubject<boolean> = this.sessionService.isAdmin$;
+
+  isCollapsed = false;
 }

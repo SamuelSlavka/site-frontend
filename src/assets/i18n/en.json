@@ -1,141 +1,83 @@
 {
-  "navigation": {
-    "dashboard": "Dashboard",
-    "wiki": "Wiki",
-    "smartHome": "Smart home",
-    "admin": "Admin",
-    "privacy": "Privacy",
-    "menu": "Menu",
-    "skipToContent": "Skip to content"
-  },
   "button": {
-    "back": "Back",
-    "cancel": "Cancel",
-    "close": "Close",
-    "login": "Log in",
-    "logout": "Log out",
-    "create": "Create",
-    "confirm": "Confirm",
-    "edit": "Edit",
-    "save": "Save",
-    "delete": "Delete",
-    "getBack": "Back to dashboard",
-    "smartHome": "Open smart home"
-  },
-  "action": {
-    "login": {
-      "account": "Account menu",
-      "show": "Show edit actions",
-      "hide": "Hide edit actions"
-    },
-    "article": {
-      "create": "New article"
-    },
-    "section": {
-      "add": "Add section",
-      "addSub": "Add subsection",
-      "createFirst": "Write the first section"
-    }
-  },
-  "toggle": {
-    "isMain": "Show on the dashboard"
+    "back": "back",
+    "privacy": "privacy page",
+    "git": "git",
+    "cancel": "cancel",
+    "login": "login",
+    "logout": "logout",
+    "create": "create",
+    "confirm": "confirm",
+    "edit": "edit",
+    "save": "save",
+    "delete": "delete",
+    "getBack": "Get back",
+    "add": "add",
+    "smartHome": "smart home"
   },
   "devices": {
     "prague": {
       "flat": {
-        "room": "Prague flat · room",
-        "outside": "Prague flat · outside"
+        "room": "praha izba",
+        "outside": "praha vonku"
       }
     }
   },
-  "label": {
-    "dashboard": {
-      "subtitle": "Prague, right now"
-    },
-    "confirm": {
-      "title": "Are you sure?",
-      "text": "This action cannot be undone."
-    },
-    "admin": {
-      "subtitle": "Manage smart home devices.",
-      "createDevice": "New device",
-      "deviceName": "Name",
-      "devices": "Devices",
-      "noDevices": "No devices yet.",
-      "main": "Main",
-      "actions": "Actions",
-      "deleteTitle": "Delete device?",
-      "deleteText": "The device and its measurements will no longer be shown."
-    },
+  "toggle": {
+    "setPrivate": "Set as private",
+    "setFullyPublic": "Set fully public",
+    "isMain": "Should this device be in main page?",
+    "assignPrevious": "Add all unassigned measurements to this device"
+  },
+  "navigation": {
+    "wiki": "wiki"
+  },
+  "action": {
     "login": {
-      "title": "Log in required",
-      "needToLog": "You need to be logged in to do this.",
-      "signedInAs": "Signed in as"
-    },
-    "denied": {
-      "title": "Access denied",
-      "text": "You don't have permission to view this page."
-    },
-    "notFound": {
-      "title": "Page not found",
-      "text": "The page you're looking for doesn't exist or has moved."
-    },
-    "privacy": {
-      "title": "Privacy",
-      "text": "This site does not collect any personal data."
+      "show": "show actions",
+      "hide": "hide actions",
+      "admin": "admin"
     },
     "section": {
-      "title": "Title",
-      "text": "Content",
-      "markdownHint": "Markdown is supported.",
+      "add": "add section",
+      "createFirst": "create first section"
+    }
+  },
+  "label": {
+    "admin": {
+      "createDevice": "create a new device",
+      "deviceName": "device name"
+    },
+    "login": { "needToLog": "You need to login for this action" },
+    "denied": {
+      "cantAccess": "cant let you there :///"
+    },
+    "notFound": {
+      "lost": "you got lost"
+    },
+    "section": {
+      "title": "Input section title",
+      "text": "Input section text",
       "edit": "Edit section",
-      "create": "New section",
-      "deleteTitle": "Delete section?",
-      "deleteText": "The section and all of its subsections will be deleted."
+      "create": "Create section"
     },
     "article": {
-      "subtitle": "Notes, guides and recipes.",
-      "title": "Title",
-      "create": "New article",
+      "title": "Article title",
+      "create": "Create article",
       "edit": "Edit article",
-      "search": "Search articles",
-      "noMatch": "No articles match \"{{query}}\".",
-      "emptyTitle": "No articles yet",
-      "emptyText": "Articles you can see will appear here.",
-      "private": "Private",
-      "openEditing": "Open editing",
-      "deleteTitle": "Delete article?",
-      "deleteText": "The article and all of its sections will be deleted.",
-      "visibility": {
-        "label": "Visibility",
-        "public": "Public",
-        "publicHint": "Everyone can read it; only you can edit.",
-        "private": "Private",
-        "privateHint": "Only you can see and edit it.",
-        "open": "Open editing",
-        "openHint": "Everyone can read it and add sections."
-      }
+      "notFound": "no articles found..."
     },
     "measurement": {
-      "title": "Indoor",
-      "measuredAt": "Measured",
-      "temperature": "Temperature",
-      "humidity": "Humidity",
-      "feelsLike": "Feels like"
+      "title": "Prague flat now:",
+      "measuredAt": "measured at:",
+      "temperature": "temperature:",
+      "humidity": "humidity:",
+      "feelsLike": "feels like:"
     },
     "scheduled": {
-      "weatherTitle": "Outside",
-      "forecastTitle": "Forecast",
-      "precipitation": "Rain chance"
-    },
-    "smartHome": {
-      "subtitle": "Temperature and humidity from your sensors.",
-      "range": "Time range",
-      "today": "24h",
-      "week": "7 days",
-      "all": "All",
-      "emptyTitle": "No devices",
-      "emptyText": "Add a device on the admin page to start collecting measurements."
+      "weatherTitle": "Prague weather now:",
+      "conditions": "conditions:",
+      "forecastTitle": "Forecast Prague:"
     }
   }
 }

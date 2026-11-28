@@ -1,11 +1,11 @@
-<div class="modal-header">
-  <h2 class="modal-title">{{ 'label.login.title' | translate }}</h2>
-  <button type="button" class="btn-close" [attr.aria-label]="'button.close' | translate" (click)="cancel()"></button>
+<div class="modal-header pb-0 border-0">
+  <span class="input fw-bold h5 mb-0">{{ 'label.login.needToLog' | translate }}</span>
 </div>
-<div class="modal-body text-body-secondary">
-  {{ 'label.login.needToLog' | translate }}
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-ghost" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
-  <button type="button" class="btn btn-primary" ngbAutofocus (click)="login()">{{ 'button.login' | translate }}</button>
+<div class="row m-3">
+  <div class="col-auto ms-auto">
+    <button class="btn btn-secondary" (click)="cancel()">{{ 'button.cancel' | translate }}</button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" (click)="login()">{{ 'button.login' | translate }}</button>
+  </div>
 </div>

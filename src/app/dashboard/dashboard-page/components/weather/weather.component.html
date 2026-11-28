@@ -1,24 +1,27 @@
-@let weather = weather$ | async;
-<div class="tile-head">
-  <span class="eyebrow">{{ 'label.scheduled.weatherTitle' | translate }}</span>
-  <span class="tile-icon"><fa-icon [icon]="conditionIcon(weather?.weather?.[0]?.main)"></fa-icon></span>
-</div>
-@if (weather) {
-  <div class="metric">
-    <span class="metric-value">{{ weather.main.temp | number: '1.0-1' }}</span>
-    <span class="metric-unit">°C</span>
+@if ({ weather: (weather$ | async) }; as context) {
+  <div>
+    @if (context.weather) {
+      <div>
+        <span class="text-muted p-0">{{ 'label.scheduled.weatherTitle' | translate }}</span>
+        <div class="row m-0 p-0 sub-header">
+          <span class="text-muted p-0">{{ 'label.measurement.temperature' | translate }}</span>
+        </div>
+        <div class="row m-0 p-0">
+          <span class="h3 m-0 p-0">{{ context.weather.main.temp }} °C</span>
+        </div>
+        <div class="row m-0 p-0 mt-2 sub-header">
+          <span class="text-muted p-0">{{ 'label.measurement.feelsLike' | translate }}</span>
+        </div>
+        <div class="row m-0 p-0">
+          <span class="h3 m-0 p-0">{{ context.weather.main.feels_like }} °C</span>
+        </div>
+        <div class="row m-0 p-0 mt-2 sub-header">
+          <span class="text-muted p-0">{{ 'label.scheduled.conditions' | translate }}</span>
+        </div>
+        <div class="row m-0 p-0">
+          <span class="h3 m-0 p-0">{{ context.weather.weather[0].main }}</span>
+        </div>
+      </div>
+    }
   </div>
-  <div class="tile-caption">{{ weather.weather[0].description | titlecase }}</div>
-  <dl class="tile-stats">
-    <div>
-      <dt>{{ 'label.measurement.feelsLike' | translate }}</dt>
-      <dd>{{ weather.main.feels_like | number: '1.0-1' }} °C</dd>
-    </div>
-    <div>
-      <dt>{{ 'label.measurement.humidity' | translate }}</dt>
-      <dd>{{ weather.main.humidity }} %</dd>
-    </div>
-  </dl>
-} @else {
-  <span class="skeleton tile-skeleton"></span>
 }
