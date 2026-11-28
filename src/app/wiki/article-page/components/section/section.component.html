@@ -1,67 +1,66 @@
-@let section = selected$ | async;
-@let isLoggedIn = isLoggedIn$ | async;
-@let showActions = showActions$ | async;
-
-@if (section) {
-  @if (section.depth === 0) {
-    @if (section.text) {
-      <app-revision class="root-text" [text]="section.text"></app-revision>
-    }
-    @if (section.subsections.length) {
-      <div class="section-list">
-        @for (id of section.subsections; track id) {
-          <app-section [selected]="id" [isPublic]="isPublic"></app-section>
-        }
+@if ({ selected: (selected$ | async), isLoggedIn: (isLoggedIn$ | async) }; as context) {
+  <div
+    class="position-relative rounded bg-dark"
+    [ngClass]="{
+      'border-start rounded p-3 pe-0 my-2 section-item bg-dark': context.selected && context.selected.depth > 0
+    }"
+    >
+    @if (context.selected?.title) {
+      <div class="row m-0 pointer mb-2" tabindex="0" (click)="collapse()" (keydown.enter)="collapse()">
+        <div class="col h5 p-0 m-0 section-title">
+          {{ context.selected?.title }}
+        </div>
+        <div class="col-auto p-0 pe-3">
+          @if (isCollapsed) {
+            <fa-icon icon="angle-down" size="xs" class="toggle-icon"></fa-icon>
+          }
+          @if (!isCollapsed) {
+            <fa-icon icon="angle-up" size="xs" class="toggle-icon"></fa-icon>
+          }
+        </div>
       </div>
     }
-    <ng-template [isPublic]="isPublic" [appHasAccess]="section.createdBy">
-      @if (showActions) {
-        <button type="button" class="add-section" (click)="add(selected, isLoggedIn)">
-          <fa-icon icon="plus"></fa-icon>
-          {{ (section.subsections.length ? 'action.section.add' : 'action.section.createFirst') | translate }}
-        </button>
+    <div id="collapse-basic" [collapse]="isCollapsed" [isAnimated]="true">
+      @if (context.selected?.text) {
+        <app-revision [text]="context.selected?.text" [title]="context.selected?.title"></app-revision>
       }
-    </ng-template>
-  } @else {
-    <section class="section" [class.card]="section.depth === 1" [class.section-nested]="section.depth > 1">
-      <div class="section-header">
-        <div class="section-heading" role="heading" [attr.aria-level]="section.depth + 1">
+      @if (showActions$ | async) {
+        <app-section-actions
+          [selected]="selected"
+          [isPublic]="isPublic"
+          [section]="context.selected"
+          (addSection)="add(selected, context.isLoggedIn)"
+          (editSection)="edit(selected, context.selected?.title, context.selected?.text)"
+          (deleteSection)="delete(selected, context.selected?.superSection)"
+        ></app-section-actions>
+      }
+      @if (context.selected) {
+        <div class="subsections">
+          @for (section of context.selected.subsections; track section) {
+            <app-section
+              [selected]="section"
+              [isPublic]="isPublic"
+            ></app-section>
+          }
+        </div>
+      }
+      <ng-template [isPublic]="isPublic" [appHasAccess]="context.selected?.createdBy">
+        @if (context.selected?.depth === 0 && (showActions$ | async)) {
           <button
             type="button"
-            class="section-toggle"
-            (click)="collapse()"
-            [attr.aria-expanded]="!isCollapsed"
-            [attr.aria-controls]="'section-' + section.id"
-          >
-            <fa-icon icon="chevron-down" class="chevron" [class.collapsed]="isCollapsed"></fa-icon>
-            <span class="section-title">{{ section.title }}</span>
+            class="btn btn-outline-primary my-3"
+            (click)="add(selected, context.isLoggedIn)"
+            >
+            <fa-icon icon="plus" class="me-2"></fa-icon>
+            @if (context.selected?.subsections) {
+              <span>{{ 'action.section.add' | translate }}</span>
+            }
+            @if (!context.selected?.subsections) {
+              <span>{{ 'action.section.createFirst' | translate }}</span>
+            }
           </button>
-        </div>
-        @if (showActions) {
-          <app-section-actions
-            class="section-actions"
-            [section]="section"
-            [isPublic]="isPublic"
-            (addSection)="add(selected, isLoggedIn)"
-            (editSection)="edit(selected, section.title, section.text)"
-            (deleteSection)="delete(selected, section.superSection)"
-          ></app-section-actions>
         }
-      </div>
-      <div [id]="'section-' + section.id" [ngbCollapse]="isCollapsed">
-        <div class="section-body">
-          @if (section.text) {
-            <app-revision [text]="section.text"></app-revision>
-          }
-          @if (section.subsections.length) {
-            <div class="section-list nested">
-              @for (id of section.subsections; track id) {
-                <app-section [selected]="id" [isPublic]="isPublic"></app-section>
-              }
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-  }
+      </ng-template>
+    </div>
+  </div>
 }

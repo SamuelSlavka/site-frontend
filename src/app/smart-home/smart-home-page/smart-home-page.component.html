@@ -1,49 +1,31 @@
-<app-page [title]="'navigation.smartHome' | translate" [subtitle]="'label.smartHome.subtitle' | translate">
-  @let measurements = measurements$ | async;
-  <div class="device-list">
-    @for (device of devices$ | async; track device.id) {
-      @let parsed = measurements?.[device.id];
-      <section class="card device">
-        <div class="device-head">
-          <div class="min-w-0">
-            <h2 class="device-name">
-              {{ device.name | translate }}
-              @if (device.isMain) {
-                <span class="badge-soft badge-accent"><fa-icon icon="star"></fa-icon>{{ 'label.admin.main' | translate }}</span>
-              }
-            </h2>
-            @if (parsed) {
-              <div class="device-readings">
-                <span><fa-icon icon="temperature-half"></fa-icon>{{ latest(parsed, 'temperature') | number: '1.0-1' }} °C</span>
-                <span><fa-icon icon="droplet"></fa-icon>{{ latest(parsed, 'humidity') | number: '1.0-0' }} %</span>
+<ng-template #navTemplate>
+  <app-nav></app-nav>
+</ng-template>
+
+<ng-template #contentTemplate>
+  @if ({ devices: (devices$ | async), measurements: (measurements$ | async) }; as context) {
+    <div
+      class="d-flex flex-column h-100"
+      >
+      @for (device of context.devices; track device; let i = $index) {
+        <div>
+          @if (context?.measurements?.[device.id] ) {
+            <div class="p-3 my-2 rounded bg-dark">
+              <div class="row m-0 mb-2 d-flex align-items-center">
+                <span class="m-0 me-2 w-auto col h5">{{ device.name | translate }}</span>
+                <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 1)">today</button>
+                <button class="btn btn-outline-primary col-auto me-2 h-fit" (click)="setOffset(device.id, 7)">week</button>
+                <button class="btn btn-outline-primary col-auto h-fit" (click)="setOffset(device.id, 0)">all</button>
               </div>
-            }
-          </div>
-          <div class="segmented" role="group" [attr.aria-label]="'label.smartHome.range' | translate">
-            @for (range of ranges; track range.offset) {
-              <button
-                type="button"
-                [class.active]="selectedRange[device.id] === range.offset"
-                [attr.aria-pressed]="selectedRange[device.id] === range.offset"
-                (click)="setRange(device.id, range.offset)"
-              >
-                {{ range.label | translate }}
-              </button>
-            }
-          </div>
+              <div>
+                <div echarts [options]="options" [merge]="updateOptions[device.id]" class="demo-chart"></div>
+              </div>
+            </div>
+          }
         </div>
-        @if (parsed) {
-          <div echarts [options]="options" [merge]="updateOptions[device.id]" class="chart"></div>
-        } @else {
-          <span class="skeleton chart"></span>
-        }
-      </section>
-    } @empty {
-      <div class="empty-state">
-        <div class="empty-state-icon"><fa-icon icon="house-signal"></fa-icon></div>
-        <h2>{{ 'label.smartHome.emptyTitle' | translate }}</h2>
-        <p>{{ 'label.smartHome.emptyText' | translate }}</p>
-      </div>
-    }
-  </div>
-</app-page>
+      }
+    </div>
+  }
+</ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>

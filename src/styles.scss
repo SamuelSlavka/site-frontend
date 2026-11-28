@@ -1,5 +1,7 @@
-/* Global styles. Design tokens live in styles/_variables.scss. */
+/* Global styles. Theme variables live in styles/_variables.scss. */
 @use 'variables' as vars;
+
+@use 'styles/app';
 
 @use 'bootstrap/scss/bootstrap' with (
   $primary: vars.$primary,
@@ -11,72 +13,7 @@
   $light: vars.$light,
   $dark: vars.$dark,
   $theme-colors: vars.$theme-colors,
-  $color-contrast-dark: vars.$on-primary,
-
-  $font-family-sans-serif: vars.$font-sans,
-  $font-family-monospace: vars.$font-mono,
-  $font-size-base: 0.9375rem,
-  $line-height-base: 1.6,
-  $headings-font-weight: 600,
-  $headings-line-height: 1.25,
-
-  $body-bg: vars.$surface-0,
-  $body-bg-dark: vars.$surface-0,
-  $body-color-dark: vars.$text,
-  $body-secondary-color-dark: vars.$text-muted,
-  $body-secondary-bg-dark: vars.$surface-2,
-  $body-tertiary-color-dark: vars.$text-faint,
-  $body-tertiary-bg-dark: vars.$surface-1,
-  $body-emphasis-color-dark: #fff,
-  $border-color-dark: vars.$border-subtle,
-  $headings-color-dark: #fff,
-
-  $border-radius: vars.$radius,
-  $border-radius-sm: vars.$radius-sm,
-  $border-radius-lg: vars.$radius-lg,
-  $border-radius-xl: vars.$radius-xl,
-  $box-shadow: vars.$shadow,
-  $box-shadow-sm: vars.$shadow-sm,
-  $box-shadow-lg: vars.$shadow-lg,
-
-  $btn-font-weight: 500,
-  $btn-padding-x: 1rem,
-  $input-btn-padding-y: 0.5rem,
-  $input-btn-focus-width: 0.2rem,
-  $input-bg: vars.$surface-0,
-  $input-border-color: vars.$border-strong,
-
-  $card-bg: vars.$surface-1,
-  $card-border-color: vars.$border-subtle,
-  $card-border-radius: vars.$radius-lg,
-  $card-spacer-x: 1.25rem,
-  $card-spacer-y: 1.25rem,
-
-  $modal-content-bg: vars.$surface-2,
-  $modal-content-border-color: vars.$border-subtle,
-  $modal-content-border-radius: vars.$radius-xl,
-  $modal-backdrop-opacity: 0.6,
-  $modal-header-border-width: 0,
-  $modal-footer-border-width: 0,
-
-  $dropdown-bg: vars.$surface-2,
-  $dropdown-border-color: vars.$border-subtle,
-  $dropdown-border-radius: vars.$radius-lg,
-  $dropdown-link-hover-bg: vars.$surface-3,
-  $dropdown-padding-x: 0.375rem,
-  $dropdown-item-padding-x: 0.75rem,
-  $dropdown-item-padding-y: 0.4rem,
-
-  $tooltip-bg: vars.$surface-3,
-  $tooltip-color: vars.$text,
-  $tooltip-border-radius: vars.$radius,
-
-  $badge-font-weight: 500,
-  $badge-border-radius: 999px,
-
-  $link-decoration: none
+  $body-bg: vars.$body-bg,
+  $body-bg-dark: vars.$body-bg-dark,
+  $border-radius: vars.$border-radius
 );
-
-@use 'styles/app';
-@use 'styles/prose';
-@use 'styles/toastr';

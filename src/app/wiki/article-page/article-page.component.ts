@@ -1,36 +1,40 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { APP_NAME } from '@app/core/routing/app-title.strategy';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 import { SectionActions } from '../store/actions/section.actions';
 import { SectionState } from '../store/state/section.state';
 
 @Component({
-  selector: 'app-article-page',
-  templateUrl: './article-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    selector: 'app-article-page',
+    templateUrl: './article-page.component.html',
+    styleUrls: ['./article-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ArticlePageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private store = inject(Store);
-  private documentTitle = inject(Title);
+  private router = inject(Router);
 
-  title = '';
-  isPublic = false;
+  public title!: string;
+  public isPublic = false;
 
-  selected$ = this.store.select(SectionState.selectHead);
-  loading$ = this.store.select(SectionState.loading);
+  selected$!: Observable<string | null>;
+  loading$!: Observable<boolean>;
 
   ngOnInit() {
-    const params = this.route.snapshot.paramMap;
-    this.title = params.get('title') ?? '';
-    this.isPublic = params.get('isPubliclyEditable') === 'true';
-    if (this.title) {
-      this.documentTitle.setTitle(`${this.title} · Wiki · ${APP_NAME}`);
-    }
-    this.store.dispatch(new SectionActions.GetOne(params.get('id') ?? 'default'));
+    this.title = this.route.snapshot.paramMap.get('title') ?? '';
+    this.isPublic = this.route.snapshot.paramMap.get('isPubliclyEditable') === 'true';
+    const sectionId = this.route.snapshot.paramMap.get('id') ?? 'default';
+    this.store.dispatch(new SectionActions.GetOne(sectionId));
+
+    this.selected$ = this.store.select(SectionState.selectHead);
+    this.loading$ = this.store.select(SectionState.loading);
+  }
+
+  goBack() {
+    this.router.navigate(['wiki']);
   }
 }

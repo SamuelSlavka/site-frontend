@@ -1,67 +1,43 @@
-<app-page [title]="'navigation.admin' | translate" [subtitle]="'label.admin.subtitle' | translate">
-  <div class="admin-grid">
-    <section class="card">
-      <div class="card-body">
-        <h2 class="card-heading">{{ 'label.admin.createDevice' | translate }}</h2>
-        <form [formGroup]="form" (ngSubmit)="createDevice()">
-          <label class="form-label" for="device-name">{{ 'label.admin.deviceName' | translate }}</label>
-          <input id="device-name" class="form-control" formControlName="name" autocomplete="off" />
-          <div class="form-check form-switch mt-3">
-            <input type="checkbox" role="switch" class="form-check-input" formControlName="isMain" id="is-main" />
-            <label class="form-check-label" for="is-main">{{ 'toggle.isMain' | translate }}</label>
-          </div>
-          <button type="submit" class="btn btn-primary mt-4" [disabled]="form.invalid">
-            <fa-icon icon="plus"></fa-icon>
-            {{ 'button.create' | translate }}
-          </button>
-        </form>
-      </div>
-    </section>
+<ng-template #navTemplate>
+  <app-nav></app-nav>
+</ng-template>
 
-    <section class="card devices">
-      <div class="card-body pb-2">
-        <h2 class="card-heading">{{ 'label.admin.devices' | translate }}</h2>
+<ng-template #contentTemplate>
+  <div class="border-top py-3 my-3">
+    <form [formGroup]="form">
+      <div class="h5 m-0 p-0">{{ 'label.admin.createDevice' | translate }}</div>
+      <div class="row m-0 mt-3">
+        <label class="p-0" for="deviceName">{{ 'label.admin.deviceName' | translate }}</label>
+        <input name="deviceName" class="w-100" formControlName="name" />
       </div>
-      @let devices = devices$ | async;
-      @if (devices?.length) {
-        <div class="table-responsive">
-          <table class="table align-middle mb-0">
-            <thead>
-              <tr>
-                <th scope="col">{{ 'label.admin.deviceName' | translate }}</th>
-                <th scope="col">ID</th>
-                <th scope="col"><span class="visually-hidden">{{ 'label.admin.actions' | translate }}</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (device of devices; track device.id) {
-                <tr>
-                  <td>
-                    <span class="device-name">{{ device.name }}</span>
-                    @if (device.isMain) {
-                      <span class="badge-soft badge-accent ms-2"><fa-icon icon="star"></fa-icon>{{ 'label.admin.main' | translate }}</span>
-                    }
-                  </td>
-                  <td><code class="device-id">{{ device.id }}</code></td>
-                  <td class="text-end">
-                    <button
-                      type="button"
-                      class="btn btn-danger-ghost btn-icon btn-sm"
-                      [ngbTooltip]="'button.delete' | translate"
-                      [attr.aria-label]="'button.delete' | translate"
-                      (click)="deleteDevice(device)"
-                    >
-                      <fa-icon icon="trash-can"></fa-icon>
-                    </button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
+      <div class="row m-0">
+        <div class="form-check mt-3 col">
+          <input type="checkbox" class="form-check-input pointer" formControlName="isMain" id="is-main" />
+          <label class="form-check-label pointer" for="is-main">
+            {{ 'toggle.isMain' | translate }}
+          </label>
         </div>
-      } @else {
-        <p class="card-body pt-0 text-body-secondary">{{ 'label.admin.noDevices' | translate }}</p>
-      }
-    </section>
+      </div>
+    </form>
+
+    <button class="btn btn-primary mt-3" (click)="createDevice()" [disabled]="!form.valid">
+      {{ 'button.create' | translate }}
+    </button>
   </div>
-</app-page>
+  <div class="border-bottom border-top py-3 my-3">
+    @for (device of this.devices$ | async; track device) {
+      <div class="row m-0">
+        <div class="row m-0 mb-2 rounded p-1" [ngClass]="{ 'bg-primary': device.isMain }">
+          <div class="col-2 text-break">{{ device.name }}</div>
+          <div class="col text-break">{{ device.id }}</div>
+          <div class="col-auto">{{ device.isMain }}</div>
+          <div class="col-auto">
+            <button class="btn btn-sm btn-danger" (click)="deleteDevice(device.id)">delete</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</ng-template>
+
+<app-base-page showContent="true" [navTemplate]="navTemplate" [contentTemplate]="contentTemplate"></app-base-page>

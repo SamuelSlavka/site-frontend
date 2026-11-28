@@ -1,6 +1,13 @@
-import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule, inject } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faAngleDown, faAngleUp, faCircleQuestion, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { ArticlePageComponent } from './article-page/article-page.component';
@@ -28,9 +35,21 @@ import { WikiRoutingModule } from './wiki-routing.module';
   ],
   imports: [
     SharedModule,
+    NgbTooltipModule,
+    CommonModule,
     WikiRoutingModule,
-    NgxsModule.forFeature([ArticleState, SectionState]),
+    NgxsModule.forFeature([ArticleState]),
+    NgxsModule.forFeature([SectionState]),
+    BsDropdownModule,
     MarkdownModule.forRoot(),
+    CollapseModule,
+    TooltipModule,
   ],
 })
-export class WikiModule {}
+export class WikiModule {
+  constructor() {
+    const library = inject(FaIconLibrary);
+
+    library.addIcons(faAngleDown, faAngleUp, faCircleQuestion, faPlus, faTrashCan, faPen);
+  }
+}
